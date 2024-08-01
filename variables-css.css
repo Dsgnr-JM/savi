@@ -1,0 +1,43 @@
+:root{
+    --border-lighter: 2px solid rgb(100 116 139/.3);
+    --border: 2px solid rgb(100 116 139/.4);
+    --border-color: rgb(100 116 139/.4);
+    --border-color-darker: rgb(100 116 139/.35);
+    --border-navigation: 2px solid rgb(100 116 139/.2);
+
+    --box-shadow-base: 0 5px 12px rgb(0 0 0 / 0.05);
+    --box-shadow-input:1px 2px 2px rgb(233 233 233 / .3);
+    --box-shadow-input-darker:1px 2px 2px rgb(233 233 233 / .5);
+    --box-shadow-lighter: 0 5px 10px rgb(0 0 0 / 0.02);
+    --box-shadow-success: 0 0 0 3px rgb(215 237 246 / 75%);
+
+    --form-i-color: #555;
+    --primary-color: #3b82f6;
+    --primary-color-2: #3b82f6e6;
+    --primary-color-3: #3b82f64f;
+    --wrong-color: #e45757;
+    --color-disabled: rgb(100 116 139/.5);
+    --color-disabled-2: rgb(100 116 139/.10);
+
+    --text-primary-color:rgb(17 24 39);
+    --text-secondary-color: rgb(100 116 139);
+    --text-terciary-color: rgb(17 24 39 / 89%);
+    --hover-text-plus-color: rgb(70 80 95);
+    --hover-list: rgb(100 116 139/.08);
+    --text-plus-color: rgb(107 114 128);
+
+    --focus-color: rgb(120 195 251);
+    --focus-shadow: 0 0 0 3px rgb(215 237 246 / 75%);
+    --focus-wrong-color: #f59393;
+    --focus-wrong-shadow: 0 0 0 3px rgb(230 163 163 / 35%);
+
+    --font-xs: .825rem;
+    --font-xs-2: .855rem;
+    --font-sm: .91rem;
+    --font-base: .925rem;
+    --font-base-2: .955rem;
+    --font-lg: 1rem;
+    --font-xl: 1.1rem;
+    --font-2xl: 1.2rem;
+    --font-3xl: 1.3rem;
+}

@@ -1,0 +1,82 @@
+section{
+    width: 100%;
+    height: 100%;
+}
+.modal{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+    background: rgb(0 0 0 /.6);
+    opacity: 0;
+    transition: .2s ease-in;
+}
+.modal.active{
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal form{
+    margin: auto;
+    margin-top: -40px;
+    transition: .2s .05s ease;
+}
+.modal.active form{
+    margin-top: 20px
+}
+.modal .prices{
+    width: 100%;
+    text-align: right;
+}
+.modal li{
+    margin: 5px 0;
+}
+.modal form .btns > button{
+    width: fit-content;
+}
+.modal .btns{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap:5px;
+}
+section .sale-message{
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid rgb(55 174 222);
+    color: rgb(55 174 222);
+    width: 100%;
+    gap:.5rem;
+}
+.sale-details{
+    width: 100%;
+    text-align: center;
+}
+.sale-details picture{
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+.sale-details picture img{
+    width: 105%;
+    margin-left: -5px;
+    object-fit: cover;
+}
+.sale-details .text{
+    margin: 2.5rem 0;
+}
+.sale-details .text p{
+    color: #333;
+    margin: .9rem 0;
+}
+.sale-details .text > strong{
+    padding: 1.5rem 0;
+    display: block;
+}

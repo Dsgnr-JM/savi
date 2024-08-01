@@ -1,0 +1,192 @@
+@import url("../../variables-css.css");
+
+section main{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    gap: 15px;
+}
+section .profile{
+    flex:1;
+    border:var(--border-lighter);
+/*  min-width: 100%;*/
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-base);
+}
+section .profile .navigation{
+    font-size: var(--font-base);
+    margin: 30px 0;
+    display: flex;
+    justify-content: start;
+    border-bottom: var(--border-navigation);
+}
+section .profile .navigation button{
+    padding: 10px 15px;
+    font-size: var(--font-base);
+    color: var(--text-plus-color);
+    font-weight: 500;
+}
+section .profile .navigation button:hover{
+    color: var(--hover-text-plus-color);
+}
+section .profile .navigation button.active{
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+section .profile .activity h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary-color);
+}
+section .profile .activity > p{
+  margin: 5px 0 20px 0;
+  line-height: 1.32rem;
+  width: 70%;
+}
+section .profile .activity > p{
+  font-size: .82rem;
+  margin: 5px 0 15px 0;
+  color: var(--text-secondary-color);
+}
+.activity-overview{
+    padding: 10px;
+    width: 400px;
+  border:var(--border-lighter);
+/*  min-width: 100%;*/
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-lighter);
+}
+.activity-overview p{
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: var(--text-terciary-color);
+}
+.activity-overview > p{
+    margin: 0 0 15px 0;
+}
+.activity-overview li{
+    height: 70px;
+    display: flex;
+    gap:5px;
+    align-items: center;
+}
+section .profile .activity .activity-overview li span{
+    width: 30px;
+    margin-right: 5px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.activity-overview li span::after{
+    width: 2px;
+    height: 100%;
+    margin: 8px 0;
+    content: "";
+    background: var(--primary-color-3);
+}
+.activity-overview li:last-child span::after{
+    opacity: 0;
+}
+.activity-overview li:last-child{
+    height: 100%;
+}
+.activity-overview ol{
+    padding: 10px 0;
+}
+.activity-overview li span::before{
+    content: "";
+    min-width: 11px;
+    min-height: 11px;
+    background: var(--primary-color-2);
+    border-radius: 50%;
+}
+.activity-overview li div{
+    margin-top: -10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+} 
+.activity-overview li p:last-child{
+    color: var(--text-plus-color);
+    font-weight: 400;
+    margin-top: 5px;
+    font-size: var(--font-xs-2);
+}
+.permissions-overview .permissions-bar{
+    display: flex;
+    align-items: center;
+    gap:5px;
+    margin: 5px 0 0px 0;
+    width: 100%;
+    justify-content: end;
+}
+.permissions-overview{
+    padding: 5px 0 20px;
+}
+.permissions-overview .permissions-bar p{
+    font-size: var(--font-base);
+    color: var(--text-secondary-color);
+}
+.permissions-overview .permissions-bar .bar{
+    position: relative;
+    height: 8px;
+    overflow: hidden;
+    width: 100px;
+    border-radius: 5px;
+    background: var(--primary-color-3);
+}
+.permissions-overview .permissions-bar .bar::before{
+    content: "";
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    width: 30%;
+    border-radius: 0 5px 5px 0;
+    background: var(--primary-color);
+}
+.permissions-overview .card{
+    display: flex;
+    justify-content: start;
+    padding: 17px;
+    border-radius: 8px;
+    margin: 15px 0;
+    gap:10px;
+    border:var(--border-lighter);
+    box-shadow: var(--box-shadow-lighter);
+}
+.permissions-overview .card.active{
+    background: white;
+}
+.permissions-overview .card{
+    background: var(--color-disabled-2);
+}
+.permissions-overview .card .icon{
+    font-size: var(--font-3xl);
+    color: var(--text-plus-color);
+}
+.permissions-overview .card .icon.role{
+    color: var(--primary-color);
+}
+.permissions-overview .card .details{
+    flex:1;
+}
+.permissions-overview .card .details h3{
+    font-size: var(--font-base-2);
+    font-weight: 500;
+    color: var(--text-primary-color);
+}
+.permissions-overview .card .details p{
+    color: var(--text-plus-color);
+    font-weight: 400;
+    margin-top: 5px;
+    font-size: var(--font-xs-2);
+}

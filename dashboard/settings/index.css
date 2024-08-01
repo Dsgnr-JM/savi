@@ -1,0 +1,44 @@
+section > main{
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 4px 4px 12px rgb(0, 0, 0 /.8);
+}
+section > main h1{ 
+    font-size: 1.6rem;
+}
+section > main h2{
+    color: #292929;
+    margin: 20px 0 5px 0;
+}
+section > main label{
+    display: flex;
+    color: #444;
+    gap:8px;
+    margin: 15px 0;
+}
+.buttons{
+    display: flex;
+    gap:10px;
+    align-content: center;
+    justify-content: start;
+    margin-top: 40px;
+}
+.buttons button{
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    border: 1px solid transparent;
+}
+.buttons button:nth-child(2){
+    background-color: rgba(0, 157, 248);
+    color: #fff;
+}
+.buttons button:nth-child(1):hover{
+    background-color: rgba(168, 168, 168, .2);
+    border: 1px solid rgba(168, 168, 168, .6);
+}
+.buttons button:nth-child(2):hover{
+    background-color: rgba(0, 178, 248);
+}

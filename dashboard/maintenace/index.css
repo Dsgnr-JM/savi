@@ -1,0 +1,43 @@
+section > div{
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr 1fr;
+    gap:15px;
+}
+section > div > button.card{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgb(0 0 0 /.056);
+    border-radius: 7px;
+}
+button.card > span{
+    font-size: 1.2rem;
+    color: #2020223b;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+button.card > h2{
+    color: rgba(30, 34, 36, 0.788);
+}
+button.card > span:hover{
+    color: #2020224f;
+}
+button.card > i{
+    width: 60px;
+    display: grid;
+    place-content: center;
+    height: 60px;
+    background: #999999;
+    border-radius: 100%;
+    margin-block: 10px;
+}
+button.card > i::before{
+    margin: auto;
+    font-size: 2rem;
+    color: #fff;
+}

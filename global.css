@@ -1,0 +1,50 @@
+@import url("remixicon.css");
+@import url("variables-css.css");
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter.woff") format("woff");
+}
+*::before, *::after{
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ol,
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+input {
+  border: none;
+  outline: none;
+}
+blockquote{
+  padding: 20px;
+  border-radius: 5px;
+  background: #f9fafb;
+}
+blockquote p:first-child{
+  font-weight: 600;
+  font-size: var(--font-sm);
+  margin-bottom: 10px;
+  color:var(--text-primary-color);
+}
+blockquote p:last-child{
+  font-size: var(--font-xs-2);
+  color:var(--text-secondary-color);
+}

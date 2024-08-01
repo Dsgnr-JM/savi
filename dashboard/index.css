@@ -1,0 +1,47 @@
+section header {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  width: 100%;
+}
+
+header .card {
+  width: 100%;
+  overflow: hidden;
+  min-width: 205px;
+  height: auto;
+  background-color: #fff;
+  color: rgb(255 255 255 /0.9);
+  border-radius: 7px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.04);
+}
+header .card span h2 {
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+}
+header .card span h2 span {
+  color: rgb(116, 116, 116);
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-top: 8px;
+}
+header .card > span:nth-child(odd) {
+  padding: 20px;
+  text-align: left;
+  display: flex;
+}
+header .card > span:nth-child(even) i {
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+}
+header .card > span:nth-child(odd) i {
+  font-size: 2.2rem;
+  color: #3f3f3f;
+}
+header .card > span {
+  padding: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

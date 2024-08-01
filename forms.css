@@ -1,0 +1,417 @@
+@import url("variables-css.css");
+  
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+}
+body > section {
+  display: grid;
+  place-content: center;
+  width: 60%;
+  height: 100%;
+  background-color: #ececec;
+}
+body > main {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #181b1e, #252f35);
+}
+.form > span{
+  margin: 8px 0;
+  width: 100%;
+  display: flex;
+  gap:5px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-secondary-color);
+}
+.form > span::before, .form > span::after{
+  content: "";
+  height: 1px;
+  width: 100%;
+  background: var(--border-color);
+}
+.form a{
+  color: var(--primary-color);
+  display: block;
+  font-size: var(--font-sm);
+  text-align: center;
+}
+.form a:hover{
+  text-decoration: underline;
+}
+.form {
+  width: 400px;
+  border:var(--border-lighter);
+/*  min-width: 100%;*/
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-base);
+}
+.form.not-ring{
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.form h2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+}
+.form h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary-color);
+}
+.form.form.not-ring > p{
+  margin: 5px 0 20px 0;
+}
+.form > p{
+  font-size: var(--font-xs);
+  margin: 5px 0 15px 0;
+  color: var(--text-secondary-color);
+}
+form .inputs-container{
+  display: flex;
+  gap:10px;
+  margin: 14px 0;
+}
+form .inputs-container label{
+  margin: 0;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  margin: 14px 0;
+  width: 100%;
+  position: relative;
+}
+label p {
+  width: fit-content;
+  margin-bottom: 7px;
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: rgb(0 0 0 / .8);
+}
+label span, label select{
+  position: relative;
+  height: 37px !important;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+label button{
+  font-size: var(--font-sm);
+  margin:0px 10px;
+  height: auto;
+  color: #4d4d4d;
+}
+label.search{
+  display: flex;
+  flex-direction: row;
+}
+.form label span i {
+  color: #555;
+  position: absolute;
+  top: 50%;
+  margin-left: 8px;
+  transform: translateY(-50%);
+}
+.form label span i#icon-form{
+  left:0;
+}
+label.search input{
+  margin-left: 5px;
+  padding-left: 10px;
+}
+label span input,label select, span.file::before {
+  border: none;
+  border: var(--border);
+  box-shadow: var(--box-shadow-input);
+  border-radius: 7px;
+  font-size: var(--font-base);
+  padding: 0 30px;
+  width: 100%;
+  height: 100%;
+}
+label.showSetFile, label.show-set-input{
+  align-items: center;
+  flex-direction: row;
+}
+label.show-set-input{
+  margin-bottom: 0;
+}
+label.input-enterprise{
+  margin: 0;
+}
+label.showSetFile p, label.show-set-input p{
+  padding: 0;
+  margin: 0;
+  margin-left: 5px;
+}
+label.inputFile.active{
+  opacity: 1;
+  pointer-events: auto;
+  height: 150px;
+}
+label.input-enterprise.active{
+  opacity: 1;
+  height: auto;
+  margin: 14px 0;
+  pointer-events: auto;
+}
+label.inputFile, label.input-enterprise{
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  height: 0px;
+  position: relative;
+  background: white;
+  transition: .12s ease-in all;
+}
+label.inputFile input{
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+label.inputFile{
+  background-size: cover !important;
+  cursor: pointer;
+  width: 100%;
+  height: 0;
+  border-width: 2px;
+  border-style: dotted;
+  border-color: rgb(100 116 139/.8);
+  background: white;
+  border-radius: 7px;
+  box-shadow: 1px 2px 2px rgb(233 233 233 / .5)
+}
+label.inputFile .presentation{
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: rgb(100 116 139/.5);
+  text-align: center;
+}
+label.inputFile .presentation p{
+  color: var(--text-secondary-color);
+  font-weight: 300;
+}
+label.inputFile .presentation i{
+  font-size: 2rem;
+  font-weight: 200;
+}
+label input[type="radio"]{
+  width: fit-content;
+}
+label select{
+  background: white;
+  padding: 0 8px;
+}
+label span input:focus{
+  border-color: var(--focus-color);
+  box-shadow: var(--box-shadow-success);
+  color: var(--primary-color);
+}
+label span input.wrong:focus ~ i#icon-form{
+  color:   var(--wrong-color);
+}
+label span input:focus ~ i#icon-form{
+  color:   var(--primary-color);
+}
+label input.wrong, label input.wrong:focus, label.inputFile.wrong{
+  border-color: var(--focus-wrong-color);
+  color: var(--wrong-color);
+}
+label input.wrong:focus, label.inputFile.wrong{
+  box-shadow: var(--focus-wrong-shadow);
+}
+label.search{
+  width: 320px;
+}
+label.search span{
+  padding: 0 5px;
+}
+.form label span input[type="file"]{
+  height: 100%;
+  width: 100%;
+}
+span.file{
+  position: relative;
+}
+span.file::before{
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  content: 'Subir archivo';
+  top: 0;
+  left: 0;
+  background: #f1f1f1;
+}
+.modal #hidden{
+  opacity: 0;
+  height: 0;
+  transition: .2s opacity ease-in;
+}
+.modal #hidden.active{
+  opacity: 1;
+  height: fit-content;
+}
+.btn {
+  padding: 8px 12px;
+  border: 2px solid transparent;
+  border-radius: 7px;
+  font-size: var(--font-base-2);
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap:5px;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  transition: .14s ease-in background;
+}
+.btn-primary {
+  padding: 8px 5px;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+  transition: .15s ease-in;
+}
+.modal h3{
+  color: #374b5dbd;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(55, 75, 93, 0.2);
+  margin-bottom: 20px;
+}
+.btn-primary.success{
+  background: var(--primary-color);
+  color: #fff;
+}
+a.cancel{
+  background: transparent;
+  color: var(--primary-color);
+}
+a.cancel:hover{
+  border:2px solid var(--primary-color);
+}
+.btn i {
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+.btn.success {
+  color: #fff;
+  background: var(--primary-color);
+}
+button:disabled{
+  background: var(--color-disabled)!important;
+}
+.terms input[type="checkbox"] {
+  accent-color: var(--primary-color);
+}
+.terms p{
+  margin: 0;
+}
+main h1 {
+  font-family: monospace;
+  color: #ffffffcb;
+  width: 80%;
+}
+.terms {
+  height: auto;
+  display: flex;
+  flex-direction: row !important;
+  width: 100%;
+  gap: 5px;
+}
+.terms p{
+  font-size: var(--font-xs);
+}
+.line-space{
+  width: 100%;
+  height: 1px;
+  background: var(--border-color-darker);
+  margin: 25px 0;
+}
+.container-buttons{
+  display: flex;
+  gap:5px;
+  justify-content: end;
+}
+.container-buttons.left{
+  justify-content: start;
+}
+.container-buttons button, .container-buttons a{
+  width: fit-content;
+}
+.listed{
+  width: 100%;
+  max-width: 300px;
+  height: fit-content;
+  padding: 23px;
+  margin-left: 20px;
+  border:var(--border-lighter);
+  box-shadow: var(--box-shadow-base);
+  border-radius: 7px;
+  background: white;
+}
+.listed li a{
+  border-radius: 5px;
+  padding: 15px 10px;
+  position: relative;
+  align-items: center;
+  height: 50px;
+  display: flex;
+  gap:15px;
+  line-height: 1.2rem;
+}
+.listed li a:hover{
+  background: var(--hover-list);
+}
+.listed li::before{
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  content: "";
+  background: var(--border-navigation);
+}
+.listed li:last-child:before{
+  opacity: 0;
+}
+.listed li p:first-child{
+  font-size: var(--font-xs-2);
+  font-weight: 600;
+  color: var(--text-primary-color);
+}
+.listed li p:last-child{
+  font-size: var(--font-xs);
+  color: var(--text-secondary-color);
+}
+.listed img{
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  border:var(--border-lighter);
+}
+.listed li:hover i{
+  opacity: 1;
+  padding-left: 5px;
+}
+.listed i{
+  opacity: 0;
+  margin: auto;
+  color: var(--text-primary-color);
+  transition: .15s ease all;
+}
