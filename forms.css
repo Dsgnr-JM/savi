@@ -157,7 +157,7 @@ label.showSetFile p, label.show-set-input p{
 label.inputFile.active{
   opacity: 1;
   pointer-events: auto;
-  height: 150px;
+  height: 200px;
 }
 label.input-enterprise.active{
   opacity: 1;

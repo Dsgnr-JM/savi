@@ -12,8 +12,8 @@ require_once "lib/updateAditional.php";
 require_once "lib/getProducts.php";
 require_once "lib/getClients.php";
 
-$action = $_GET["action"];
-$slot = $_GET["slot"];
+$action = $_GET["action"] ?? "";
+$slot = $_GET["slot"] ?? "";
 $message = array("result" => false, "description" => "");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

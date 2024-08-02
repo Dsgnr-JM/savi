@@ -1,7 +1,8 @@
+<?php require "../ui/header.php" ?>
 <?php 
     require_once "../helpers/curlData.php";
 
-    $data = getCurl("slot=profile&ci=31744101")[0];
+    $data = getCurl('slot=profile&ci='.$_SESSION["session"])[0];
 
     function appendClassIfTrue(string $text, string $class)
     {
@@ -12,8 +13,6 @@
 
 
  ?>
-
-<?php require "../ui/header.php" ?>
 <title>Perfil - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="../../forms.css">
@@ -47,14 +46,14 @@
                     <label>
                         <p>Tu usuario:</p>
                         <span>
-                            <input type="text" name="username" disabled required placeholder="jotadev0" value="jotadev0">
+                            <input type="text" name="username" disabled required placeholder="user***" value="<?= $data["username"] ?>">
                             <i class="ri-profile-line" id="icon-form"></i>
                         </span>
                     </label>
                     <label>
                         <p>Tu cedula:</p>
                         <span>
-                            <input type="text" name="name" disabled required placeholder="31744101" value="31744101">
+                            <input type="text" name="name" disabled required placeholder="31744***" value="<?= $data["ci"] ?>">
                             <i class="ri-profile-line" id="icon-form"></i>
                         </span>
                     </label>
@@ -144,8 +143,8 @@
                             <p>Alcance <p><?= $numRole ?>/8</p></p>
                             <span class="bar"></span>
                         </div>
-                        <div class="card <?= appendClassIfTrue($data["manage_products"], "active") ?>">
-                            <i class="<?= !empty($data["manage_products"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> role icon"></i>
+                        <div class="card <?= appendClassIfTrue($data["manage_sales"], "active") ?>">
+                            <i class="<?= !empty($data["manage_sales"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> role icon"></i>
                             <div class="details">
                                 <h3>Vender productos</h3>
                                 <p>Vende productos de la organizacion a clientes registrados.</p>

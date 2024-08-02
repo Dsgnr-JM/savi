@@ -8,6 +8,10 @@ if (true) {
             title: "Datos actualizados",
             description: "Contraseña cambiada correctamente"
         },
+        updateAditional:{
+            title: "Datos actualizados",
+            description: "Informacion cambiada correctamente"
+        }
     }
     const $forms = document.querySelectorAll("form")
 
@@ -23,8 +27,7 @@ if (true) {
                 method: "POST",
                 body: formData,
             });
-            const data = await fetching.text();
-            console.log(data)
+            const data = await fetching.json();
 
             if (data.result) {
                 const bell = new Bell(

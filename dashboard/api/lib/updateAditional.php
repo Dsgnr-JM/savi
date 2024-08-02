@@ -10,29 +10,45 @@ function updateAditional(PDO $pdo, array $data, array $message)
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $destination_folder = "./";
+            $typesImage = array(
+                "image/png" => ".png",
+                "image/jpg" => ".jpg"
+            );
+
+            $destination_folder = "../assets/img/";
             $file = $data["image"];
-            $file_name = $file["name"];
-            $tmp_name = $file['tmp_name'];
+            $file_name = $result["photo"] ?? "";
+            $file_type = $typesImage[$file["type"]];
 
-            if(!empty($result["image"])){
-                $file_name = $result["image"];
+            if(empty($file_type)) {
+                $message["result"] = false;
+                $message["description"] = "Image format not supported";
+                return json_encode($message);
             }
-            echo $tmp_name . $destination_folder . $file_name;
 
-            move_uploaded_file($tmp_name, $destination_folder . $file_name);
+            $tmp_name = $file['tmp_name'];
+            $file_name_destination = $destination_folder . $file_name . $file_type;
+
+            if(empty($result["image"])){
+                $file_name = uniqid() . $file_type;
+                $file_name_destination = $destination_folder . $file_name;
+                $stmt = $pdo->prepare("UPDATE tb_users SET photo = :photo WHERE ci = :ci");
+                $stmt->bindParam(":ci", $data["ci"]);
+                $stmt->bindParam(":photo", $file_name_destination);
+                $stmt->execute();
+            }
+
+            move_uploaded_file($tmp_name, $file_name_destination);
         }
 
-        // $stmt = $pdo->prepare("UPDATE tb_users SET phone = :phone, image = :image WHERE ci = :ci");
-        // $stmt->bindParam(":ci", $data["ci"]);
-        // $stmt->bindParam(":phone", $data["phone"]);
-        // $stmt->bindParam(":image", $data["image"]);
+        $stmt = $pdo->prepare("UPDATE tb_users SET phone = :phone WHERE ci = :ci");
+        $stmt->bindParam(":ci", $data["ci"]);
+        $stmt->bindParam(":phone", $data["phone"]);
 
-        // $stmt->execute();
-
+        $stmt->execute();
 
         $message["result"] = true;
-        $message["description"] = $result;
+        $message["description"] = "Change of successfull information";
     } catch (PDOException $e) {
         $message["description"] = $e;
         return json_encode($message);

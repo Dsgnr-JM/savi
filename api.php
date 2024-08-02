@@ -45,7 +45,7 @@ if (isset($_POST)) {
             $stmt->execute();
             $user = $stmt->fetch();
             if ($user) {
-                $_SESSION["session"] = $user;
+                $_SESSION["session"] = $user["ci"];
                 $response = array("message" => "Usuario validado correctamente", "success" => true);
             } else {
                 $response = array("message" => "Datos invalidos", "success" => false);

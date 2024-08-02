@@ -1,14 +1,17 @@
 <?php
-    include_once "SAVI/config.php";
+
     $URI = $_SERVER["SCRIPT_FILENAME"];
     $URI = explode("dashboard", $URI);
-    require_once "$URI[0]config.php";
+    $configURL = "SAVI/config.php";
+    
+    if(!file_exists($configURL)) $configURL = "$URI[0]config.php";
+    
+    require_once $configURL;
+    $curlURL = "helpers/curlData.php";
+    if(!file_exists($curlURL)) $curlURL = "../helpers/curlData.php";
+    require_once $curlURL;
 
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $pdo->prepare("SELECT u.*, r.* FROM tb_users u JOIN role r ON u.role = r.role WHERE ci = :ci");
-    $stmt->bindParam(":ci", $_SESSION["session"]["ci"]);
-    $stmt->execute();
-    $user = $stmt->fetch();
+    $user = getCurl('slot=profile&ci='.$_SESSION["session"])[0];
 ?>
 
 
@@ -186,7 +189,7 @@
             </button>
             <div class="options">
                 <img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg" alt="Imagen de perfil">
-                <p><?= $_SESSION["session"]["name"] . " " . $_SESSION["session"]["surname"] ?></p>
+                <p><?= $user["name"] . " " . $user["surname"] ?></p>
                 <button id="btn-profile">
                     <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
                 </button>
@@ -194,7 +197,7 @@
                     <span>
                         <img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg" alt="">
                     </span>
-                    <h3><?= $_SESSION["name"] ?></h3>
+                    <h3><?= $user["name"] ?></h3>
                 </div>
                 <!-- <div>
                 <img src="SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg" alt="Imagen alt">
