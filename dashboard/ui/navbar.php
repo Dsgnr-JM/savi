@@ -116,10 +116,10 @@
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="#">Pendientes</a>
+                        <a href="/SAVI/dashboard/suppliers?place=register">Registro</a>
                     </li>
                     <li>
-                        <a href="#">Activos</a>
+                        <a href="#">Consultas</a>
                     </li>
                 </ol>
                 <?php if($user["manage_informs"]): ?>
