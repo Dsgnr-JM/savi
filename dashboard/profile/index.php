@@ -1,20 +1,16 @@
 <?php 
-    function getCurl( string $params){
-        $ch = curl_init();
+    require_once "../helpers/curlData.php";
 
-        $url = "http://localhost/SAVI/dashboard/api/?" . $params;
+    $data = getCurl("slot=profile&ci=31744101")[0];
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        if($response){
-            return json_decode($response, true)[0];
-        }
+    function appendClassIfTrue(string $text, string $class)
+    {
+        return !empty($text) ? $class : "";
     }
-    $data = getCurl("slot=profile&ci=31744101");
+
+    $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_system"] + $data["manage_informs"] + $data["manage_stadistics"] + $data["manage_providers"] + $data["manage_expenses"] + $data["manage_sales"];
+
+
  ?>
 
 <?php require "../ui/header.php" ?>
@@ -22,6 +18,11 @@
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="../../forms.css">
 </head>
+<style>
+    .bar::before{
+        width: <?= $numRole/8 * 100 . "%" ?> !important;
+    }
+</style>
 
 <body>
     <?php include '../ui/navbar.php' ?>
@@ -140,21 +141,63 @@
                     <p>Checkea cuales son tus permisos y el alcance que tienen los mismo para realizar operaciones dentro del sistema.</p>
                     <div class="permissions-overview">
                         <div class="permissions-bar">
-                            <p>Alcance <p>1/4</p></p>
+                            <p>Alcance <p><?= $numRole ?>/8</p></p>
                             <span class="bar"></span>
                         </div>
-                        <div class="card active">
-                            <i class="ri-checkbox-circle-fill role icon"></i>
+                        <div class="card <?= appendClassIfTrue($data["manage_products"], "active") ?>">
+                            <i class="<?= !empty($data["manage_products"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> role icon"></i>
                             <div class="details">
                                 <h3>Vender productos</h3>
                                 <p>Vende productos de la organizacion a clientes registrados.</p>
                             </div>
                         </div>
-                        <div class="card">
-                            <i class="ri-close-circle-fill icon"></i>
+                        <div class="card <?= appendClassIfTrue($data["manage_clients"], "active") ?>">
+                            <i class="<?= !empty($data["manage_clients"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
                             <div class="details">
-                                <h3>Editar productos</h3>
-                                <p>Cambia los detalles de los productos existentes en la empresa.</p>
+                                <h3>Registrar y visualizar clientes</h3>
+                                <p>Administra a los clientes y registra a los mismos.</p>
+                            </div>
+                        </div>
+                        <div class="card <?= appendClassIfTrue($data["manage_expenses"], "active") ?>">
+                            <i class="<?= !empty($data["manage_expenses"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
+                            <div class="details">
+                                <h3>Administrar gastos</h3>
+                                <p>Acceso al registro, modificacion y eliminacion de los gastos.</p>
+                            </div>
+                        </div>
+                        <div class="card <?= appendClassIfTrue($data["manage_products"], "active") ?>">
+                            <i class="<?= !empty($data["manage_products"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
+                            <div class="details">
+                                <h3>Administrar productos</h3>
+                                <p>Cambia los detalles de los productos existentes en la empresa, ademas de otras operaciones.</p>
+                            </div>
+                        </div>
+                        <div class="card <?= appendClassIfTrue($data["manage_providers"], "active") ?>">
+                            <i class="<?= !empty($data["manage_providers"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
+                            <div class="details">
+                                <h3>Administrar proveedores</h3>
+                                <p>Maneja todo lo relacionado a los proveedores y operaciones relacionadas.</p>
+                            </div>
+                        </div>
+                        <div class="card <?= appendClassIfTrue($data["manage_stadistics"], "active") ?>">
+                            <i class="<?= !empty($data["manage_stadistics"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
+                            <div class="details">
+                                <h3>Visualizar estadisticas</h3>
+                                <p>Generacion y visualizacion de estadisticas y graficos.</p>
+                            </div>
+                        </div>
+                        <div class="card <?= appendClassIfTrue($data["manage_informs"], "active") ?>">
+                            <i class="<?= !empty($data["manage_informs"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
+                            <div class="details">
+                                <h3>Generar informes</h3>
+                                <p>Administracion y generacion de informes generales entre otros.</p>
+                            </div>
+                        </div>
+                        <div class="card <?= appendClassIfTrue($data["manage_system"], "active") ?>">
+                            <i class="<?= !empty($data["manage_system"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
+                            <div class="details">
+                                <h3>Administrar sistema</h3>
+                                <p>Acceso y control total al manejo de los roles y el sistema.</p>
                             </div>
                         </div>
                     </div>

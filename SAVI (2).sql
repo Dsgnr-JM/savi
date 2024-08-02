@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-07-2024 a las 23:42:02
+-- Tiempo de generación: 02-08-2024 a las 05:09:33
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -82,6 +82,8 @@ CREATE TABLE `client` (
 
 INSERT INTO `client` (`dni`, `name`, `surname`, `phone`, `image`, `location`) VALUES
 ('10261053', 'Maria Yolanda', 'Victora', '04247714244', '', 'Bisnaca'),
+('18706617', 'Gavino', 'Mejia', '04127211012', '', 'Sur de Corea'),
+('30108393', 'Yoselyn', 'Victora', '04127201010', '', 'Andres Bello'),
 ('31744101', 'Jhoan Antonio', 'Mejia Victora', '04247079098', '', 'Bisnaca');
 
 -- --------------------------------------------------------
@@ -101,7 +103,7 @@ CREATE TABLE `client_enterprise` (
 --
 
 INSERT INTO `client_enterprise` (`id`, `dni`, `enterprise_name`) VALUES
-(1, '10261053', 'JotaDev  | Desarrollo de Software');
+(1, '10261053', 'JotaDevs');
 
 --
 -- Disparadores `client_enterprise`
@@ -115,6 +117,24 @@ CREATE TRIGGER `before_insert_client_enterprise` BEFORE INSERT ON `client_enterp
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `config`
+--
+
+CREATE TABLE `config` (
+  `id` int(11) NOT NULL,
+  `dollar_price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `config`
+--
+
+INSERT INTO `config` (`id`, `dollar_price`) VALUES
+(1, 37.04);
 
 -- --------------------------------------------------------
 
@@ -144,7 +164,6 @@ INSERT INTO `models` (`model_id`, `model_name`) VALUES
 CREATE TABLE `product` (
   `code` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(100) NOT NULL,
   `photo` varchar(100) NOT NULL,
   `selling_price` float NOT NULL,
   `purchase_price` float NOT NULL,
@@ -156,6 +175,16 @@ CREATE TABLE `product` (
   `stock_min` int(11) NOT NULL,
   `stock_max` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `product`
+--
+
+INSERT INTO `product` (`code`, `name`, `photo`, `selling_price`, `purchase_price`, `category`, `models`, `brand`, `supplier`, `stock`, `stock_min`, `stock_max`) VALUES
+('ELE001', 'Tornillo', '', 5.02, 2.05, 1, 1, 1, 31744101, 50, 20, 70),
+('ELE002', 'Tuerca', '', 2, 1.2, 1, 1, 1, 31744101, 20, 2, 30),
+('ELE003', 'Correa', '', 3, 2.3, 1, 2, 1, 31744101, 30, 10, 40),
+('ELE004', 'Cable Rojo', '', 2.04, 2, 1, 2, 2, 93174101, 30, 10, 60);
 
 -- --------------------------------------------------------
 
@@ -299,6 +328,12 @@ ALTER TABLE `client_enterprise`
   ADD KEY `dni` (`dni`);
 
 --
+-- Indices de la tabla `config`
+--
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `models`
 --
 ALTER TABLE `models`
@@ -368,6 +403,12 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT de la tabla `client_enterprise`
 --
 ALTER TABLE `client_enterprise`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `config`
+--
+ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

@@ -1,3 +1,11 @@
+<?php
+require_once "../helpers/curlData.php";
+
+$data = getCurl("slot=clients");
+
+?>
+
+
 <?php require "../ui/header.php" ?>
 <?php $place = $_GET["place"] ?>
 <title>Productos - Inv.Refrihogar</title>
@@ -23,50 +31,38 @@
                                 <td>Nombre y Apellido</td>
                                 <td>Imagen</td>
                                 <td>Cedula</td>
-                                <td>Telefono</td>
-                                <td>Email</td>
-                                <td>Cuentas</td>
-                                <td>Localizacion</td>
                                 <td>Empresa</td>
+                                <td>Telefono</td>
+                                <td>Estado</td>
+                                <td>Acciones</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Pausides Yepez</td>
-                                <td><img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg" alt="Imagen de perfil">
+                            <?php foreach($data as $row): ?>
+                                <tr>
+                            <td><?= $row["name"]. " " .$row["surname"]  ?></td>
+                                <td id="avatar" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                    <?php if(!empty($row["image"])): ?>
+                                        <img src="../../assets/img/<?= $row["image"] ?>" ></td>
+                                    <?php endif ?>
+                                <td><?= $row["dni"]  ?></td>
+                                <td class="<?= empty($row["enterprise_name"]) ? "value-null" : "" ?>"><?= $row["enterprise_name"] ?></td>
+                                <td><?= $row["phone"]  ?></td>
+                                <td><span class="badge success">pendiente</span></td>
+                                <td data-dni="<?= $row["dni"]  ?>">
+                                    <div class="actions">
+                                        <button class="btn-square edit">
+                                            <i class="ri-edit-line"></i>
+                                        </button>
+                                        <button class="btn-square delete">
+                                            <i class="ri-delete-bin-6-line"></i>
+                                        </button>
+                                    </div>
                                 </td>
-                                <td>V-28120111</td>
-                                <td>04127701211</td>
-                                <td>pausides@gmail.com</td>
-                                <td><span class="badge warning">pendiente</span></td>
-                                <td>Barzalito II</td>
-                                <td>Tesla.CA</td>
-                            </tr>
-                            <tr>
-                                <td>Vanesa Teran de Yepez</td>
-                                <td><img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg"" alt=" Imagen de perfil">
-                                </td>
-                                <td>V-28120214</td>
-                                <td>04162121211</td>
-                                <td>vainilla@gmail.com</td>
-                                <td><span class="badge success">activo</span></td>
-                                <td>Sochit</td>
-                                <td>Club PlayBoy</td>
-                            </tr>
-                            <tr>
-                                <td>Jhoan Mejia</td>
-                                <td><img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg"" alt=" Imagen de perfil">
-                                </td>
-                                <td>V-31744101</td>
-                                <td>04247079098</td>
-                                <td>mejiajhoan2021@gmail.com</td>
-                                <td><span class="badge warning">pendiente</span></td>
-                                <td>Bisnaca</td>
-                                <td>JothaEngine</td>
-                            </tr>
+                                </tr>
+                        <?php endforeach ?>
                         </tbody>
                     </table>
-
                 </div>
                 <div class="pagination">
                     <button>
@@ -100,6 +96,8 @@
                     </button>
                 </div>
             </div>
+            <script src="../lib/createAvatar.js"></script>
+            <script src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "register") : ?>
             <main>

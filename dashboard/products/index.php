@@ -1,3 +1,9 @@
+<?php
+require_once "../helpers/curlData.php";
+
+$data = getCurl("slot=products");
+?>
+
 <?php require "../ui/header.php" ?>
 <?php $place = $_GET["place"] ?>
 <title>Productos - Inv.Refrihogar</title>
@@ -34,174 +40,35 @@ $optionsTitle = array(
                         <tr>
                             <td>Codigo</td>
                             <td>Nombre</td>
-                            <td>Descripcion</td>
+                            <td>Imagen</td>
+                            <td>Precio Venta</td>
+                            <td>Precio Compra</td>
                             <td>Stock</td>
-                            <td>Precio</td>
-                            <td>Precio en $</td>
                             <td>Acciones</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2143ab21</td>
-                            <td>Tuercas XL</td>
-                            <td>Tuerca de nivel 30vh</td>
-                            <td>5</td>
-                            <td>58.00</td>
-                            <td>$3.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>21b214b1</td>
-                            <td>Correa 2</td>
-                            <td>Nivel de correa 2</td>
-                            <td>5</td>
-                            <td>58.00</td>
-                            <td>$0.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>215125</td>
-                            <td>Tornillo 2b</td>
-                            <td>Tornillo de maquina industrial</td>
-                            <td>5</td>
-                            <td>58.00</td>
-                            <td>$2.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2143ab21</td>
-                            <td>Tuercas XL</td>
-                            <td>Tuerca de nivel 30vh</td>
-                            <td>5</td>
-                            <td>58.00</td>
-                            <td>$3.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>21b214b1</td>
-                            <td>Correa 2</td>
-                            <td>Nivel de correa 2</td>
-                            <td>5</td>
-                            <td>58.00</td>
-                            <td>$0.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>215125</td>
-                            <td>Tornillo 2b</td>
-                            <td>Tornillo de maquina industrial</td>
-                            <td>5</td>
-                            <td>128.00</td>
-                            <td>$2.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2143ab21</td>
-                            <td>Tuercas XL</td>
-                            <td>Tuerca de nivel 30vh</td>
-                            <td>5</td>
-                            <td>128.00</td>
-                            <td>$3.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2143ab21</td>
-                            <td>Tuercas XL</td>
-                            <td>Tuerca de nivel 30vh</td>
-                            <td>5</td>
-                            <td>128.00</td>
-                            <td>$3.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2143ab21</td>
-                            <td>Tuercas XL</td>
-                            <td>Tuerca de nivel 30vh</td>
-                            <td>5</td>
-                            <td>128.00</td>
-                            <td>$3.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2143ab21</td>
-                            <td>Tuercas XL</td>
-                            <td>Tuerca de nivel 30vh</td>
-                            <td>5</td>
-                            <td>128.00</td>
-                            <td>$3.6</td>
-                            <td class="actions">
-                                <button class="btn-square edit">
-                                    <i class="ri-edit-line"></i>
-                                </button>
-                                <button class="btn-square delete">
-                                    <i class="ri-delete-bin-6-line"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php foreach($data as $row): ?>
+                            <tr>
+                                <td><?= $row["code"]  ?></td>
+                                <td><?= $row["name"]  ?></td>
+                                <td id="avatar" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                    <?php if(!empty($row["photo"])): ?>
+                                        <img src="../../assets/img/<?= $row["photo"] ?>" ></td>
+                                    <?php endif ?>
+                                <td><?= "$ ".$row["selling_price"]  ?></td>
+                                <td><?= "$ ".$row["purchase_price"] ?></td>
+                                <td><?= $row["stock"]  ?></td>
+                                <td class="actions" data-product-code="<?= $row["code"]  ?>">
+                                    <button class="btn-square edit">
+                                        <i class="ri-edit-line"></i>
+                                    </button>
+                                    <button class="btn-square delete">
+                                        <i class="ri-delete-bin-6-line"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
                 <div class="pagination">
@@ -224,6 +91,8 @@ $optionsTitle = array(
                     </button>
                 </div>
             </div>
+            <script src="../lib/createAvatar.js"></script>
+            <script src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "product") : ?>
             <main>

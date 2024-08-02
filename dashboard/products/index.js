@@ -1,19 +1,25 @@
-import Bell from "../../lib/bell.js"
+const $tdTables = document.querySelectorAll("#avatar")
 
-const $form = document.querySelector("#register");
+$tdTables.forEach($td => {
+  appendAvatar($td)
+})
 
-$form.addEventListener("submit", register);
+// import Bell from "../../lib/bell.js"
 
-async function register(e) {
-  e.preventDefault();
-  const $btn = e.submitter;
-  $btn.disabled = true;
-  const formDt = new FormData(e.target);
-  const fetching = await fetch("../api.php?target=product", {
-    method: "POST",
-    body: formDt,
-  });
-  console.log(await fetching.text())
+// const $form = document.querySelector("#register");
+
+// $form.addEventListener("submit", register);
+
+// async function register(e) {
+//   e.preventDefault();
+//   const $btn = e.submitter;
+//   $btn.disabled = true;
+//   const formDt = new FormData(e.target);
+//   const fetching = await fetch("../api.php?target=product", {
+//     method: "POST",
+//     body: formDt,
+//   });
+//   console.log(await fetching.text())
   // const data = await fetching.json();
   // if (data.success) {
   //   const bell = new Bell(
@@ -47,5 +53,5 @@ async function register(e) {
   //   );
   //   bell.launch();
   // }
-  $btn.disabled = false;
-}
+//   $btn.disabled = false;
+// }

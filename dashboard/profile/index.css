@@ -149,8 +149,9 @@ section .profile .activity .activity-overview li span{
     left: 0;
     position: absolute;
     height: 100%;
-    width: 30%;
+    width: 0%;
     border-radius: 0 5px 5px 0;
+    transition: .2s ease width;
     background: var(--primary-color);
 }
 .permissions-overview .card{
@@ -173,7 +174,7 @@ section .profile .activity .activity-overview li span{
     font-size: var(--font-3xl);
     color: var(--text-plus-color);
 }
-.permissions-overview .card .icon.role{
+.permissions-overview .card .icon.ri-checkbox-circle-fill{
     color: var(--primary-color);
 }
 .permissions-overview .card .details{
