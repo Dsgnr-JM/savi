@@ -2,7 +2,7 @@
 function getUser(PDO $pdo, string $ci)
 {
     try {
-        $stmt = $pdo->prepare("SELECT * FROM tb_users WHERE ci = :ci");
+        $stmt = $pdo->prepare("SELECT us.*, rl.* FROM tb_users us LEFT JOIN role rl ON us.role = rl.role WHERE us.ci = :ci");
         $stmt->bindParam(":ci", $ci);
 
         $stmt->execute();
