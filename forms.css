@@ -59,7 +59,8 @@ body > main {
   box-shadow: none;
   padding: 0;
 }
-.form h2 {
+.form h2, .listed h2 {
+  color: var(--text-primary-color);
   font-size: var(--font-2xl);
   font-weight: 600;
 }
@@ -71,8 +72,8 @@ body > main {
 .form.form.not-ring > p{
   margin: 5px 0 20px 0;
 }
-.form > p{
-  font-size: var(--font-xs);
+.form > p, .listed > p{
+  font-size: var(--font-xs-2);
   margin: 5px 0 15px 0;
   color: var(--text-secondary-color);
 }
@@ -181,6 +182,7 @@ label.inputFile input{
 }
 label.inputFile{
   background-size: cover !important;
+  background-position: center !important;
   cursor: pointer;
   width: 100%;
   height: 0;
@@ -202,7 +204,7 @@ label.inputFile .presentation{
 }
 label.inputFile .presentation p{
   color: var(--text-secondary-color);
-  font-weight: 300;
+  font-weight: 400;
 }
 label.inputFile .presentation i{
   font-size: 2rem;
@@ -302,8 +304,10 @@ span.file::before{
 a.cancel{
   background: transparent;
   color: var(--primary-color);
+  transition: .05s ease-in border;
 }
 a.cancel:hover{
+  text-decoration: none;
   border:2px solid var(--primary-color);
 }
 .btn i {
@@ -314,7 +318,7 @@ a.cancel:hover{
   color: #fff;
   background: var(--primary-color);
 }
-button:disabled{
+form button:disabled{
   background: var(--color-disabled)!important;
 }
 .terms input[type="checkbox"] {
@@ -356,22 +360,25 @@ main h1 {
   width: fit-content;
 }
 .listed{
-  width: 100%;
-  max-width: 300px;
+  flex:1;
+  max-width: 350px;
   height: fit-content;
-  padding: 23px;
-  margin-left: 20px;
+  padding: 25px;
+  margin-left: 25px;
   border:var(--border-lighter);
   box-shadow: var(--box-shadow-base);
   border-radius: 7px;
   background: white;
+}
+.listed ol{
+  margin: 20px 0 10px 0;
 }
 .listed li a{
   border-radius: 5px;
   padding: 15px 10px;
   position: relative;
   align-items: center;
-  height: 50px;
+  height: 55px;
   display: flex;
   gap:15px;
   line-height: 1.2rem;
@@ -391,12 +398,12 @@ main h1 {
   opacity: 0;
 }
 .listed li p:first-child{
-  font-size: var(--font-xs-2);
+  font-size: var(--font-sm);
   font-weight: 600;
   color: var(--text-primary-color);
 }
 .listed li p:last-child{
-  font-size: var(--font-xs);
+  font-size: var(--font-xs-2);
   color: var(--text-secondary-color);
 }
 .listed img{

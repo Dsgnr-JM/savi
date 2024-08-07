@@ -1,10 +1,16 @@
+<?php
+require_once "../helpers/curlData.php";
+
+$page = $_GET["page"] ?? 1;
+$data = getCurl("slot=suppliers");
+$pagination = $data["length"];
+$data = $data["data"];
+?>
 <?php require "../ui/header.php" ?>
-<?php $place = $_GET["place"] ?>
+<?php $place = $_GET["place"] ?? "" ?>
 <title>Proveedores - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
-<?php if ($place === "register") :  ?>
-    <link rel="stylesheet" href="../../forms.css">
-<?php endif ?>
+<link rel="stylesheet" href="../../forms.css">
 
 <?php 
     $optionsTitle = array(
@@ -19,7 +25,21 @@
     <section>
         <?php if (!$place) : ?>
         <div class="table">
-            <h2>Lista de proveedores</h2>
+        <button class="more btn-rounded">
+                    <i class="ri-more-2-fill "></i>
+                </button>
+                <h2>Proveedores</h2>
+                <p>Echale un vistazo a los proveedores de productos registrados en tu organizaciòn</p>
+                <form id="form-search">
+                    <label class="search">
+                        <button>
+                            <i class="ri-search-line"></i>
+                        </button>
+                        <span>
+                            <input type="text" id="search" placeholder="Sotchi">
+                        </span>
+                    </label>
+                </form>
             <table>
                 <thead>
                     <tr>
@@ -33,55 +53,49 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                        require_once "../../config.php";
-                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        $stmt = $pdo->prepare("SELECT * FROM supliers");
-                        $stmt->execute();
-                        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                     ?>
-                     <?php foreach($results as $result): ?>
-                    <tr>
-                        <td><?= $result["suplier_rif"]  ?></td>
-                        <td><?= $result["suplier_name"]  ?></td>
-                        <td><img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg" alt="Imagen de perfil">
-                        </td>
-                        <td><?= $result["suplier_phone"]  ?></td>
-                        <td><?= $result["suplier_email"]  ?></td>
-                        <td><?= $result["suplier_location"]  ?></td>
-                        <td class="actions">
-                            <button class="btn-square edit" data-id="<?= $result['suplier_rif']  ?>">
-                                <i class="ri-edit-line"></i>
-                            </button>
-                            <button class="btn-square delete" data-id="<?= $result['suplier_rif']  ?>">
-                                <i class="ri-delete-bin-6-line"></i>
-                            </button>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+                <?php foreach($data as $row): ?>
+                            <tr>
+                                <td><?= $row["rif"]  ?></td>
+                                <td><?= $row["name"]  ?></td>
+                                <td id="avatar" class="<?= !empty($row["image"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                    <?php if(!empty($row["image"])): ?>
+                                        <img src="<?= $row["image"] ?>" ></td>
+                                    <?php endif ?>
+                                <td><?= $row["phone"]  ?></td>
+                                <td><?= $row["email"] ?></td>
+                                <td><?= $row["location"]  ?></td>
+                                <td data-code="<?= $row["rif"]  ?>">
+                                    <div class="actions">
+                                        <button class="btn-square edit">
+                                            <i class="ri-edit-line"></i>
+                                        </button>
+                                        <button class="btn-square delete">
+                                            <i class="ri-delete-bin-6-line"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        <?php endforeach ?>
 
                 </tbody>
             </table>
-            <div class="pagination">
-                <button class="btn-rounded">
-                    <i class="ri-arrow-left-double-line"></i>
-                </button>
-                <button class="btn-rounded">
-                    <i class="ri-arrow-left-s-line"></i>
-                </button>
-                <div>
-                    <button class="btn-rounded">
-                        <i class="ri-number-1"></i>
+            <div class="pagination <?= $pagination > 1 ? '': "hidden" ?>">
+                    <button id="movePage">
+                        <i class="ri-arrow-left-s-line"></i>
+                    </button>
+                    <div class="items_pagination">
+                        <?php for($i = 1; $i <= $pagination;$i++): ?>
+                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?=$i?></button>
+                        <?php endfor ?> 
+                    </div>
+                    <button id="movePage">
+                        <i class="ri-arrow-right-s-line"></i>
                     </button>
                 </div>
-                <button class="btn-rounded">
-                    <i class="ri-arrow-right-s-line"></i>
-                </button>
-                <button class="btn-rounded">
-                    <i class="ri-arrow-right-double-line"></i>
-                </button>
             </div>
         </div>
+        <script type="module" src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "register") : ?>
             <main>

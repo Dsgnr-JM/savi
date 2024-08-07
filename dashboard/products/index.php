@@ -1,16 +1,25 @@
 <?php
 require_once "../helpers/curlData.php";
 
+$page = $_GET["page"] ?? 1;
 $data = getCurl("slot=products");
+$pagination = $data["length"];
+$data = $data["data"];
+
+$brands = getCurl("slot=brands");
+$models = getCurl("slot=models");
+
+$suppliers = getCurl("slot=suppliers")["data"];
+$categorys = getCurl("slot=categorys");
+
 ?>
 
 <?php require "../ui/header.php" ?>
-<?php $place = $_GET["place"] ?>
+<?php $place = $_GET["place"] ?? "" ?>
 <title>Productos - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
-<?php if ($place) :  ?>
-    <link rel="stylesheet" href="../../forms.css">
-<?php endif ?>
+<link rel="stylesheet" href="../../forms.css">
+
 
 <?php
 $optionsTitle = array(
@@ -30,11 +39,18 @@ $optionsTitle = array(
                 <button class="more btn-rounded">
                     <i class="ri-more-2-fill "></i>
                 </button>
-                <h2>Lista de productos</h2>
-                <label class="search">
-                    <input type="text" name="" id="" placeholder="Busca tu producto">
-                    <button><i class="ri-search-line"></i></button>
-                </label>
+                <h2>Productos</h2>
+                <p>Echale un vistazo al inventario de productos registrados en tu organizaciòn</p>
+                <form id="form-search">
+                    <label class="search">
+                        <button>
+                            <i class="ri-search-line"></i>
+                        </button>
+                        <span>
+                            <input type="text" id="search" placeholder="Mini correa 12">
+                        </span>
+                    </label>
+                </form>
                 <table>
                     <thead>
                         <tr>
@@ -52,47 +68,43 @@ $optionsTitle = array(
                             <tr>
                                 <td><?= $row["code"]  ?></td>
                                 <td><?= $row["name"]  ?></td>
-                                <td id="avatar" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
                                     <?php if(!empty($row["photo"])): ?>
-                                        <img src="../../assets/img/<?= $row["photo"] ?>" ></td>
+                                        <img src="<?= $row["photo"] ?>" ></td>
                                     <?php endif ?>
                                 <td><?= "$ ".$row["selling_price"]  ?></td>
                                 <td><?= "$ ".$row["purchase_price"] ?></td>
                                 <td><?= $row["stock"]  ?></td>
-                                <td class="actions" data-product-code="<?= $row["code"]  ?>">
-                                    <button class="btn-square edit">
-                                        <i class="ri-edit-line"></i>
-                                    </button>
-                                    <button class="btn-square delete">
-                                        <i class="ri-delete-bin-6-line"></i>
-                                    </button>
+                                <td data-code="<?= $row["code"]  ?>">
+                                    <div class="actions">
+                                        <button class="btn-square edit">
+                                            <i class="ri-edit-line"></i>
+                                        </button>
+                                        <button class="btn-square delete">
+                                            <i class="ri-delete-bin-6-line"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
+                            
                         <?php endforeach ?>
                     </tbody>
                 </table>
-                <div class="pagination">
-                    <button class="btn-rounded">
-                        <i class="ri-arrow-left-double-line"></i>
-                    </button>
-                    <button class="btn-rounded">
+                <div class="pagination <?= $pagination > 1 ? '': "hidden" ?>">
+                    <button id="movePage">
                         <i class="ri-arrow-left-s-line"></i>
                     </button>
-                    <div>
-                        <button class="btn-rounded">
-                            <i class="ri-number-1"></i>
-                        </button>
+                    <div class="items_pagination">
+                        <?php for($i = 1; $i <= $pagination;$i++): ?>
+                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?=$i?></button>
+                        <?php endfor ?> 
                     </div>
-                    <button class="btn-rounded">
+                    <button id="movePage">
                         <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                    <button class="btn-rounded">
-                        <i class="ri-arrow-right-double-line"></i>
                     </button>
                 </div>
             </div>
-            <script src="../lib/createAvatar.js"></script>
-            <script src="index.js"></script>
+            <script type="module" src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "product") : ?>
             <main>
@@ -113,42 +125,21 @@ $optionsTitle = array(
                             <i class="ri-profile-line" id="icon-form"></i>
                         </span>
                     </label>
-                    <label>
-                        <p>Descripcion:</p>
-                        <span>
-                            <input type="text" name="description" required placeholder="Tuerca xm para botones">
-                            <i class="ri-file-edit-line" id="icon-form"></i>
-                        </span>
-                    </label>
                     <div class="line-space"></div>
                     <div class="inputs-container">
-
                         <label>
                             <p>Departamento:</p>
                             <select name="category">
-                                <?php
-                                require_once "../../config.php";
-                                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                $stmt = $pdo->prepare("SELECT * FROM category");
-                                $stmt->execute();
-                                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                ?>
-                                <?php foreach ($results as $result) : ?>
+                                <?php foreach ($categorys as $result) : ?>
                                     <option value="<?= $result['category_id'] ?>"><?= $result['category_name'] ?></option>
                                 <?php endforeach ?>
                             </select>
                         </label>
                         <label>
                             <p>Modelo:</p>
-                            <select name="model">
-                                <?php
-                                require_once "../../config.php";
-                                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                $stmt = $pdo->prepare("SELECT * FROM models");
-                                $stmt->execute();
-                                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                ?>
-                                <?php foreach ($results as $result) : ?>
+                            <select name="models">
+                                
+                                <?php foreach ($models as $result) : ?>
                                     <option value="<?= $result['model_id'] ?>"><?= $result['model_name'] ?></option>
                                 <?php endforeach ?>
                             </select>
@@ -156,14 +147,10 @@ $optionsTitle = array(
                         <label>
                             <p>Marca:</p>
                             <span>
-                                <select name="brad">
-                                    <?php
-                                    $stmt = $pdo->prepare("SELECT * FROM brad");
-                                    $stmt->execute();
-                                    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    ?>
-                                    <?php foreach ($results as $result) : ?>
-                                        <option value="<?= $result['brad_id'] ?>"><?= $result['brad_name'] ?></option>
+                                <select name="brand">
+                                    
+                                    <?php foreach ($brands as $result) : ?>
+                                        <option value="<?= $result['id_brand'] ?>"><?= $result['brad_name'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                             </span>
@@ -173,9 +160,13 @@ $optionsTitle = array(
                     <label>
                         <p>Proveedor:</p>
                         <span>
-                            <input type="text" name="username" required placeholder="Vanessa.CA">
-                            <i class="ri-caravan-line" id="icon-form"></i>
-                        </span>
+                                <select name="supplier">
+                                   
+                                    <?php foreach ($suppliers as $result) : ?>
+                                        <option value="<?= $result['rif'] ?>"><?= $result['name'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </span>
                     </label>
                     <div class="line-space"></div>
                     <div class="inputs-container">
@@ -205,7 +196,7 @@ $optionsTitle = array(
                         <label>
                             <p>Precio salida:</p>
                             <span>
-                                <input type="number" name="price" required placeholder="120">
+                                <input type="number" name="selling_price" step="any" required placeholder="120">
                                 <i class="ri-price-tag-line" id="icon-form"></i>
                             </span>
                         </label>
@@ -213,12 +204,12 @@ $optionsTitle = array(
                             <p>Precio entrada:</p>
                             <span>
                                 <i class="ri-price-tag-line"></i>
-                                <input type="number" name="price" required placeholder="120">
+                                <input type="number" name="purchase_price" step="any" required placeholder="120">
                             </span>
                         </label>
                     </div>
                     <label class="showSetFile">
-                        <input type="radio" id="setFile">
+                        <input type="checkbox" id="setFile">
                         <p>Subir imagen</p>
                     </label>
                     <label class="inputFile">
@@ -239,9 +230,32 @@ $optionsTitle = array(
                         </button>
                     </div>
                 </form>
+                <div class="listed">
+                <h2>Listado de productos</h2>
+                    <p>Productos que se encuentran en el sistema.</p>
+                    <ol>
+                        <?php $data = array_slice($data,0,5)?>
+                        <?php foreach($data as $row):?>
+                        <li>
+                            <a href="">
+                                <picture id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                    <?php if(!empty($row["photo"])): ?>
+                                    <img src="<?= $row["photo"] ?>" >
+                                    <?php endif ?>
+                                </picture>
+                                <div class="details">
+                                    <p><?= $row["name"] ?></p>
+                                    <p><?= $row["code"] ?></p>
+                                </div>
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </li>
+                        <?php endforeach ?>
+                    </ol>
+                    <a href="./" class="btn cancel"> Ver mas </a>
+                </div>
             </main>
-            <script src="../../lib/showFileInput.js"></script>
-            <script src="./index.js" type="module"></script>
+            <script type="module" src="./registProduct.js"></script>
         <?php endif ?>
         <?php if ($place === "brand") : ?>
             <main>

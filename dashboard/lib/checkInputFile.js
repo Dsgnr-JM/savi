@@ -4,7 +4,8 @@
     const $labelFile = document.querySelector(".inputFile")
     const typeValid = ['image/png', 'image/webp']
 
-    $inputFile.addEventListener("change", e => {
+    $inputFile.addEventListener("input", e => {
+        console.log("sa")
         let file = $inputFile.files[0]
         if(file){
             if (!typeValid.includes(file.type)) {

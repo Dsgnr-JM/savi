@@ -1,0 +1,16 @@
+.items_pagination{
+    --width-line: 0px;
+    --left-position-line: 0;
+    position: relative;
+}
+
+.items_pagination::before{
+    transition: .15s ease-in left, .15s ease-in width;
+    content: "";
+    bottom: -3px;
+    position: absolute;
+    width: var(--width-line);
+    left: var(--left-position-line);
+    height: 1px;
+    background-color: var(--primary-color);
+}

@@ -22,6 +22,19 @@ section .profile .navigation{
     display: flex;
     justify-content: start;
     border-bottom: var(--border-navigation);
+    --width-line: 0px;
+    --left-position-line: 0px;
+    position: relative;
+}
+section .profile .navigation::before{
+    transition: .15s ease-in left, .15s ease-in width;
+    content: "";
+    bottom: -2px;
+    position: absolute;
+    width: var(--width-line);
+    left: var(--left-position-line);
+    height: 2px;
+    background-color: var(--primary-color);
 }
 section .profile .navigation button{
     padding: 10px 15px;
@@ -34,7 +47,6 @@ section .profile .navigation button:hover{
 }
 section .profile .navigation button.active{
     color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
 }
 section .profile .activity h3 {
   font-size: var(--font-lg);

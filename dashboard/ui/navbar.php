@@ -11,7 +11,7 @@
     if(!file_exists($curlURL)) $curlURL = "../helpers/curlData.php";
     require_once $curlURL;
 
-    $user = getCurl('slot=profile&ci='.$_SESSION["session"])[0];
+    $user = getCurl('slot=user&search='.$_SESSION["session"])[0];
 ?>
 
 
@@ -119,7 +119,7 @@
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="/SAVI/dashboard/suppliers?place=register">Registro</a>
+                        <a href="/SAVI/dashboard/clients?place=register">Registro</a>
                     </li>
                     <li>
                         <a href="#">Consultas</a>

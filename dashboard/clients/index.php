@@ -1,19 +1,21 @@
 <?php
 require_once "../helpers/curlData.php";
 
-$data = getCurl("slot=clients");
+$page = $_GET["page"] ?? 1;
+$data = getCurl("slot=clients&page=$page");
+$pagination = $data["length"];
+$data = $data["data"];
+
 
 ?>
 
 
 <?php require "../ui/header.php" ?>
-<?php $place = $_GET["place"] ?>
-<title>Productos - Inv.Refrihogar</title>
+<?php $place = $_GET["place"] ?? "" ?>
+<title>Clientes - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
-<?php if ($place) :  ?>
-    <link rel="stylesheet" href="../../forms.css">
-<?php endif ?>
 <title>Informes - Inv.Refrihogar</title>
+<link rel="stylesheet" href="../../forms.css">
 <link rel="stylesheet" href="index.css">
 </head>
 
@@ -22,33 +24,50 @@ $data = getCurl("slot=clients");
     <section>
         <?php if (!$place) : ?>
             <div class="table">
+                <button class="more btn-rounded">
+                    <i class="ri-more-2-fill "></i>
+                </button>
                 <h2>Clientes</h2>
                 <p>Echale un vistazo a todos los clientes registrados en tu organizaciòn</p>
+                <form id="form-search">
+                    <label class="search">
+                        <button>
+                            <i class="ri-search-line"></i>
+                        </button>
+                        <span>
+                            <input type="text" id="search" placeholder="Tesla">
+                        </span>
+                    </label>
+                </form>  
                 <div class="overflow">
                     <table>
                         <thead>
                             <tr>
-                                <td>Nombre y Apellido</td>
-                                <td>Imagen</td>
                                 <td>Cedula</td>
+                                <td>Imagen</td>
+                                <td>Nombre y Apellido</td>
                                 <td>Empresa</td>
+                                <!-- <td>Estado</td> -->
                                 <td>Telefono</td>
-                                <td>Estado</td>
                                 <td>Acciones</td>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if($pagination <= 0): ?>
+                            <tr class="not-elements" style="--text-alert:'No hay registros aun';">
+                            </tr>
+                            <?php endif ?>
                             <?php foreach($data as $row): ?>
                                 <tr>
-                            <td><?= $row["name"]. " " .$row["surname"]  ?></td>
-                                <td id="avatar" data-avatar="<?= substr($row["name"], 0,1) ?>">
-                                    <?php if(!empty($row["image"])): ?>
-                                        <img src="../../assets/img/<?= $row["image"] ?>" ></td>
-                                    <?php endif ?>
-                                <td><?= $row["dni"]  ?></td>
+                                    <td><?= $row["dni"]  ?></td>
+                                    <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                        <?php if(!empty($row["image"])): ?>
+                                            <img src="../../assets/img/<?= $row["image"] ?>" ></td>
+                                            <?php endif ?>
+                                            <td><?= $row["name"]. " " .$row["surname"]  ?></td>
                                 <td class="<?= empty($row["enterprise_name"]) ? "value-null" : "" ?>"><?= $row["enterprise_name"] ?></td>
+                                <!-- <td><span class="badge success">pendiente</span></td> -->
                                 <td><?= $row["phone"]  ?></td>
-                                <td><span class="badge success">pendiente</span></td>
                                 <td data-dni="<?= $row["dni"]  ?>">
                                     <div class="actions">
                                         <button class="btn-square edit">
@@ -64,40 +83,21 @@ $data = getCurl("slot=clients");
                         </tbody>
                     </table>
                 </div>
-                <div class="pagination">
-                    <button>
+                <div class="pagination <?= $pagination > 1 ? '': "hidden" ?>">
+                    <button id="movePage">
                         <i class="ri-arrow-left-s-line"></i>
                     </button>
                     <div class="items_pagination">
-                        <button class="active">
-                            1
-                        </button>
-                        <button>
-                            2
-                        </button>
-                        <button>
-                            3
-                        </button>
-                        <button>
-                            4
-                        </button>
-                        <button>
-                            ...
-                        </button>
-                        <button>
-                            5
-                        </button>
-                        <button>
-                            6
-                        </button>
+                        <?php for($i = 1; $i <= $pagination;$i++): ?>
+                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?=$i?></button>
+                        <?php endfor ?> 
                     </div>
-                    <button>
+                    <button id="movePage">
                         <i class="ri-arrow-right-s-line"></i>
                     </button>
                 </div>
             </div>
-            <script src="../lib/createAvatar.js"></script>
-            <script src="index.js"></script>
+            <script type="module" src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "register") : ?>
             <main>
@@ -109,18 +109,18 @@ $data = getCurl("slot=clients");
                         <p id="dni">CI:</p>
                         <span>
                             <i class="ri-profile-line"></i>
-                            <input type="number" name="rif" required placeholder="931744101">
+                            <input type="number" name="dni" required placeholder="931744101">
                         </span>
                     </label>
                     <label class="show-set-input">
-                        <input type="radio" id="setShowInput">
+                        <input type="checkbox" id="setShowInput">
                         <p>Es una empresa?</p>
                     </label>
                     <label class="input-enterprise">
                         <p>Nombre empresa:</p>
                         <span>
                             <i class="ri-shield-user-line"></i>
-                            <input type="text" name="enterprise-name" required placeholder="Vanessa.AC" id="input-enterprise">
+                            <input type="text" name="enterprise-name" placeholder="Vanessa.AC" id="input-enterprise">
                         </span>
                     </label>
                     <label>
@@ -153,7 +153,7 @@ $data = getCurl("slot=clients");
                         </span>
                     </label>
                     <label class="showSetFile">
-                        <input type="radio" id="setFile">
+                        <input type="checkbox" id="setFile">
                         <p>Subir imagen</p>
                     </label>
                     <label class="inputFile">
@@ -175,32 +175,31 @@ $data = getCurl("slot=clients");
                     </div>
                 </form>
                 <div class="listed">
+                    <h2>Listado de clientes</h2>
+                    <p>Clientes que ya se encuentran en el sistema.</p>
                     <ol>
+                        <?php $data = array_slice($data,0,5)?>
+                        <?php foreach($data as $row):?>
                         <li>
                             <a href="">
-                                <img src="../IMG-20240306-WA0032~2.jpg">
+                                <picture id="avatar" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                    <?php if(!empty($row["image"])): ?>
+                                    <img src="<?= $row["image"] ?>" >
+                                    <?php endif ?>
+                                </picture>
                                 <div class="details">
-                                    <p>Tecno X</p>
-                                    <p>Vanessa Teran</p>
+                                    <p><?= $row["name"] ." ".$row["surname"]  ?></p>
+                                    <p><?= $row["dni"] ?></p>
                                 </div>
                                 <i class="ri-arrow-right-line"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
-                                <img src="../IMG-20240306-WA0032~2.jpg">
-                                <div class="details">
-                                    <p>Amazon</p>
-                                    <p>Pausides Yepez</p>
-                                </div>
-                                <i class="ri-arrow-right-line"></i>
-                            </a>
-                        </li>
+                        <?php endforeach ?>
                     </ol>
+                    <a href="./" class="btn cancel"> Ver mas </a>
                 </div>
             </main>
-            <script src="../../lib/showFileInput.js"></script>
-            <script src="./script.js" type="module"></script>
+            <script type="module" src="./registClient.js"></script>
         <?php endif ?>
     </section>
 </body>

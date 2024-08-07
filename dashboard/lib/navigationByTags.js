@@ -1,5 +1,6 @@
 const $navigationBtn = document.querySelectorAll("button[data-slot-pointed]")
 const $contentContainer = document.querySelector("#contentContainer")
+const $navigation = document.querySelector(".navigation")
 
 let actualSlot = $navigationBtn[0].getAttribute("data-slot-pointed")
 const dependeciesTransitive = $navigationBtn[0].getAttribute("data-dependecies-transitive").split(" ")
@@ -11,6 +12,9 @@ appendScript(actualSlot)
 drawSlot(actualSlot, true)
 
 let first = true
+
+$navigation.style.setProperty("--width-line", `${$navigationBtn[0].offsetWidth}px`)
+$navigation.style.setProperty("--left-position-line", `${$navigationBtn[0].offsetLeft}px`)
 
 $navigationBtn.forEach($btn => {
     $btn.addEventListener("click",()=>{
@@ -26,6 +30,8 @@ $navigationBtn.forEach($btn => {
             $btnClone.classList.remove("active")
             if($btnClone == $btn){
                 $btn.classList.add("active")
+                $navigation.style.setProperty("--width-line", `${$btn.offsetWidth}px`)
+                $navigation.style.setProperty("--left-position-line", `${$btn.offsetLeft}px`)
             }
         }
         if(slotPointed == actualSlot && !first) return

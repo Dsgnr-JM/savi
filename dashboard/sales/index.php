@@ -1,5 +1,5 @@
 <?php require "../ui/header.php" ?>
-<?php $place = $_GET["place"] ?>
+<?php $place = $_GET["place"] ?? "" ?>
 <title>Ventas - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="../../forms.css">

@@ -1,6 +1,6 @@
 const colorsAvatar = {
     "A": "#108953",
-    "B": "#9214042",
+    "B": "#921404",
     "C": "#a95e11",
     "D": "#132359",
     "E": "#106174",
@@ -10,7 +10,7 @@ const colorsAvatar = {
     "I": "#164133",
     "J": "#163031",
     "K": "#138163",
-    "L": "#117688",
+    "L": "#6c1e98",
     "M": "#154716",
     "N": "#199386",
     "O": "#155977",
@@ -42,7 +42,7 @@ function createAvatar(text){
 /**
  * @param {HTMLElement} element
  * */
-function appendAvatar(element) {
+export function appendAvatar(element) {
     const avatarText = element.getAttribute("data-avatar")
     const avatar = createAvatar(avatarText)
     element.appendChild(avatar)

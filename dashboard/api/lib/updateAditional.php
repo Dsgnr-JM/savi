@@ -8,7 +8,7 @@ function updateAditional(PDO $pdo, array $data, array $message)
             $stmt = $pdo->prepare("SELECT photo FROM tb_users WHERE ci = :ci");
             $stmt->bindParam(":ci", $data["ci"]);
             $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             $typesImage = array(
                 "image/png" => ".png",
@@ -27,9 +27,9 @@ function updateAditional(PDO $pdo, array $data, array $message)
             }
 
             $tmp_name = $file['tmp_name'];
-            $file_name_destination = $destination_folder . $file_name . $file_type;
+            $file_name_destination = $file_name;
 
-            if(empty($result["image"])){
+            if(empty($result["photo"])){
                 $file_name = uniqid() . $file_type;
                 $file_name_destination = $destination_folder . $file_name;
                 $stmt = $pdo->prepare("UPDATE tb_users SET photo = :photo WHERE ci = :ci");

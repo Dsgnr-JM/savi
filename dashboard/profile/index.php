@@ -2,7 +2,7 @@
 <?php 
     require_once "../helpers/curlData.php";
 
-    $data = getCurl('slot=profile&ci='.$_SESSION["session"])[0];
+    $data = getCurl('slot=user&search='.$_SESSION["session"])[0];
 
     function appendClassIfTrue(string $text, string $class)
     {

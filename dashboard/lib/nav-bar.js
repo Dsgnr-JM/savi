@@ -12,7 +12,7 @@ let scrollX = 1000;
 
 const listURLs = [
   ["", "profile"],
-  ["stadistics","inventary", "suppliers"],
+  ["stadistics","products", "suppliers"],
   ["informs", "sales", "clients"],
 ];
 
@@ -46,7 +46,6 @@ $NavItems.forEach(($item, i) => {
     const target = e.target
     if(target.id === "arrowDown") {
       e.preventDefault()
-      $navScroll.scrollTop = target.parentElement.parentElement.scrollHeight - 50;
       $NavOptions[i].classList.toggle("active")
     }
   })
