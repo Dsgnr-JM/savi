@@ -4,6 +4,7 @@ function getRoute(){
     $routes = array(
         "" => "",
         "products" => "productos",
+        "maintenace" => "mantenimiento",
         "product" => "producto",
         "regist" => "registro" ,
         "profile" => "perfil",
