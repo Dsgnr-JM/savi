@@ -130,7 +130,7 @@ label.search input{
   margin-left: 5px;
   padding-left: 10px;
 }
-label span input,label select, span.file::before {
+label span input,label select, span.file::before,textarea {
   border: none;
   border: var(--border);
   box-shadow: var(--box-shadow-input);
@@ -139,6 +139,11 @@ label span input,label select, span.file::before {
   padding: 0 30px;
   width: 100%;
   height: 100%;
+}
+textarea{
+  padding: 10px;
+  height: 100px;
+  resize: none;
 }
 label.showSetFile, label.show-set-input{
   align-items: center;
