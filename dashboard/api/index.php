@@ -38,22 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo insertClient($pdo, array_merge($_POST,$_FILES), $message);
         }
     }
-    if($slot === "product"){
-        if($action === "insert"){
-            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
-        }
-    }
-    if($slot === "model"){
-        if($action === "insert"){
-            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
-        }
-    }
-    if($slot === "brand"){
-        if($action === "insert"){
-            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
-        }
-    }
-    if($slot === "category"){
+    if($slot !== "client"){
         if($action === "insert"){
             echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
         }
