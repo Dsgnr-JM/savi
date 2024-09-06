@@ -1,6 +1,7 @@
 <?php
     session_start();
 if (!isset($_SESSION["session"]) || empty(($_SESSION["session"]))) {
+    if(file_exists("../logout.php")) return header("Location: ../logout.php");
     header("Location: ./logout.php");
 }
 
