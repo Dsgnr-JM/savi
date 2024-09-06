@@ -1,8 +1,43 @@
-import Bell from "../../lib/bell.js";
+import searchEngine from "../lib/searchEngine.js"
+import getData from "../lib/getData.js"
+import Bell from "../../lib/bell.esm.js";
+
+const $inputSearch = document.querySelector("#search-product")
+const $formSearch = document.querySelector("#form-search")
+let sale = []
+
+$formSearch.addEventListener("submit",async e =>{
+    e.preventDefault()
+    let value = $inputSearch.value
+    if(!value) return
+    let productData = await getData(`slot=product&search=${value}`)
+    console.log(productData.length)
+
+    if(productData.length <= 0) {
+        new Bell({
+        title: "No se encontro el producto"
+        },"warning",{
+            screenTime: 6000,
+            removeOn: "click",
+            isColored: false,
+            typeAnimation: "bound-2",
+            position:"bottom-center"
+        }).launch()
+        return
+    }
+    let [{name,code,selling_price}] = productData
+    const data = {name,code,selling_price,amount:1}
+    let product = sale.find(product => product.code == data.code)
+    if(product) {product.amount++}
+    else{
+        sale.push(data)
+    }
+    createProductsHTML()
+})
+
 const $searchClient = document.querySelector("label#hidden")
 const $clientBtn = document.querySelector("#client-btn")
 const $searchProduct = document.querySelector("#search-product")
-const $formSearch = document.querySelector("#form-search")
 const $tableProducts = document.querySelector("#table-products")
 const $totalPrice = document.querySelector("#total-price")
 const $pricesTotal = document.querySelector("#prices-total")
@@ -11,83 +46,10 @@ const $pricesReturn = document.querySelector("#prices-change")
 const $closeSale = document.querySelector("#close-sale")
 const $totalReceived = document.querySelector("#total-recived")
 
-$clientBtn.addEventListener("click",() => {
-    $searchClient.classList.toggle("active")
-})
-
-const products = [
-    {
-        code: "ELE0002",
-        description: "Otros",
-        stock: 5,
-        price: 12
-    },
-    {
-        code: "ELE0001",
-        description: "Ventilador",
-        stock: 2,
-        price: 50
-    },
-    {
-        code: "VEN002",
-        description: "Variado",
-        stock: 5,
-        price: 5.2
-    },
-    {
-        code: "COC001",
-        description: "Otros",
-        stock: 5,
-        price: 13
-    },
-]
-let sale = []
-$formSearch.addEventListener("submit",(e)=>{
-    e.preventDefault();
-    const schemaSale = {
-        code:null,
-        description:null,
-        amount: null,
-        price: null,
-    }
-    const productFind = products.find(product => product.code === $searchProduct.value || product.description === $searchProduct.value)
-    if(!productFind){
-        const bell = new Bell(
-          { title: "Algo salio mal", description: "El producto no fue encontrado" },
-          "warning",
-          {
-            animate: true,
-            isColored: true,
-            transitionDuration: 300,
-            position: "bottom-right",
-            typeAnimation: "fade-in",
-            timeScreen: 8000,
-            expand: true,
-          }
-        );
-        bell.launch();
-        $searchProduct.value = ""
-        return 
-    }
-
-    const productRepeat = sale.find(saleProduct => saleProduct.code === productFind.code)
-
-    if(productRepeat){
-        productRepeat.amount++
-    }else{
-        schemaSale.code = productFind.code
-        schemaSale.description = productFind.description
-        schemaSale.amount = 1
-        schemaSale.price = productFind.price
-        sale.push(schemaSale)       
-    }
-
-    createProductsHTML()
-})
 let totalSale = 0
 
 function createProductsHTML(){
-    totalSale = sale.reduce((acc,product) => product.price * product.amount + acc,0)
+    totalSale = Number(sale.reduce((acc,product) => product.selling_price * product.amount + acc,0)).toFixed(2)
     $pricesTotal.textContent = totalSale
     $totalPrice.textContent = totalSale
     $tableProducts.innerHTML = ""
@@ -109,10 +71,10 @@ function createProductsHTML(){
         const $iconsubtract = document.createElement("i")
 
         $code.textContent = product.code
-        $description.textContent = product.description
+        $description.textContent = product.name
         $amount.textContent = product.amount
-        $price.textContent = product.price
-        $total.textContent = "$" + product.price * product.amount
+        $price.textContent = "$" + Number(product.selling_price).toFixed(2)
+        $total.textContent = "$" + Number(product.selling_price * product.amount).toFixed(2)
         $actions.classList.add("actions")
         $btnAdd.className = "btn-square add"
         $btnEdit.className = "btn-square edit"

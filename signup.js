@@ -1,4 +1,4 @@
-import Bell from "./lib/bell.js";
+import Bell from "./lib/bell.esm.js";
 import validatedInput from "./lib/validatedInput.js"
 
 document.querySelectorAll("input").forEach(input => input.addEventListener("input",() => {
@@ -21,13 +21,10 @@ async function signup(e) {
   if (data.success) {
     const bell = new Bell(
       { title: data.message, description: "Ud sera redireccionado..." },
-      "check",
+      "success",
       {
-        animate: true,
-        isColored: true,
-        transitionDuration: 300,
-        position: "bottom-right",
-        typeAnimation: "fade-in",
+        position: "top-center",
+        typeAnimation: "bound-2",
         timeScreen: 8000,
         expand: true,
       }
@@ -40,11 +37,8 @@ async function signup(e) {
       { title: "Algo salio mal", description:data.message},
       "warning",
       {
-        animate: true,
-        isColored: true,
-        transitionDuration: 300,
-        position: "bottom-right",
-        typeAnimation: "fade-in",
+        position: "top-center",
+        typeAnimation: "bound-2",
         timeScreen: 8000,
         expand: true,
       }

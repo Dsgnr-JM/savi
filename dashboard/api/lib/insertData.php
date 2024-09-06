@@ -7,6 +7,9 @@ function insertData(PDO $pdo, string $operation, array $data, array $message)
     try{
         $operationsSQL = array(
             "product" => "INSERT INTO product (code, name, photo, selling_price, purchase_price, category, models, brand, supplier, stock, stock_min, stock_max) VALUES (:code, :name, :photo, :selling_price, :purchase_price, :category, :models, :brand, :supplier, :stock, :stock_min, :stock_max)",
+            "model" => "INSERT INTO models (model_name) VALUES(:model_name)",
+            "brand" => "INSERT INTO brad (brad_name) VALUES(:brand_name)",
+            "category" => "INSERT INTO category (category_name) VALUES(:category_name)"
         );
 
         $sql = $operationsSQL[$operation];

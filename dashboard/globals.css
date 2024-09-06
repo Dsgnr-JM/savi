@@ -244,6 +244,9 @@ body > div.root {
   font-size: 1.1rem;
   color: #3f3f3f;
 }
+#form-search{
+  margin: 20px 0;
+}
 .btn-rounded {
   width: 35px;
   height: 35px;

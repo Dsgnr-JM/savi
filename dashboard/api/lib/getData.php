@@ -4,6 +4,11 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
     require_once "helpers/getOperationsSQL.php";
     try {
         $sql = $operationsSQL["list"][$operation];
+        $outerParam = "";
+        if(isset($param["like"])) {
+            $outerParam = " ".$operationsSQL["like"][$operation];
+        };
+        $sql = $sql.$outerParam;
         $registForPage = 10;
         $page = $_GET["page"] ?? 1;
         $start = ($page - 1) * $registForPage;
@@ -25,14 +30,25 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
             if($operation == "model"){
                 $stmt->bindParam(":mode_id", $param["search"]);
             }
+            if($operation == "product"){
+                $stmt->bindParam(":search", $param["search"]);
+            }
+        }
+        if(isset($param["like"])){
+            $like = '%'.$param["like"].'%';
+            $stmt->bindParam(":like", $like);
         }
 
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if(isset($operationsSQL["count"][$operation])){
-            $sql = $operationsSQL["count"][$operation];
+            $sql = $operationsSQL["count"][$operation].$outerParam;
             $countStmt = $pdo->prepare($sql);
+            if(isset($param["like"])){
+                $like = '%'.$param["like"].'%';
+                $countStmt->bindParam(":like", $like);
+            }
             $countStmt->execute();
             $countResult = $countStmt->fetch(PDO::FETCH_ASSOC)["total"];
             $result = array(

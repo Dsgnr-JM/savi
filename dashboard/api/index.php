@@ -43,6 +43,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
         }
     }
+    if($slot === "model"){
+        if($action === "insert"){
+            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
+        }
+    }
+    if($slot === "brand"){
+        if($action === "insert"){
+            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
+        }
+    }
+    if($slot === "category"){
+        if($action === "insert"){
+            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
+        }
+    }
 }
 if($_SERVER["REQUEST_METHOD"] == "GET"){
     echo getData($pdo, $slot, $_GET);

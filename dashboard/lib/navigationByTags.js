@@ -51,6 +51,7 @@ function appendScript(dependencie, isLib){
             item.remove()
         })
         const script = document.createElement("script")
+        script.type = "module"
         script.setAttribute("data-dependecies", "true")
         script.src = url + dependencie + ".js"
         document.body.appendChild(script)

@@ -238,10 +238,11 @@ $optionsTitle = array(
                         <?php foreach($data as $row):?>
                         <li>
                             <a href="">
-                                <picture id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
+                                <picture id="<?= empty($row['photo']) ? 'avatar' : ''?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
                                     <?php if(!empty($row["photo"])): ?>
                                     <img src="<?= $row["photo"] ?>" >
                                     <?php endif ?>
+                                </picture>
                                 </picture>
                                 <div class="details">
                                     <p><?= $row["name"] ?></p>
@@ -265,7 +266,7 @@ $optionsTitle = array(
                     <label>
                         <p>Nombre:</p>
                         <span>
-                            <input type="text" name="name" required placeholder="OSTEL">
+                            <input type="text" name="brand_name" required placeholder="OSTEL">
                             <i class="ri-profile-line" id="icon-form"></i>
                         </span>
                     </label>
@@ -281,6 +282,7 @@ $optionsTitle = array(
                     </div>
                 </form>
             </main>
+            <script type="module" src="./registBrand.js"></script>
         <?php endif ?>
         <?php if ($place === "model") : ?>
             <main>
@@ -290,7 +292,7 @@ $optionsTitle = array(
                     <label>
                         <p>Nombre:</p>
                         <span>
-                            <input type="text" name="name" required placeholder="X11201">
+                            <input type="text" name="model_name" required placeholder="X11201">
                             <i class="ri-profile-line" id="icon-form"></i>
                         </span>
                     </label>
@@ -305,6 +307,7 @@ $optionsTitle = array(
                     </div>
                 </form>
             </main>
+            <script type="module" src="./registModel.js"></script>
         <?php endif ?>
         <?php if ($place === "category") : ?>
             <main>
@@ -314,7 +317,7 @@ $optionsTitle = array(
                     <label>
                         <p>Nombre:</p>
                         <span>
-                            <input type="text" name="name" required placeholder="Electrodomesticos">
+                            <input type="text" name="category_name" required placeholder="Electrodomesticos">
                             <i class="ri-profile-line" id="icon-form"></i>
                         </span>
                     </label>
@@ -329,6 +332,7 @@ $optionsTitle = array(
                     </div>
                 </form>
             </main>
+            <script type="module" src="./registCategory.js"></script>
         <?php endif ?>
     </section>
 </body>

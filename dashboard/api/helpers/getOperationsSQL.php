@@ -4,9 +4,9 @@ $operationsSQL = array(
         "users" => "SELECT us.*, rl.* FROM tb_users us LEFT JOIN role rl ON us.role = rl.role",
         "user" => "SELECT us.*, rl.* FROM tb_users us LEFT JOIN role rl ON us.role = rl.role WHERE us.ci = :ci",
         "products" => "SELECT * FROM product",
+        "product" => "SELECT * FROM product WHERE name = :search OR code = :search",
         "models" => "SELECT * FROM models",
         "model" => "SELECT * FROM models WHERE model_id = :model_id",
-
         "categorys" => "SELECT * FROM category",
         "category" => "SELECT * FROM category WHERE category_id = :category_id",
         "brands" => "SELECT * FROM brad",
@@ -20,6 +20,9 @@ $operationsSQL = array(
         "products" => "SELECT COUNT(*) as total FROM product",
         "suppliers" => "SELECT COUNT(*) as total FROM supliers",
         "clients" => "SELECT COUNT(*) as total FROM client",
+    ),
+    "like" => array(
+        "products" => "WHERE code LIKE :like OR name LIKE :like"
     )
 );
 ?>

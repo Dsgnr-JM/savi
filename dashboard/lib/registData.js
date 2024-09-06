@@ -1,4 +1,4 @@
-import Bell from "../../lib/bell.js"
+import Bell from "../../lib/bell.esm.js"
 
 /**
  * 
@@ -20,13 +20,11 @@ export default async function registData(params, $form, $btn, message){
     if (data.result) {
         const bell = new Bell(
             { title: message[202].title, description: message[202].description},
-            "check",
+            "success",
             {
-                animate: true,
-                isColored: true,
-                transitionDuration: 300,
+                isColored: false,
                 position: "bottom-right",
-                typeAnimation: "fade-in",
+                typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,
             }
@@ -40,11 +38,9 @@ export default async function registData(params, $form, $btn, message){
             { title: message[data.description.errorInfo[1]].title, description: message[data.description.errorInfo[1]].description },
             "warning",
             {
-                animate: true,
-                isColored: true,
-                transitionDuration: 300,
+                isColored: false,
                 position: "bottom-right",
-                typeAnimation: "fade-in",
+                typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,
             }

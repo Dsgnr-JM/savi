@@ -235,7 +235,6 @@
         </main>
     </section>
     </div>
-    <script src="../../lib/bell.mjs"></script>
     <script src="../lib/navigationByTags.js"></script>
 </body>
 

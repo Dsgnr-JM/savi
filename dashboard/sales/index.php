@@ -9,21 +9,17 @@
 <body>
     <?php include '../ui/navbar.php' ?>
     <section>
-        <header class="description">
-            <i class="ri-shopping-basket-fill"></i>
-            <div>
-                <h1>Ventas</h1>
-                <p><i class="ri-information-fill"></i>Esta es el area de gestion ventas</p>
-            </div>
-        </header>
         <?php if(!$place): ?>
         <div class="table">
+            <h2>Productos</h2>
+            <p>Echale un vistazo al inventario de productos registrados en tu organizaciòn</p>
+                
             <button class="more btn-rounded">
                 <i class="ri-more-2-fill "></i>
             </button>
             <form id="form-search">
                 <label class="search">
-                    <button>
+                    <button id="search-products">
                         <i class="ri-search-line"></i>
                     </button>
                     <span>
@@ -123,8 +119,8 @@
                 </div>
             </form>
         </main>
-        <script src="./index.js" type="module"></script>
-        <script type="text/javascript">
+        <script type="module" src="./index.js"></script>
+        <!-- <script type="text/javascript">
             const $btnSale = document.querySelector("#sale")
             const $modal = document.querySelector(".modal")
             $modal.addEventListener("click", ({
@@ -141,7 +137,7 @@
             $btnSale.addEventListener("click", () => {
                 $btnSale.parentNode.classList.toggle("active")
             })
-        </script>
+        </script> -->
         <?php endif ?>
         <?php if($place === "correct"): ?>
         <main class="sale-message">

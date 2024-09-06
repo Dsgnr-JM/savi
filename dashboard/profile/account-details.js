@@ -1,3 +1,4 @@
+import Bell from '../../lib/bell.esm.js'
 if (true) {
     const msgResult = {
         updatePersonal:{
@@ -32,13 +33,11 @@ if (true) {
             if (data.result) {
                 const bell = new Bell(
                     { title: msgResult[action].title, description: msgResult[action].description},
-                    "check",
+                    "success",
                     {
-                        animate: true,
-                        isColored: true,
-                        transitionDuration: 300,
-                        position: "bottom-right",
-                        typeAnimation: "fade-in",
+                        isColored: false,
+                        position: "top-center",
+                        typeAnimation: "bound-2",
                         timeScreen: 8000,
                         expand: true,
                     }
@@ -50,15 +49,14 @@ if (true) {
                     { title: "Algo anda mal", description: "Hubo un error en su operacion" },
                     "warning",
                     {
-                        animate: true,
-                        isColored: true,
-                        transitionDuration: 300,
-                        position: "bottom-right",
-                        typeAnimation: "fade-in",
+                        isColored: false,
+                        position: "top-center",
+                        typeAnimation: "bound-2",
                         timeScreen: 8000,
                         expand: true,
                     }
                 );
+                bell.launch()
                 $btn.disabled = false
             }
         })

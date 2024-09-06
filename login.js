@@ -1,4 +1,4 @@
-import Bell from "./lib/bell.js"
+import Bell from "./lib/bell.esm.js"
 import validatedInput from "./lib/validatedInput.js"
 
 const $form = document.querySelector("#login");
@@ -23,13 +23,10 @@ async function login(e) {
   if (data.success) {
     const bell = new Bell(
       { title: data.message, description: "Ud sera redireccionado..." },
-      "check",
+      "success",
       {
-        animate: true,
-        isColored: true,
-        transitionDuration: 300,
-        position: "bottom-right",
-        typeAnimation: "fade-in",
+        position: "top-center",
+        typeAnimation: "bound-2",
         timeScreen: 8000,
         expand: true,
       }
@@ -41,10 +38,7 @@ async function login(e) {
       { title: "Upps ocurrio un error", description: data.message },
       "error",
       {
-        animate: true,
-        isColored: true,
-        transitionDuration: 300,
-        position: "bottom-right",
+        position: "top-center",
         typeAnimation: "fade-in",
         timeScreen: 8000,
         expand: true,
