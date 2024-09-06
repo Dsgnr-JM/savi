@@ -10,7 +10,11 @@
     $curlURL = "helpers/curlData.php";
     if(!file_exists($curlURL)) $curlURL = "../helpers/curlData.php";
     require_once $curlURL;
-
+    if(file_exists('../helpers/routeShow.php')){
+        include_once '../helpers/routeShow.php';
+    }else{
+        include_once './helpers/routeShow.php';
+    }
     $user = getCurl('slot=user&search='.$_SESSION["session"])[0];
 ?>
 
@@ -72,16 +76,16 @@
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="/SAVI/dashboard/products?place=product">Registro de producto</a>
+                        <a href="/SAVI/dashboard/products?place=product&action=regist">Registro de producto</a>
                     </li>
                     <li>
-                        <a href="/SAVI/dashboard/products?place=model">Registro de modelo</a>
+                        <a href="/SAVI/dashboard/products?place=model&action=regist">Registro de modelo</a>
                     </li>
                     <li>
-                        <a href="/SAVI/dashboard/products?place=brand">Registro de marca</a>
+                        <a href="/SAVI/dashboard/products?place=brand&action=regist">Registro de marca</a>
                     </li>
                     <li>
-                        <a href="/SAVI/dashboard/products?place=category">Registro de categoria</a>
+                        <a href="/SAVI/dashboard/products?place=category&action=regist">Registro de categoria</a>
                     </li>
                 </ol>
                 <?php if($user["manage_providers"]): ?>
@@ -178,7 +182,7 @@
 <div class="root">
     <header class="first-header">
         <div class="location">
-            hola > mundo
+            <?= getRoute() ?>
         </div>
         <main>
             <button>

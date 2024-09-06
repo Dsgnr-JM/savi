@@ -2,8 +2,8 @@
     function insertClient(PDO $pdo, array $data, array $message){
         try {
             $sql = "INSERT INTO client (dni, name, surname, phone, image, location)VALUES(:dni, :name,:surname, :phone,'',:location)";
-            $stmt = $pdo->prepare($sql);            
-            if(isset($data["image"])){
+            $stmt = $pdo->prepare($sql);          
+            if(isset($data["image"]) && !empty($data["image"]["name"])){
                 $typesImage = array(
                     "image/png" => ".png",
                     "image/jpg" => ".jpg"

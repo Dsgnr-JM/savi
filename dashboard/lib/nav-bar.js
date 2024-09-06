@@ -21,7 +21,11 @@ const [_, URL] = window.location.pathname.split("/dashboard/");
 listURLs.forEach((urlItem, i) => {
   urlItem.forEach(item =>  {
     const urlNormalize = URL.replace("/","")
-    if (item == urlNormalize) return $categories[i].classList.add("active")
+    if (item == urlNormalize) {
+      $categories[i].classList.add("active")
+      console.log($categories[i].offsetTop)
+      $navScroll.scrollTop = $categories[i].offsetTop
+    }
   })}
 );
 

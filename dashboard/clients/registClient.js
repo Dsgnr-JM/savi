@@ -1,4 +1,4 @@
-import Bell from "../../lib/bell.js"
+import Bell from "../../lib/bell.esm.js"
 import "../lib/checkInputFile.js"
 import "../../lib/showFileInput.js"
 import {appendAvatar} from "../lib/createAvatar.js"
@@ -35,13 +35,11 @@ $form.addEventListener("submit",async(e)=>{
     if (data.result) {
         const bell = new Bell(
             { title: message[202].title, description: message[202].description},
-            "check",
+            "success",
             {
-                animate: true,
-                isColored: true,
-                transitionDuration: 300,
-                position: "bottom-right",
-                typeAnimation: "fade-in",
+                isColored: false,
+                position: "top-center",
+                typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,
             }
@@ -53,11 +51,9 @@ $form.addEventListener("submit",async(e)=>{
         const bell = new Bell(
             { title: message[data.description.errorInfo[1]].title, description: message[data.description.errorInfo[1]].description},
             {
-                animate: true,
-                isColored: true,
-                transitionDuration: 300,
-                position: "bottom-right",
-                typeAnimation: "fade-in",
+                isColored: false,
+                position: "top-center",
+                typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,
             }

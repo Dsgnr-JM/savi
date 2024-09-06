@@ -15,19 +15,25 @@
         </header>
         <div>
             <button class="card">
-                <span><i class="ri-information-fill"></i></span>
-                <i class="ri-import-line"></i>
-                <h2>Importar base de datos</h2>
-            </button>
-            <button class="card">
-                <span><i class="ri-information-fill"></i></span>
                 <i class="ri-export-line"></i>
-                <h2>Exportar base de datos</h2>
+                <div>
+                    <h3>Exportar base de datos</h3>
+                    <p>Exporta una base de datos en formato <strong>sql</strong>.</p>
+                </div>
             </button>
             <button class="card">
-                <span><i class="ri-information-fill"></i></span>
+                <i class="ri-import-line"></i>
+                <div>
+                    <h3>Importar base de datos</h3>
+                    <p>Sube tu propio base de datos, y <strong>modifica</strong> los datos actuales.</p>
+                </div>
+            </button>
+            <button class="card">
                 <i class="ri-discuss-line"></i>
-                <h2>Soporte Tecnico</h2>
+                <div>
+                    <h3>Contactar soporte</h3>
+                    <p>Envia un correo de soporta al equipo de desarrollo.</p>
+                </div>
             </button>
         </div>
     </section>
