@@ -1,0 +1,92 @@
+.bg_dialog{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgb(0 0 0 /.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease-out all;
+}
+.dialog{
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    z-index: 101;
+    transform: translate(-50%,-50%);
+    padding: 25px 20px;
+    border-radius: 8px;
+    border:var(--border-lighter);
+    width: min(90%, 550px);
+    background-color: white;
+    transition: 0.2s ease-out all;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease-out all;
+}
+.dialog.active, .bg_dialog.active{
+    opacity: 1;
+    pointer-events: auto;
+}
+.dialog.active{
+    top:50%;
+}
+
+.dialog > h2{
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color:rgb(5 10 20);
+    margin-bottom: 10px;
+}
+.dialog > p{
+    line-height: 1.5;
+    color:rgb(107 114 128);
+    font-size: .9rem;
+}
+.container-buttons{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    gap:5px;
+    justify-content: end;
+}
+.container-buttons.left{
+    justify-content: start;
+}
+.container-buttons button, .container-buttons a{
+    width:fit-content;
+}
+.btn {
+    padding: 8px 12px;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    font-size: var(--font-base);
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap:5px;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    transition: .14s ease-in background;
+}
+.btn.success {
+    color: #fff;
+    background: var(--primary-color);
+}
+.btn.cancel{
+    background: transparent;
+    color: var(--primary-color);
+    transition: .05s ease-in border;
+}
+.btn.cancel:hover{
+    text-decoration: none;
+    border:2px solid var(--primary-color);
+}
+.dialog form{
+    width: 100% !important;
+    border: none !important;
+    padding: 0;
+    box-shadow: none;
+}
