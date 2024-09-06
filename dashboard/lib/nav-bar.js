@@ -47,6 +47,8 @@ $NavItems.forEach(($item, i) => {
     if(target.id === "arrowDown") {
       e.preventDefault()
       $NavOptions[i].classList.toggle("active")
+      if(!$item.nextElementSibling.classList.contains("active")) return
+      $navScroll.scrollTop = $item.offsetTop
     }
   })
 })
