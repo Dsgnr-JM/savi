@@ -3,7 +3,10 @@
 <title>Ventas - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="../../forms.css">
-
+<link rel="stylesheet" href="../../lib/dialog.css">
+<?php if($place):?>
+    <link rel="stylesheet" href="./fact.css">
+<?php endif ?>
 </head>
 
 <body>
@@ -31,6 +34,7 @@
             <table>
                 <thead>
                     <tr>
+                        <td style="width: 50px;">#</td>
                         <td>Codigo</td>
                         <td>Descripcion</td>
                         <td>Cantidad</td>
@@ -79,44 +83,38 @@
                 </div>
             </div>
         </div>
-        <main class="modal">
-            <form action="?place=correct" method="POST" class="form" id="login" style="max-width: 400px;">
-                <h3>Terminar venta al contado</h3>
-                <input type="hidden" name="login">
-                <label>
-                    <p>Cantidad recibida:</p>
+        <div class="bg_dialog"></div>
+        <main class="dialog" id="dialog">
+        <h2>Datos de venta y cliente</h2>
+            <p>Complete los datos faltantes para completar la venta.</p>
+            <form class="form" action="./sell.php" method="POST">
+            <label>
+                <p>Cliente DNI:</p>
                     <span>
-                        <i class="ri-cash-line"></i>
-                        <input type="number" name="username" id="total-recived" required placeholder="2000.0">
+                        <i class="ri-user-line"></i>
+                        <input type="text" name="client" required placeholder="31744101">
                     </span>
                 </label>
-                <p>Tipo de cliente</p>
-                <div>
-                    <label style="flex-direction: row;gap:2px;font-size: .9rem; color: #3c515a96;">
-                        <input type="radio" name="type" id="client-btn">
-                        <p style="margin: 0;">
-                            Buscar un cliente
-                        </p>
-                    </label>
-                    <label id="hidden">
-                        <span>
-                            <i class="ri-user-line"></i>
-                            <input type="search" id="search" placeholder="Vanessa">
-                        </span>
-                    </label>
-                </div>
-                <div class="prices">
-                    <ol>
-                        <li>Total: $<span id="prices-total">0</span></li>
-                        <li>Pago: $<span id="prices-payment">0</span></li>
-                        <li>Cambio: $<span id="prices-change">0</span></li>
-                    </ol>
-                </div>
-                <div class="btns">
-                    <button class="btn-primary success" id="close-sale">
-                        Terminar venta
-                    </button>
-                </div>
+            <label>
+                <p>Pago:</p>
+                <span>
+                    <i class="ri-mail-line"></i>
+                    <input type="number" name="payment" step="any" required placeholder="100.43">
+                </span>
+            </label>
+            <div class="details">
+                <p><strong>Total:</strong> <span>3$ / 106Bs</span></p>
+                <p><strong>Pago:</strong> <span>0$ / 0Bs</span></p>
+            </div>
+            <div class="container-buttons">
+                <button class="btn cancel" type="button">
+                    Cancelar
+                </button>
+                <button class="btn success" type="submit">
+                    Realizar compra
+                    <i style="font-weight:100"class="ri-money-dollar-circle-line"></i>
+                </button>
+            </div>
             </form>
         </main>
         <script type="module" src="./index.js"></script>
@@ -140,49 +138,80 @@
         </script> -->
         <?php endif ?>
         <?php if($place === "correct"): ?>
-        <main class="sale-message">
-            <i class="ri-information-fill"></i>
-            <article class="description">
-                <p>Para imprimir haga click en el boton <i class="ri-printer-fill"></i> de la esquina superior derecha.</p>
-                <p>Recomendamos usar un navegador basado en chromium y desde un ordenador.</p>
-                <p><strong>Nota:</strong> Recuerda que puedes configurar las facturas desde los ajustes del sistema</p>
-            </article>
-        </main>
-        <a href="<?= URI_PATH ."sales" ?>" class="btn primary" style="max-width: 100px;">
-            <i class="ri-arrow-left-line"></i>
-            Volver
-        </a>
+        <div class="container-buttons" style="justify-content: start;">
+            <a href="./" class="btn cancel" style="max-width: 100px;">
+                <i class="ri-arrow-left-line"></i>
+                Volver
+            </a>
+            <a href="./print.php?ref=<?= $_GET["ref"]?>" class="btn primary" style="max-width: 100px;">
+                Imprimir
+                <i class="ri-printer-line"></i>
+            </a>
+        </div>
         <div class="sale-details">
             <picture>
                 <img src="../IMG-20240306-WA0032~2.jpg" alt="logo-empresa">
             </picture>
-            <div class="text">
-                <strong>Ticket de venta #01</strong>
-                <p>martes, 13 de abril de 2024, 19:00</p>
-                <p>Lo atendio: Jota</p>
-                <p>Cliente: <strong>Vainilla</strong></p>
+            <div class="factura">
+
+                <div class="text">
+                    <strong>Nro de factura #<?= $_GET["ref"] ?></strong>
+                    <?php
+                        require_once '../helpers/curlData.php';
+                        require_once '../helpers/formatDate.php';
+                        $target = $_GET["ref"];
+                        $data = getCurl("slot=sale&search=$target")[0];
+                        $client = getCurl("slot=client&search=".$data['client'])[0];
+                        $products = getCurl("slot=sale_product&search=".$target);
+                        $total = array_reduce($products, function($carry,$item){
+                            return $carry +($item["selling_price"] * $item["amount"]);
+                        },0);
+                        $date = $data["date"];
+    
+                    ?>
+                    <p><?= formatDate($date) ?></p>
+                    <!-- <p>Lo atendio: Jota</p> -->
+                    <p>Cliente: <strong><?= $client["name"]." ".$client["surname"]?></strong></p>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Producto</td>
+                            <td>Cantidad</td>
+                            <td>Precio</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $index = 1;
+                            foreach($products as $product):
+                        ?>
+                            <tr>
+                                <td style="width: 50px;"><?= $index++ ?></td>
+                                <td><?= $product["name"]?></td>
+                                <td><?= $product["amount"]?></td>
+                                <td><?= $product["selling_price"]."$"?></td>
+                                <td><?= $product["selling_price"] * $product["amount"] ."$"?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+                <div class="total">
+                    <p><strong>Total: </strong><?= $total."$"?></p>
+                    <p><strong>Pago: </strong><?= $data["payment"]."$"?></p>
+                </div>
             </div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Otros</td>
-                        <td>3 x $ 123.00 x $ 369</td>
-                    </tr>
-                    <tr>
-                        <td>Tornillo</td>
-                        <td>2 x $ 9.00 x $ 18</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><strong>Total: $ 132.00</strong></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><strong>Su pago: $ 132.00</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </div>
+            <main class="sale-message">
+            <i class="ri-information-fill"></i>
+            <article class="description">
+                <p>Para imprimir haga click en el boton <i class="ri-printer-fill"></i> de la esquina superior izquierda.</p>
+                <p>Recomendamos usar un navegador basado en chromium y desde un ordenador.</p>
+                <p><strong>Nota:</strong> Recuerda que puedes configurar las facturas desde los ajustes del sistema</p>
+            </article>
+        </main>
         <?php endif ?>
     </section>
 </body>

@@ -8,30 +8,30 @@ function getRoute(){
         "product" => "producto",
         "regist" => "registro" ,
         "profile" => "perfil",
+        "model" => "modelo",
         "stadistics" => "estadisticas",
         "suppliers" => "provedores",
         "clients" => "clientes",
+        "correct" => "factura",
         "informs" => "informes",
         "register" => "registro",
         "sales" => "ventas",
         "brand" => "marca",
     );
     $URI = explode("/",$_SERVER["REQUEST_URI"]);
-    $URILength = count($URI);
-    $root = $URI[$URILength - 1]; 
-    $place = explode("/",explode("/dashboard/",$_SERVER["REQUEST_URI"])[1])[0];
-    $action = explode("&",explode("=", $root)[1] ?? null)[0] ?? null;
-    $param = explode("=", $root)[2] ?? null;
-    $uriTemplate = [];
-
-    if($place) $uriTemplate[0] = $place;
-    if($action) $uriTemplate[1] = $action;
-    if($param) $uriTemplate[2] = $param;
+    $root = explode("/",explode("/dashboard/",$_SERVER["REQUEST_URI"])[1])[0];
 
     echo "/";
-    for($i = 0; $i < count($uriTemplate); $i++){
-        echo " " .$routes[$uriTemplate[$i]] . " ";
-        if($i + 1 < count($uriTemplate)) echo "/";
+    $index = 0;
+    $urlTemplate = array_merge(array(
+        "root" => $root
+    ), $_GET);
+    
+    foreach($urlTemplate as $route){
+        $template = $routes[$route] ?? $route;
+        echo " ".$template." ";
+        if($index + 1 < count($urlTemplate)) echo "/";
+        $index++;
     }
 }
 

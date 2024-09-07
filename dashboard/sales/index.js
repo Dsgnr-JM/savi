@@ -1,9 +1,12 @@
 import searchEngine from "../lib/searchEngine.js"
 import getData from "../lib/getData.js"
 import Bell from "../../lib/bell.esm.js";
+import {openDialog,closeDialog} from '../../lib/dialog.js'
 
 const $inputSearch = document.querySelector("#search-product")
 const $formSearch = document.querySelector("#form-search")
+const $btnOpenSellForm = document.querySelector("#sale")
+const [$totalModal, $totalPayment] = document.querySelectorAll(".details p span")
 let sale = []
 
 $formSearch.addEventListener("submit",async e =>{
@@ -11,7 +14,6 @@ $formSearch.addEventListener("submit",async e =>{
     let value = $inputSearch.value
     if(!value) return
     let productData = await getData(`slot=product&search=${value}`)
-    console.log(productData.length)
 
     if(productData.length <= 0) {
         new Bell({
@@ -25,13 +27,21 @@ $formSearch.addEventListener("submit",async e =>{
         }).launch()
         return
     }
-    let [{name,code,selling_price}] = productData
-    const data = {name,code,selling_price,amount:1}
+    let [{name,code,selling_price,stock}] = productData
+    const data = {name,code,selling_price,amount:1,stock}
     let product = sale.find(product => product.code == data.code)
-    if(product) {product.amount++}
+    if(stock < product?.amount + 1) return
+    if(product) {
+        product.amount++
+    }
     else{
         sale.push(data)
     }
+    // const s = await fetch("./test/api.php",{
+    //     method: "POST",
+    //     body: JSON.stringify(sale)
+    // })
+    // console.log( await s.text())
     createProductsHTML()
 })
 
@@ -50,11 +60,14 @@ let totalSale = 0
 
 function createProductsHTML(){
     totalSale = Number(sale.reduce((acc,product) => product.selling_price * product.amount + acc,0)).toFixed(2)
-    $pricesTotal.textContent = totalSale
     $totalPrice.textContent = totalSale
+    $totalModal.textContent = totalSale + "$ / " + totalSale * 37 + "Bs"
     $tableProducts.innerHTML = ""
+    let index = 1;
+
     for(let product of sale){
         const $tr = document.createElement("tr");
+        const $num = document.createElement("td")
         const $code = document.createElement("td")
         const $description = document.createElement("td")
         const $amount = document.createElement("td")
@@ -70,6 +83,7 @@ function createProductsHTML(){
         const $iconDelete = document.createElement("i")
         const $iconsubtract = document.createElement("i")
 
+        $num.textContent = index++
         $code.textContent = product.code
         $description.textContent = product.name
         $amount.textContent = product.amount
@@ -79,11 +93,8 @@ function createProductsHTML(){
         $btnAdd.className = "btn-square add"
         $btnEdit.className = "btn-square edit"
         $btnDelete.className = "btn-square delete"
-        $btnsubtract.className = "btn-square subtract"
-        $btnAdd.setAttribute("data-code", product.code)
-        $btnDelete.setAttribute("data-code", product.code)
-        $btnEdit.setAttribute("data-code", product.code)
-        $btnsubtract.setAttribute("data-code", product.code)
+        $btnsubtract.className = "btn-square subtract";
+        [$btnAdd,$btnDelete,$btnEdit,$btnsubtract].forEach(i => i.dataset.code = product.code)
         $iconEdit.classList.add("ri-edit-line")
         $iconAdd.classList.add("ri-add-line")
         $iconDelete.classList.add("ri-delete-bin-6-line")
@@ -93,7 +104,7 @@ function createProductsHTML(){
         $btnsubtract.appendChild($iconsubtract)
         $btnEdit.appendChild($iconEdit)
         $actions.append($btnEdit, $btnAdd, $btnsubtract, $btnDelete)
-        $tr.append($code, $description, $amount, $price, $total, $actions)
+        $tr.append($num, $code, $description, $amount, $price, $total, $actions)
         $tableProducts.appendChild($tr)
     }
     document.querySelectorAll(".subtract").forEach(btn => btn.addEventListener("click", e =>{
@@ -123,6 +134,7 @@ function removeAmountSale(code){
 }
 function addAmountSale(code){
     const product = sale.find(productSale => productSale.code == code)
+    if(product?.stock < product?.amount + 1) return
     product.amount++
     createProductsHTML()
 }
@@ -131,12 +143,49 @@ function removeSale(code){
     sale = sale.filter(productSale => productSale.code !== product.code)
     createProductsHTML()
 }
-$totalReceived.addEventListener("input",() => {
-    if(totalSale -$totalReceived.value < 0) {
-        $totalReceived.classList.add("wrong")
-    }else{
-        $totalReceived.classList.remove("wrong")
+// $totalReceived.addEventListener("input",() => {
+//     if(totalSale -$totalReceived.value < 0) {
+//         $totalReceived.classList.add("wrong")
+//     }else{
+//         $totalReceived.classList.remove("wrong")
+//     }
+//     $pricesPayment.textContent = $totalReceived.value
+//     $pricesReturn.textContent = $totalReceived.value - totalSale
+// })
+const $dialog = document.querySelector("#dialog")
+const $payment = document.querySelector("input[name='payment']")
+const $btnSubmit = document.querySelector("form .btn.success")
+
+$payment.addEventListener("input",()=>{
+    $totalPayment.textContent = $payment.value + "$ / " + $payment.value * 37 + "Bs"
+    
+    if(Number($payment.value) > totalSale) {
+        $btnSubmit.disabled = true
+        $payment.classList.add("wrong")
+        return
     }
-    $pricesPayment.textContent = $totalReceived.value
-    $pricesReturn.textContent = $totalReceived.value - totalSale
+    $btnSubmit.disabled = false
+    $payment.classList.remove("wrong")
+})
+
+$btnOpenSellForm.addEventListener("click",()=>{
+    if(sale.length <= 0)return
+    openDialog($dialog)
+})
+
+$dialog.querySelector("form").addEventListener("submit",e=>{
+    e.preventDefault()
+    sale.forEach(item => {
+        const $inputProduct = document.createElement("input")
+        const $inputAmount = document.createElement("input")
+        $inputProduct.value = item.code
+        $inputProduct.type = "hidden"
+        $inputAmount.type = "hidden"
+        $inputAmount.value = item.amount
+        $inputProduct.name = "product[]"
+        $inputAmount.name = "amount[]"
+        
+        e.target.append($inputProduct,$inputAmount)
+    })
+    e.target.submit()
 })

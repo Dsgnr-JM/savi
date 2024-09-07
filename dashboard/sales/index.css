@@ -44,6 +44,7 @@ section{
 }
 section .sale-message{
     margin: 1.5rem 0;
+    font-size: var(--font-sm);
     display: flex;
     align-items: center;
     padding: 1.5rem;
@@ -65,18 +66,33 @@ section .sale-message{
     overflow: hidden;
 }
 .sale-details picture img{
-    width: 105%;
+    width: 110%;
+    aspect-ratio: 16/6;
     margin-left: -5px;
     object-fit: cover;
 }
 .sale-details .text{
-    margin: 2.5rem 0;
+    margin: 0 0 2rem 0;
 }
 .sale-details .text p{
-    color: #333;
-    margin: .9rem 0;
+    color: rgb(107 114 128);
+    font-size: .9rem;
+    line-height: 1.5;
 }
 .sale-details .text > strong{
-    padding: 1.5rem 0;
     display: block;
+    font-weight: 600;
+    color: rgb(17 24 39);
+    margin-bottom: 10px;
+    font-size: var(--font-xl);
+}
+.details{
+    margin-top: 20px;
+    font-size: var(--font-xl);
+    line-height: 1.5;
+    color: rgb(0 0 0 /.8);
+}
+.details strong{
+    font-weight: 600;
+    color:rgb(5 10 20);
 }

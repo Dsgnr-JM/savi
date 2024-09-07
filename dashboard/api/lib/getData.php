@@ -33,6 +33,15 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
             if($operation == "product"){
                 $stmt->bindParam(":search", $param["search"]);
             }
+            if($operation == "sale"){
+                $stmt->bindParam(":search", $param["search"]);
+            }
+            if($operation == "client"){
+                $stmt->bindParam(":search", $param["search"]);
+            }
+            if($operation == "sale_product"){
+                $stmt->bindParam(":search", $param["search"]);
+            }
         }
         if(isset($param["like"])){
             $like = '%'.$param["like"].'%';

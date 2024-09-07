@@ -467,22 +467,23 @@ table .actions {
 table .actions button.edit {
   background-color: #00a2ff1c;
   color: #107cbac9;
-  border: 2px solid rgba(16, 124, 186, 0.40)
+  border: 1px solid rgba(16, 124, 186, 0.40)
 }
 table .actions button.delete {
   background-color: rgb(255 0 0 / 11%);
   color: rgb(139 0 0 / 70%);
-  border: 2px solid rgb(139 0 0 / 30%);
+  border: 1px solid rgb(139 0 0 / 30%);
 }
 table .actions button.add {
   background-color: rgb(10 255 0 / 11%);
   color: rgb(5 139 0 / 70%);
-  border: 2px solid rgb(5 139 0 / 40%);
+  border: 1px solid rgb(5 139 0 / 40%);
 }
 
 table .actions button.subtract {
   background-color: #ff73001c;
   color: #d76d18c2;
+  border: 1px solid rgba(221, 113, 12, 0.4);
 }
 table .actions button.edit:hover {
   background-color: #00a2ff2f;
@@ -675,7 +676,10 @@ td.actions{
 
 button.primary, a.primary{
   color: #fff;
-  background: rgb(55 174 222);
+  background: var(--primary-color);
+}
+button.primary:hover, a.primary:hover{
+  background: var(--primary-color-hover);
 }
 .avatar{
   width: 35px;

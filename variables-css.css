@@ -1,6 +1,6 @@
 :root{
-    --border-lighter: 2px solid rgb(100 116 139/.3);
-    --border: 2px solid rgb(100 116 139/.4);
+    --border-lighter: 1px solid rgb(100 116 139/.3);
+    --border: 1px solid rgb(100 116 139/.4);
     --border-color: rgb(100 116 139/.4);
     --border-color-darker: rgb(100 116 139/.35);
     --border-navigation: 2px solid rgb(100 116 139/.2);
@@ -12,7 +12,7 @@
     --box-shadow-success: 0 0 0 3px rgb(215 237 246 / 75%);
     
     --form-i-color: #555;
-    --primary-color: #3b82f6;
+    --primary-color: #3ba0f6;
     --primary-color-2: #3b82f6e6;
     --primary-color-3: #3b82f64f;
     --wrong-color: #e45757;
@@ -24,6 +24,7 @@
     --text-terciary-color: rgb(17 24 39 / 89%);
     --hover-text-plus-color: rgb(70 80 95);
     --hover-list: rgb(100 116 139/.08);
+    --primary-color-hover: #2d8fe6;
     --text-plus-color: rgb(107 114 128);
 
     --focus-color: rgb(120 195 251);
