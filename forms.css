@@ -99,6 +99,14 @@ label p {
   font-weight: 500;
   color: rgb(0 0 0 / .8);
 }
+input[type="checkbox"]{
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
+}
+input[type="checkbox"]:checked{
+  box-shadow: var(--box-shadow-success);
+}
 label span, label select{
   position: relative;
   height: 37px !important;

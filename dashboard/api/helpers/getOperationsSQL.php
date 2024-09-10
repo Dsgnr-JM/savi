@@ -8,6 +8,7 @@ $operationsSQL = array(
         "product" => "SELECT * FROM product WHERE name = :search OR code = :search",
         "sale" => "SELECT * FROM sale WHERE nro_factura = :search",
         "client" => "SELECT * FROM client WHERE dni = :search",
+        "configs" => "SELECT * FROM config",
         "models" => "SELECT * FROM models",
         "model" => "SELECT * FROM models WHERE model_id = :model_id",
         "categorys" => "SELECT * FROM category",

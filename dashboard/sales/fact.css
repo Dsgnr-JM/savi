@@ -16,8 +16,8 @@ td strong{
 .total{
     width: 100%;
     text-align: left;
-    margin-top: 20px;
+    margin-top: 40px;
     line-height: 1.7;
     color:rgb(17 24 39);
-    font-size: var(--font-base-2);
+    font-size: var(--font-lg);
 }

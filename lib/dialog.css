@@ -39,7 +39,7 @@
     color:rgb(5 10 20);
     margin-bottom: 10px;
 }
-.dialog > p{
+.dialog > p {
     line-height: 1.5;
     color:rgb(107 114 128);
     font-size: .9rem;
@@ -78,7 +78,7 @@
 .btn.cancel{
     background: transparent;
     color: var(--primary-color);
-    transition: .05s ease-in border;
+    transition: .15s ease-in border;
 }
 .btn.cancel:hover{
     text-decoration: none;

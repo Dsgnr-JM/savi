@@ -116,6 +116,9 @@ body {
 .primary_navbar.short .nav_items .items h3 {
   opacity: 0;
 }
+.primary_navbar a:hover{
+  text-decoration: none;
+}
 .nav_items .items a,
 .config {
   font-size: .8rem;
@@ -155,6 +158,9 @@ body {
   font-size: 1.2rem;
   padding: .2rem;
   transition: .12s ease rotate;
+}
+.nav_items .items a div > i{
+  font-weight: 100;
 }
 .nav_items .items > ol{
   pointer-events: none;
@@ -262,6 +268,9 @@ body > div.root {
   display: grid;
   font-size: 1.1rem;
   place-content: center;
+}
+a.btn{
+  text-decoration: none;
 }
 .first-header .search {
   background-color: #f1f1f1;
@@ -536,7 +545,7 @@ body section header.description {
   box-shadow: 0 0 4px 2px rgb(100 116 139/.03);
   border-radius: 20px;
   width: fit-content;
-  margin: 0 auto;
+  margin: 20px auto 0 auto;
 }
 .items_pagination{
   --width-line: 0px;
@@ -673,13 +682,9 @@ td.actions{
   max-width: 200px;
   gap:3px;
 }
-
 button.primary, a.primary{
   color: #fff;
   background: var(--primary-color);
-}
-button.primary:hover, a.primary:hover{
-  background: var(--primary-color-hover);
 }
 .avatar{
   width: 35px;

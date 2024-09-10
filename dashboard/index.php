@@ -64,7 +64,7 @@
 
             </div>
         </header>
-        <div class="stadistics" style="width: 100%;">
+        <div class="stadistics" style="width: 100%;" height=200>
             <canvas id="Chart"></canvas>
         </div>
     </section>

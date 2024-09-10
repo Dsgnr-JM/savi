@@ -48,11 +48,15 @@ section .sale-message{
     display: flex;
     align-items: center;
     padding: 1.5rem;
+    line-height: 1.5;
     border-radius: 8px;
-    border: 2px solid rgb(55 174 222);
-    color: rgb(55 174 222);
+    color: var(--primary-color-hover);
+    background: #dce7ff;
     width: 100%;
-    gap:.5rem;
+    gap:1rem;
+}
+section .sale-message > i{
+    font-size: 22px;
 }
 .sale-details{
     width: 100%;
@@ -95,4 +99,37 @@ section .sale-message{
 .details strong{
     font-weight: 600;
     color:rgb(5 10 20);
+}
+.dialog{
+    display: flex;
+    overflow: hidden;
+    flex-wrap: nowrap;
+}
+.dialog .sell > h2, .dialog .client > h2{
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color:rgb(5 10 20);
+    margin-bottom: 10px;
+}
+.dialog .sell > p, .dialog .client > p {
+    line-height: 1.5;
+    color:rgb(107 114 128);
+    font-size: .9rem;
+}
+.dialog .client{
+    opacity: 0;
+    height: 0;
+}
+.dialog .sell, .dialog .client{
+    min-width: 100%;
+    transition: .2s ease all;
+}
+.dialog.client_show .sell{
+    margin-left: -100%;
+    opacity: 0;
+    height: 0;
+}
+.dialog.client_show .client{
+    opacity: 1;
+    height: 100%;
 }

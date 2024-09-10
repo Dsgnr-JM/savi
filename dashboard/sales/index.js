@@ -6,7 +6,8 @@ import {openDialog,closeDialog} from '../../lib/dialog.js'
 const $inputSearch = document.querySelector("#search-product")
 const $formSearch = document.querySelector("#form-search")
 const $btnOpenSellForm = document.querySelector("#sale")
-const [$totalModal, $totalPayment] = document.querySelectorAll(".details p span")
+const $showRegistClient = document.querySelector("#registClient")
+const [$totalModal, $totalIva, $totalPayment] = document.querySelectorAll(".details p span")
 let sale = []
 
 $formSearch.addEventListener("submit",async e =>{
@@ -30,7 +31,7 @@ $formSearch.addEventListener("submit",async e =>{
     let [{name,code,selling_price,stock}] = productData
     const data = {name,code,selling_price,amount:1,stock}
     let product = sale.find(product => product.code == data.code)
-    if(stock < product?.amount + 1) return
+    if(stock < product?.amount + 1 | stock < 1) return
     if(product) {
         product.amount++
     }
@@ -45,23 +46,18 @@ $formSearch.addEventListener("submit",async e =>{
     createProductsHTML()
 })
 
-const $searchClient = document.querySelector("label#hidden")
-const $clientBtn = document.querySelector("#client-btn")
-const $searchProduct = document.querySelector("#search-product")
 const $tableProducts = document.querySelector("#table-products")
 const $totalPrice = document.querySelector("#total-price")
-const $pricesTotal = document.querySelector("#prices-total")
-const $pricesPayment = document.querySelector("#prices-payment")
-const $pricesReturn = document.querySelector("#prices-change")
-const $closeSale = document.querySelector("#close-sale")
-const $totalReceived = document.querySelector("#total-recived")
 
 let totalSale = 0
 
 function createProductsHTML(){
     totalSale = Number(sale.reduce((acc,product) => product.selling_price * product.amount + acc,0)).toFixed(2)
+    let totalIva = (Number(totalSale) +(totalSale / 100 * 16)).toFixed(2);
+    console.log(totalSale )
     $totalPrice.textContent = totalSale
-    $totalModal.textContent = totalSale + "$ / " + totalSale * 37 + "Bs"
+    $totalModal.textContent = totalSale + "$ / " + totalSale * dolarPrice + "Bs"
+    $totalIva.textContent = totalIva + "$ / " +(totalIva *dolarPrice).toFixed(2) + "Bs"
     $tableProducts.innerHTML = ""
     let index = 1;
 
@@ -74,11 +70,9 @@ function createProductsHTML(){
         const $price = document.createElement("td")
         const $total = document.createElement("td")
         const $actions = document.createElement("td")
-        const $btnEdit = document.createElement("button");
         const $btnAdd = document.createElement("button");
         const $btnsubtract = document.createElement("button");
         const $btnDelete = document.createElement("button");
-        const $iconEdit = document.createElement("i")
         const $iconAdd = document.createElement("i")
         const $iconDelete = document.createElement("i")
         const $iconsubtract = document.createElement("i")
@@ -91,19 +85,16 @@ function createProductsHTML(){
         $total.textContent = "$" + Number(product.selling_price * product.amount).toFixed(2)
         $actions.classList.add("actions")
         $btnAdd.className = "btn-square add"
-        $btnEdit.className = "btn-square edit"
         $btnDelete.className = "btn-square delete"
         $btnsubtract.className = "btn-square subtract";
-        [$btnAdd,$btnDelete,$btnEdit,$btnsubtract].forEach(i => i.dataset.code = product.code)
-        $iconEdit.classList.add("ri-edit-line")
+        [$btnAdd,$btnDelete,$btnsubtract].forEach(i => i.dataset.code = product.code)
         $iconAdd.classList.add("ri-add-line")
         $iconDelete.classList.add("ri-delete-bin-6-line")
         $iconsubtract.classList.add("ri-subtract-line")
         $btnAdd.appendChild($iconAdd)
         $btnDelete.appendChild($iconDelete)
         $btnsubtract.appendChild($iconsubtract)
-        $btnEdit.appendChild($iconEdit)
-        $actions.append($btnEdit, $btnAdd, $btnsubtract, $btnDelete)
+        $actions.append($btnAdd, $btnsubtract, $btnDelete)
         $tr.append($num, $code, $description, $amount, $price, $total, $actions)
         $tableProducts.appendChild($tr)
     }
@@ -155,9 +146,11 @@ function removeSale(code){
 const $dialog = document.querySelector("#dialog")
 const $payment = document.querySelector("input[name='payment']")
 const $btnSubmit = document.querySelector("form .btn.success")
+const $prevBtn = document.querySelector("#prev")
+const dolarPrice = document.querySelector("#dolarPrice").value
 
 $payment.addEventListener("input",()=>{
-    $totalPayment.textContent = $payment.value + "$ / " + $payment.value * 37 + "Bs"
+    $totalPayment.textContent = $payment.value + "$ / " + $payment.value * dolarPrice + "Bs"
     
     if(Number($payment.value) > totalSale) {
         $btnSubmit.disabled = true
@@ -173,7 +166,7 @@ $btnOpenSellForm.addEventListener("click",()=>{
     openDialog($dialog)
 })
 
-$dialog.querySelector("form").addEventListener("submit",e=>{
+$dialog.querySelector(".sell form").addEventListener("submit",e=>{
     e.preventDefault()
     sale.forEach(item => {
         const $inputProduct = document.createElement("input")
@@ -188,4 +181,66 @@ $dialog.querySelector("form").addEventListener("submit",e=>{
         e.target.append($inputProduct,$inputAmount)
     })
     e.target.submit()
+})
+
+$showRegistClient.addEventListener("click",()=>{
+    $dialog.classList.add("client_show")
+})
+
+$prevBtn.addEventListener("click",()=>{
+    $dialog.classList.remove("client_show")
+    $showRegistClient.checked = false
+})
+
+$dialog.querySelector(".client form").addEventListener("submit",async e=>{
+    e.preventDefault()
+    console.log("e")
+    const $form = e.target
+    const formData = new FormData($form)
+    const $btn = e.submitter
+    
+    const fetching = await fetch(`../api/?slot=client&action=insert`, {
+        method: "POST",
+        body: formData,
+    });
+    const data = await fetching.json();
+    if (data.result) {
+        const bell = new Bell(
+            { title: "Cliente registrado"},
+            "success",
+            {
+                isColored: false,
+                position: "top-center",
+                typeAnimation: "bound-2",
+                timeScreen: 5000,
+                expand: true,
+                distance:{
+                    y: 10
+                }
+            }
+        );
+        bell.launch();
+        $btn.disabled = false
+        $form.reset()
+        setTimeout(() => {
+            $prevBtn.click()
+        }, 1000);
+        document.querySelector("input[name='client']").value = formData.get("dni")
+
+    } else {
+        const bell = new Bell(
+            { title: "No se pudo registrar"},
+            {
+                isColored: false,
+                position: "top-center",
+                typeAnimation: "bound-2",
+                timeScreen: 5000,
+                expand: true,
+                distance:{
+                    y: 10
+                }
+            }
+        );
+    $btn.disabled = false
+    }
 })
