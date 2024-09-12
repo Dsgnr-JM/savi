@@ -2,45 +2,18 @@ section{
     width: 100%;
     height: 100%;
 }
-.modal{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 100;
-    background: rgb(0 0 0 /.6);
-    opacity: 0;
-    transition: .2s ease-in;
+.total-details{
+    margin-top: 30px;
+    line-height: 1.5;
+    text-align: left;
+    color:var(--text-primary-color);
 }
-.modal.active{
-    opacity: 1;
-    pointer-events: auto;
+.total-details h3{
+    font-size: var(--font-xl);
+    font-weight: 600;
 }
-.modal form{
-    margin: auto;
-    margin-top: -40px;
-    transition: .2s .05s ease;
-}
-.modal.active form{
-    margin-top: 20px
-}
-.modal .prices{
-    width: 100%;
-    text-align: right;
-}
-.modal li{
-    margin: 5px 0;
-}
-.modal form .btns > button{
-    width: fit-content;
-}
-.modal .btns{
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    gap:5px;
+.total-details p{
+    font-size: var(--font-sm);
 }
 section .sale-message{
     margin: 1.5rem 0;

@@ -1,6 +1,7 @@
 import searchEngine from "../lib/searchEngine.js"
 import getData from "../lib/getData.js"
 import Bell from "../../lib/bell.esm.js";
+import '../lib/table.js'
 import {openDialog,closeDialog} from '../../lib/dialog.js'
 
 const $inputSearch = document.querySelector("#search-product")
@@ -8,7 +9,13 @@ const $formSearch = document.querySelector("#form-search")
 const $btnOpenSellForm = document.querySelector("#sale")
 const $showRegistClient = document.querySelector("#registClient")
 const [$totalModal, $totalIva, $totalPayment] = document.querySelectorAll(".details p span")
+const dolarPrice = document.querySelector("#dolarPrice").value
 let sale = []
+let conversion = true;
+
+function cleanPrice(convert, num){
+    return Number(convert ? num * dolarPrice : num).toFixed(2)
+}
 
 $formSearch.addEventListener("submit",async e =>{
     e.preventDefault()
@@ -47,20 +54,28 @@ $formSearch.addEventListener("submit",async e =>{
 })
 
 const $tableProducts = document.querySelector("#table-products")
-const $totalPrice = document.querySelector("#total-price")
+const $total_Price = document.querySelector("#total-price")
+const $total_IVA = document.querySelector("#total-iva")
+const $total_Neto = document.querySelector("#total-neto")
+const $total_Dollar = document.querySelector("#total-dollar")
+const [$mainSign, $secondSign] = document.querySelectorAll("#convertSign")
 
 let totalSale = 0
 
 function createProductsHTML(){
+    const convertSign = conversion ? "Bs" : "$"
     totalSale = Number(sale.reduce((acc,product) => product.selling_price * product.amount + acc,0)).toFixed(2)
-    let totalIva = (Number(totalSale) +(totalSale / 100 * 16)).toFixed(2);
-    console.log(totalSale )
-    $totalPrice.textContent = totalSale
-    $totalModal.textContent = totalSale + "$ / " + totalSale * dolarPrice + "Bs"
-    $totalIva.textContent = totalIva + "$ / " +(totalIva *dolarPrice).toFixed(2) + "Bs"
+    let totalIva = totalSale * .16
+    let total = Number(totalSale) + totalIva
+    $total_Price.textContent = cleanPrice(conversion,total);
+    $total_IVA.textContent = cleanPrice(conversion,totalSale * .16);
+    $total_Neto.textContent = cleanPrice(conversion,totalSale)
+    $total_Dollar.textContent = cleanPrice(!conversion,total)
+    $totalModal.textContent = `${convertSign}: ` + cleanPrice(conversion,totalSale)
+    $totalIva.textContent = `${convertSign}: ` + cleanPrice(conversion,total)
     $tableProducts.innerHTML = ""
     let index = 1;
-
+    
     for(let product of sale){
         const $tr = document.createElement("tr");
         const $num = document.createElement("td")
@@ -81,8 +96,8 @@ function createProductsHTML(){
         $code.textContent = product.code
         $description.textContent = product.name
         $amount.textContent = product.amount
-        $price.textContent = "$" + Number(product.selling_price).toFixed(2)
-        $total.textContent = "$" + Number(product.selling_price * product.amount).toFixed(2)
+        $price.textContent = cleanPrice(conversion, product.selling_price) + ` ${convertSign}`
+        $total.textContent =  cleanPrice(conversion, product.selling_price * product.amount) + ` ${convertSign}`
         $actions.classList.add("actions")
         $btnAdd.className = "btn-square add"
         $btnDelete.className = "btn-square delete"
@@ -97,16 +112,21 @@ function createProductsHTML(){
         $actions.append($btnAdd, $btnsubtract, $btnDelete)
         $tr.append($num, $code, $description, $amount, $price, $total, $actions)
         $tableProducts.appendChild($tr)
+        $btnsubtract.addEventListener("click", () =>{
+            removeAmountSale($btnsubtract.getAttribute("data-code"))
+        })
+        $btnAdd.addEventListener("click", () =>{
+            addAmountSale($btnAdd.getAttribute("data-code"))
+        })
+        $btnDelete.addEventListener("click", () =>{
+            removeSale($btnDelete.getAttribute("data-code"))
+        })
     }
-    document.querySelectorAll(".subtract").forEach(btn => btn.addEventListener("click", e =>{
-        removeAmountSale(btn.getAttribute("data-code"))
-    }))
-    document.querySelectorAll(".add").forEach(btn => btn.addEventListener("click", e =>{
-        addAmountSale(btn.getAttribute("data-code"))
-    }))
-    document.querySelectorAll(".delete").forEach(btn => btn.addEventListener("click", e =>{
-        removeSale(btn.getAttribute("data-code"))
-    }))
+    if(sale.length <= 0){
+        const $tr = document.createElement("tr")
+        $tr.classList.add("empty")
+        $tableProducts.appendChild($tr)
+    }
 }
 
 function removeAmountSale(code){
@@ -134,25 +154,25 @@ function removeSale(code){
     sale = sale.filter(productSale => productSale.code !== product.code)
     createProductsHTML()
 }
-// $totalReceived.addEventListener("input",() => {
-//     if(totalSale -$totalReceived.value < 0) {
-//         $totalReceived.classList.add("wrong")
-//     }else{
-//         $totalReceived.classList.remove("wrong")
-//     }
-//     $pricesPayment.textContent = $totalReceived.value
-//     $pricesReturn.textContent = $totalReceived.value - totalSale
-// })
 const $dialog = document.querySelector("#dialog")
 const $payment = document.querySelector("input[name='payment']")
 const $btnSubmit = document.querySelector("form .btn.success")
 const $prevBtn = document.querySelector("#prev")
-const dolarPrice = document.querySelector("#dolarPrice").value
+const $exactPrice = document.querySelector(".action")
+
+$exactPrice.addEventListener("click",e=>{
+    const convertSign = conversion ? "Bs" : "$"
+    let value = cleanPrice(conversion,Number(totalSale) + totalSale * .16)
+    $payment.value = value
+    $totalPayment.textContent = `${convertSign}: ` + value
+})
 
 $payment.addEventListener("input",()=>{
-    $totalPayment.textContent = $payment.value + "$ / " + $payment.value * dolarPrice + "Bs"
-    
-    if(Number($payment.value) > totalSale) {
+    let totalIva = totalSale * .16
+    let total = Number(totalSale) + totalIva
+    let conv = conversion ? "Bs" : "$"
+    $totalPayment.textContent = `${conv}: ` + $payment.value
+    if($payment.value > Number(cleanPrice(conversion,total))) {
         $btnSubmit.disabled = true
         $payment.classList.add("wrong")
         return
@@ -168,6 +188,7 @@ $btnOpenSellForm.addEventListener("click",()=>{
 
 $dialog.querySelector(".sell form").addEventListener("submit",e=>{
     e.preventDefault()
+    if(conversion) e.target.action = e.target.action + "?conversion=bs"
     sale.forEach(item => {
         const $inputProduct = document.createElement("input")
         const $inputAmount = document.createElement("input")
@@ -240,7 +261,19 @@ $dialog.querySelector(".client form").addEventListener("submit",async e=>{
                     y: 10
                 }
             }
-        );
+        ).launch();
     $btn.disabled = false
     }
+})
+
+const $btnChangeConversion = document.querySelector("#conversion")
+
+
+$btnChangeConversion.addEventListener("click",()=>{
+    conversion = !conversion
+    let conv = !conversion ? "Bs" : "$"
+    $btnChangeConversion.querySelector("span").textContent = conv
+    $mainSign.textContent = conversion ? "Bs" : "$"
+    $secondSign.textContent = conv
+    createProductsHTML()
 })

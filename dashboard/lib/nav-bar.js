@@ -2,6 +2,7 @@ import { $$, $ } from "./dom-selector.js";
 
 const $categories = $$("li.items");
 const $btnNav = $(".menu");
+let shortNav = localStorage.getItem("nav-bar-savi") ?? false;
 const $navBar = $(".primary_navbar");
 const $navScroll = $(".nav_items")
 const $btnScrollNav = $(".scroll")
@@ -17,6 +18,8 @@ const listURLs = [
 ];
 
 const [_, URL] = window.location.pathname.split("/dashboard/");
+
+//if(shortNav) $navBar.classList.add("short")
 
 listURLs.forEach((urlItem, i) => {
   urlItem.forEach(item =>  {
@@ -56,28 +59,3 @@ $NavItems.forEach(($item, i) => {
     }
   })
 })
-
-/* $SearchGlobal.addEventListener("input",({target}) => {
-  let time = 400
-  setTimeout(()=>{
-    if(target.value === "") {
-      $SearchResult.classList.remove("active")
-    }else{
-      $SearchResult.classList.add("active")
-    }
-    $SearchResult.querySelector("span").textContent = target.value
-    getTricks(target.value).forEach(trick => {
-      const li = document.createElement("li")
-      li.textContent = trick
-      $SearchResult.querySelector("ol").appendChild(li)
-      
-    })
-  },time,clearInterval(time))
-  document.addEventListener("keyup",()=>{
-    clearTimeout(time)
-  })
-})
-
-function getTricks(word){
-  return tricks.filter(trick => trick.match(new RegExp(word, "g")))
-} */

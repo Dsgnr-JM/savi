@@ -21,8 +21,13 @@
 
     --text-primary-color:rgb(17 24 39);
     --text-secondary-color: rgb(100 116 139);
+    --text-p: rgb(107 112 128);
     --text-terciary-color: rgb(17 24 39 / 89%);
     --hover-text-plus-color: rgb(70 80 95);
+    --text-warning: rgba(206, 106, 13, 0.8);
+    --bg-warning: rgba(228, 167, 54, 0.2);
+    --border-warning: rgba(228, 167, 54, 0.4);
+    --bg-info: rgba(27, 116, 218, 0.1);
     --hover-list: rgb(100 116 139/.08);
     --primary-color-hover: #2d8fe6;
     --text-plus-color: rgb(107 114 128);

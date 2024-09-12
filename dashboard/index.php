@@ -8,65 +8,114 @@
     <section>
         <header>
             <div class="card">
-                <span>
-                    <h2 style="color:forestgreen">
-                        $12012
-                        <span>Ingresos</span>
-                    </h2>
-                    <i class="ri-money-dollar-circle-line"></i>
-                </span>
-                <span style="background: linear-gradient(to right,rgb(0 210 131), rgb(4 255 164));">
-                    <p>% cambiado</p>
-                    <i class="ri-line-chart-line"></i>
-                </span>
-
+                <p>Ingresos</p>
+                <div class="details">
+                    <div class="gauge">
+                        <i class="ri-triangle-fill success"></i>
+                        <p>+30.6%</p>
+                    </div>
+                    <div class="details">
+                        <p>Valor(exac)</p>
+                        <h2>100.42<span>$</span></h2>
+                    </div>
+                </div>
             </div>
             <div class="card">
-                <span>
-                    <h2 style="color:coral">
-                        $12.05
-                        <span>Perdidas:</span>
-                    </h2>
-                    <i class="ri-error-warning-line"></i>
-                </span>
-                <span style="background: linear-gradient(to right,rgb(255 141 90), rgb(255 181 146))">
-                    <p>% cambiado</p>
-                    <i class="ri-line-chart-line"></i>
-                </span>
-
+                <p>Gastos</p>
+                <div class="details">
+                    <div class="gauge">
+                        <i class="ri-triangle-fill wrong rotate"></i>
+                        <p>+50.6%</p>
+                    </div>
+                    <div class="details">
+                        <p>Valor(exac)</p>
+                        <h2>10.68<span>$</span></h2>
+                    </div>
+                </div>
             </div>
             <div class="card">
-                <span>
-                    <h2 style="color:deeppink">
-                        5891
-                        <span>Ventas</span>
-                    </h2>
-                    <i class="ri-file-chart-line"></i>
-                </span>
-                <span style="background: linear-gradient(to right,rgb(255 49 103), rgb(255 127 151))">
-                    <p>% cambiado</p>
-                    <i class="ri-line-chart-line"></i>
-                </span>
-
+                <p>Clientes</p>
+                <div class="details">
+                    <div class="gauge">
+                        <i class="ri-triangle-fill success"></i>
+                        <p>+5.02%</p>
+                    </div>
+                    <div class="details">
+                        <p>Valor(exac)</p>
+                        <h2>10<span>u</span></h2>
+                    </div>
+                </div>
             </div>
             <div class="card">
-                <span>
-                    <h2 style="color:dodgerblue">
-                        1245
-                        <span>Clientes</span>
-                    </h2>
-                    <i class="ri-group-line"></i>
-                </span>
-                <span style="background: linear-gradient(to right,rgb(6 174 176), rgb(0 225 225))">
-                    <p>% cambiado</p>
-                    <i class="ri-line-chart-line"></i>
-                </span>
-
+                <p>Ventas</p>
+                <div class="details">
+                    <div class="gauge">
+                        <i class="ri-triangle-fill wrong rotate"></i>
+                        <p>-10.6%</p>
+                    </div>
+                    <div class="details">
+                        <p>Valor(exac)</p>
+                        <h2>100<span>u</span></h2>
+                    </div>
+                </div>
             </div>
         </header>
-        <div class="stadistics" style="width: 100%;" height=200>
-            <canvas id="Chart"></canvas>
+        <div class="stadistics" style="width: 100%" height=200>
+            <div class="chart">
+                <h2>Ventas por mes</h2>
+                <canvas id="Chart"></canvas>
+            </div>
+            <div class="card-details">
+                <div class="details">
+                    <h2>Ganancias</h2>
+                    <p>Promedio de ganancias entre gastos e ingresos, dicho promedio es mensual y esta disenado estadisticamente.</p>
+                </div>
+            </div>
+            <div class="actual-activity">
+                <h2>Notificaciones recientes</h2>
+                <ol>
+                    <li>
+                        <a href="">
+                        <i class="ri-alert-line"></i>
+                        <div class="details">
+                            <p>Se <span>actualizo</span> el <span>producto</span> <span>COC001</span>.</p>
+                            <p>10-10-2024</p>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <i class="ri-alert-line"></i>
+                        <div class="details">
+                            <p>Se <span>registro</span> el <span>producto</span> <span>ELE002</span>.</p>
+                            <p>09-10-2024</p>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <i class="ri-alert-line"></i>
+                        <div class="details">
+                            <p>Se <span>elimino</span> el <span>cliente</span> <span>31744101</span>.</p>
+                            <p>08-10-2024</p>
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                        <i class="ri-alert-line"></i>
+                        <div class="details">
+                            <p>Se <span>actualizo</span> el <span>precio del dolar</span> <span>40.02Bs</span>.</p>
+                            <p>08-10-2024</p>
+                        </div>
+                        </a>
+                    </li>
+                </ol>
+            </div>
         </div>
+        <!-- <div class="stadistics" style="width: 100%;" height=200>
+            <canvas id="Chart2"></canvas>
+        </div> -->
     </section>
     </div>
     <script src="lib/chart.js"></script>

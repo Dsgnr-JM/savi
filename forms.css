@@ -75,6 +75,7 @@ body > main {
 .form > p, .listed > p{
   font-size: var(--font-xs-2);
   margin: 5px 0 15px 0;
+  line-height: 1.4;
   color: var(--text-secondary-color);
 }
 form .inputs-container{
@@ -147,6 +148,14 @@ label span input,label select, span.file::before,textarea {
   padding: 0 30px;
   width: 100%;
   height: 100%;
+}
+label.checkbox{
+  flex-direction: row;
+  gap:10px;
+  align-items: center;
+}
+label.checkbox p{
+  margin: 0;
 }
 textarea{
   padding: 10px;

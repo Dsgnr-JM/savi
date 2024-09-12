@@ -16,6 +16,7 @@
         include_once './helpers/routeShow.php';
     }
     $user = getCurl('slot=user&search='.$_SESSION["session"])[0];
+    $image = $user["photo"];
 ?>
 
 
@@ -192,7 +193,7 @@
                 <i class="ri-message-line"></i>
             </button>
             <div class="options">
-                <img src="/SAVI/assets/_c7f93b51-6c46-4d20-97ef-ba29bdb56088.jpeg" alt="Imagen de perfil">
+                <img src="<?= $image ?>" alt="Imagen de perfil">
                 <p><?= $user["name"] . " " . $user["surname"] ?></p>
                 <button id="btn-profile">
                     <i class="ri-arrow-drop-down-line" id="arrowDown"></i>

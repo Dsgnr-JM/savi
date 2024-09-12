@@ -1,8 +1,8 @@
 <?php
-    require "../ui/header.php";
-    require_once '../helpers/curlData.php';
-    $place = $_GET["place"] ?? "";
-    $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
+require "../ui/header.php";
+require_once '../helpers/curlData.php';
+$place = $_GET["place"] ?? "";
+$dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
 ?>
 <title>Ventas - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
@@ -21,8 +21,11 @@
                 <h2>Productos</h2>
                 <p>Echale un vistazo al inventario de productos registrados en tu organizaciòn</p>
 
-                <button class="more btn-rounded">
-                    <i class="ri-more-2-fill "></i>
+                <button class="more btn-rounded" data-show="show">
+                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <ol>
+                        <li id="conversion">Cambiar divisa a <span>$</span></li>
+                    </ol>
                 </button>
                 <form id="form-search">
                     <label class="search">
@@ -34,8 +37,6 @@
                         </span>
                     </label>
                 </form>
-                <h2 style="display: flex;gap:3px;">Total de venta: <p style="color:#292b2d;">$<span id="total-price">0.00</span></p>
-                </h2>
                 <table>
                     <thead>
                         <tr>
@@ -49,6 +50,8 @@
                         </tr>
                     </thead>
                     <tbody id="table-products">
+                        <tr class="empty">
+                        </tr>
                         <!-- <tr>
                         <td>ELE2012</td>
                         <td>Otdos</td>
@@ -72,6 +75,12 @@
                     </tr> -->
                     </tbody>
                 </table>
+                <div class="total-details">
+                    <p>Total neto: <span id="total-neto">0.00</span></p>
+                    <p>I.V.A: <span id="total-iva">0.00</span></p>
+                    <h3>Total <span id="convertSign">Bs</span>: <span id="total-price">0.00</span></h3>
+                    <p>Total <span id="convertSign">$</span>: <span id="total-dollar">0.00</span></p>
+                </div>
             </div>
             <div class="float">
                 <button id="sale">
@@ -110,13 +119,14 @@
                             <p>Pago:</p>
                             <span>
                                 <i class="ri-mail-line"></i>
+                                <button class="badge info action" type="button">Exacto</button>
                                 <input type="number" name="payment" step="any" required placeholder="100.43">
                             </span>
                         </label>
                         <div class="details">
-                            <p><strong>Total: <span>0$ / 0Bs</span></strong></p>
-                            <p><strong>Total + IVA: <span>0$ / 0Bs</span></strong></p>
-                            <p><strong>Pago: <span>0$ / 0Bs</span></strong></p>
+                            <p><strong>Total neto <span>Bs: 0</span></strong></p>
+                            <p><strong>Total <span>Bs: 0</span></strong></p>
+                            <p><strong>Pago <span>Bs: 0</span></strong></p>
                         </div>
                         <div class="container-buttons">
                             <button class="btn cancel" type="button">
@@ -177,24 +187,6 @@
                 </div>
             </main>
             <script type="module" src="./index.js"></script>
-            <!-- <script type="text/javascript">
-            const $btnSale = document.querySelector("#sale")
-            const $modal = document.querySelector(".modal")
-            $modal.addEventListener("click", ({
-                target
-            }) => {
-                if (target.localName === "main") $modal.classList.remove("active")
-            })
-            const $optionsSale = document.querySelectorAll("#sale_options")
-            $optionsSale.forEach($option => {
-                $option.addEventListener("click", () => {
-                    $modal.classList.add("active")
-                })
-            })
-            $btnSale.addEventListener("click", () => {
-                $btnSale.parentNode.classList.toggle("active")
-            })
-        </script> -->
         <?php endif ?>
         <?php if ($place === "correct") : ?>
             <div class="container-buttons" style="justify-content: start;">
@@ -224,6 +216,8 @@
                         $total = array_reduce($products, function ($carry, $item) {
                             return $carry + ($item["selling_price"] * $item["amount"]);
                         }, 0);
+                        $convert = $_GET["conversion"] ?? null;
+                        $total = $convert == "bs" ? $total * $dolarPrice : $total;
                         $date = $data["date"];
 
                         ?>
@@ -246,19 +240,25 @@
                             $index = 1;
                             foreach ($products as $product) :
                             ?>
+                                <?php
+                                    $price = $convert ? $product["selling_price"] * $dolarPrice : $product["selling_price"];
+                                    $amountPrice = $price * $product["amount"];
+                                    $conv = $convert ? "Bs" : "$";
+                                ?>
                                 <tr>
                                     <td style="width: 50px;"><?= $index++ ?></td>
                                     <td><?= $product["name"] ?></td>
                                     <td><?= $product["amount"] ?></td>
-                                    <td><?= $product["selling_price"] . "$" ?></td>
-                                    <td><?= $product["selling_price"] * $product["amount"] . "$" ?></td>
+                                    <td><?= $price." ". $conv ?></td>
+                                    <td><?= $amountPrice." ". $conv ?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
                     </table>
                     <div class="total">
-                        <p><strong>Total: </strong><?= $total . "$ / ".$total * $dolarPrice."Bs" ?></p>
-                        <p><strong>Pago: </strong><?= $data["payment"] . "$ / ".$data["payment"] * $dolarPrice."Bs" ?></p>
+                        <p><strong>Total <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($total, 2)  ?></p>
+                        <p><strong>Total + (I.V.A) <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($total + $total*.16, 2)  ?></p>
+                        <p><strong>Pago <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($convert ? $data["payment"] * $dolarPrice : $data["payment"], 2) ?></p>
                     </div>
                 </div>
             </div>

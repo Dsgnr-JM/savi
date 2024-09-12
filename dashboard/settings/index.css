@@ -1,44 +1,95 @@
-section > main{
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 4px 4px 12px rgb(0, 0, 0 /.8);
-}
-section > main h1{ 
-    font-size: 1.6rem;
-}
-section > main h2{
-    color: #292929;
-    margin: 20px 0 5px 0;
-}
-section > main label{
+@import url("../../variables-css.css");
+
+section main{
     display: flex;
-    color: #444;
-    gap:8px;
-    margin: 15px 0;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    gap: 15px;
 }
-.buttons{
+section .profile{
+    flex:1;
+    border:var(--border-lighter);
+/*  min-width: 100%;*/
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-base);
+}
+section .profile .navigation{
+    font-size: var(--font-base);
+    margin: 30px 0;
     display: flex;
-    gap:10px;
-    align-content: center;
     justify-content: start;
-    margin-top: 40px;
+    border-bottom: var(--border-navigation);
+    --width-line: 0px;
+    --left-position-line: 0px;
+    position: relative;
 }
-.buttons button{
-    font-size: 1.1rem;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    border: 1px solid transparent;
+section .profile .navigation::before{
+    transition: .15s ease-in left, .15s ease-in width;
+    content: "";
+    bottom: -2px;
+    position: absolute;
+    width: var(--width-line);
+    left: var(--left-position-line);
+    height: 2px;
+    background-color: var(--primary-color);
 }
-.buttons button:nth-child(2){
-    background-color: rgba(0, 157, 248);
-    color: #fff;
+section .profile .navigation button{
+    padding: 10px 15px;
+    font-size: var(--font-base);
+    color: var(--text-plus-color);
+    font-weight: 500;
 }
-.buttons button:nth-child(1):hover{
-    background-color: rgba(168, 168, 168, .2);
-    border: 1px solid rgba(168, 168, 168, .6);
+section .profile .navigation button:hover{
+    color: var(--hover-text-plus-color);
 }
-.buttons button:nth-child(2):hover{
-    background-color: rgba(0, 178, 248);
+section .profile .navigation button.active{
+    color: var(--primary-color);
+}
+section .profile .activity h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary-color);
+}
+section .profile form div > p{
+  font-size: var(--font-xs-2);
+  margin: 5px 0 15px 0;
+  color: var(--text-secondary-color);
+  line-height: 1.4;
+  width: 100%;
+}
+section .permissions form div:nth-child(1){
+  max-width: 400px;
+}
+section .permissions label{
+  margin: 15px 0;
+}
+section .permissions form{
+  justify-content: start;
+  width: 100%;
+  gap:40px;
+  display: flex;
+}
+section .permissions form > div{
+  width: fit-content;
+}
+
+section .sale-message{
+  flex-wrap: nowrap;
+  margin: 1.5rem 0;
+  font-size: var(--font-sm);
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  line-height: 1.5;
+  border-radius: 8px;
+  color: var(--text-terciary-color);
+  background: #f4f4f4;
+  width: 100%;
+  gap:1rem;
+}
+section .sale-message > i{
+  font-size: 22px;
 }

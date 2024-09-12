@@ -1,55 +1,162 @@
 section header {
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 7px;
   width: 100%;
 }
 
-header .card {
-  width: 100%;
-  overflow: hidden;
-  min-width: 205px;
-  height: auto;
-  background-color: #fff;
-  color: rgb(255 255 255 /0.9);
-  border-radius: 7px;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.04);
-}
-header .card span h2 {
-  font-weight: 500;
-  display: flex;
-  flex-direction: column;
-}
-header .card span h2 span {
-  color: rgb(116, 116, 116);
-  font-size: 0.9rem;
-  font-weight: 400;
-  margin-top: 8px;
-}
-header .card > span:nth-child(odd) {
+section header .card{
+  max-width: 300px;
+  width: 25%;
   padding: 20px;
-  text-align: left;
+  border-radius: 8px;
+  border:var(--border-lighter);
+  background-color: white;
+}
+.card > p{
+  font-size: var(--font-xs-2);
+  color:var(--text-p);
+}
+.card > .details{
+  margin-top: 10px;
+}
+.card .details{
   display: flex;
-}
-header .card > span:nth-child(even) i {
-  color: rgb(255, 255, 255);
-  font-weight: 900;
-}
-header .card > span:nth-child(odd) i {
-  font-size: 2.2rem;
-  color: #3f3f3f;
-}
-header .card > span {
-  padding: 13px;
-  display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
 }
-canvas{
-  max-width: 500px;
+.card > .details{
+  padding: 0 3px;
+}
+.details .details{
+  flex-direction: column;
+  text-decoration: left;
+  line-height: 1.4;
+}
+.details .details h2{
+  font-weight: 600;
+  color:var(--text-primary-color);
+  width: 100%;
+  margin-bottom: -5px;
+}
+.details .details h2 span{
+  font-weight: 400;
+  color:var(--text-secondary-color);
+  margin-left: 3px;
+  font-size: var(--font-base);
+}
+.details .details p{
+  font-size: var(--font-xs-2);
+  color: var(--text-terciary-color);
+}
+.details .gauge{
+  text-align: center;
+}
+.details .gauge p{
+  font-size: var(--font-xs-2);
+  color:var(--text-secondary-color)
+}
+.details .gauge i{
+  font-size: 24px;
+}
+.gauge i.success{
+  color:rgb(55, 221, 55)
+}
+.gauge i.wrong{
+  color:rgb(221, 55, 55)
+}
+.rotate{
+  display: block;
+  margin-bottom: 5px;
+  transform: rotate(60deg);
+}
+.chart, .card-details{
+  width: 500px;
   aspect-ratio: 16/6;
   padding: 20px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border:var(--border-lighter);
   border-radius: 8px;
+
+}
+.chart{
+  grid-area: stadistics;
+}
+.card-details{
+  grid-area: stadistics2;
+  display: flex;
+}
+.card-details .details{
+  display: flex;
+  width: 40%;
+  background: #f3f3f3;
+  padding: 8px;
+  border-radius: 5px;
+  flex-direction: column;
+}
+.card-details .details p{
+  font-size: var(--font-xs-2);
+  color:var(--text-secondary-color);
+  line-height: 1.5;
+  
+}
+.card-details .details h2{
+  font-size: var(--font-base-2);
+  color:var(--text-primary-color);
+  margin-bottom: 7px;
+}
+.stadistics{
+  margin-top: 12px;
+  display: grid;
+  gap:12px;
+  justify-content: start;
+  grid-template-areas: 'stadistics stadistics notifications'
+                       'stadistics2 stadistics2 notifications';
+}
+.actual-activity{
+  width: 100%;
+  height: fit-content;
+  padding: 20px;
+  grid-area: notifications;
+  border: var(--border-lighter);
+  background-color: white;
+  border-radius: 8px;
+}
+.actual-activity h2, .chart h2{
+  color:var(--text-primary-color);
+  font-size: var(--font-lg);
+  margin-bottom: 10px;
+}
+.actual-activity li a{
+  text-decoration: none;
+  display: flex;
+  padding: 20px 10px;
+  align-items: center;
+  gap:15px;
+  border-bottom: var(--border-lighter);
+}
+.actual-activity li:last-child a{
+  border-bottom: none;
+}
+.actual-activity li:hover{
+  background-color: #f9f9f9;
+}
+li .details p{
+  line-height: 1.5;
+  font-size: var(--font-sm);
+  color:var(--text-terciary-color);
+}
+li .details p:last-child{
+  font-size: var(--font-xs-2);
+}
+li .details span{
+  font-weight: 600;
+}
+.actual-activity li a i{
+  font-size: 18px;
+  color:var(--text-warning);
+  background: var(--bg-warning);
+  border: 1px solid var(--border-warning);
+  padding: 5px;
+  border-radius: 100%;
 }
