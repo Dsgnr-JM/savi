@@ -25,7 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: rgb(48 57 68);
+  background: rgb(20, 26, 34);
   color: #fff;
   font-size: 0.9;
   transition: 0.12s width ease-in;
@@ -85,7 +85,7 @@ body {
   scroll-behavior: smooth;
 }
 .header .nav_items:hover::-webkit-scrollbar-thumb{
-  background-color: #768186b9;
+  background-color: #50585cb9;
 }
 .header .nav_items::-webkit-scrollbar {
   height: 100%;
@@ -148,9 +148,28 @@ body {
 .primary_navbar.short .config > i {
   display: none;
 }
-.nav_items .items > a:hover,
-.config:hover {
-  background-color: #5460677a;;
+.nav_items .items > a,
+.config{
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+.nav_items .items > a::before,
+.config::before{
+  content: "";
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  background-color: #54606728;
+  transition: .15s ease-in-out width;
+}
+.nav_items .items > a:hover::before,
+.config:hover::before{
+  border-right:5px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
 }
 .nav_items .items a i,
 .config i {
@@ -221,11 +240,11 @@ body {
   font-size: 2rem;
   color: #e9e9e9;
   margin: 5px auto 0 auto;
-  background: rgb(103 106 112 / 30%);
+  background: rgb(103 106 112 / .1);
   transition: 0.1s ease-in-out opacity;
 }
 .primary_navbar .scroll:hover {
-  background-color: rgb(103 106 112 / 40%);
+  background-color: rgb(103 106 112 / .15);
   color: #fff;
 }
 body > div.root {
@@ -549,8 +568,10 @@ table tbody .empty::before{
   padding: 4px 6px;
   color: #fff;
   font-size: 0.8rem;
+  font-weight: 400;
   border: 1px solid #fff;
   font-weight: 600;
+  height: fit-content;
   border-radius: 15px;
 }
 .badge.action{
@@ -560,14 +581,14 @@ table tbody .empty::before{
   transform: translateY(-50%);
 }
 .badge.success {
-  background: #1fff0017;
-  color: #279207d9;
-  border-color: #42a5046b;
+  background: #00ff2a17;
+  color: #07922ad9;
+  border-color: #04a52736;
 }
 .badge.warning {
   background: #ff000012;
     color: #cc0000ad;
-    border-color: #b824246b;
+    border-color: #b824242f;
 }
 .badge.info{
   background: #d1f1ff;

@@ -1,0 +1,69 @@
+section .informs{
+    padding: 35px;
+    background: white;
+    margin-top: 20px;
+    border-radius: 8px;
+    border:var(--border-lighter);
+    box-shadow:var(--box-shadow-base);
+    margin-bottom: 20px;
+}
+section > button{
+    width: fit-content !important;
+}
+.informs h2{
+    font-size: var(--font-xl);
+    color:var(--text-primary-color);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.informs > p{
+    color:var(--text-secondary-color);
+    font-size: var(--font-sm);
+    margin-bottom: 20px;
+}
+.informs-options{
+    display: flex;
+    gap:15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.card-inform{
+    padding: 20px;
+    border: var(--border-lighter);
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    width: calc(50% - 15px);
+    box-shadow: var(--box-shadow-cards);
+}
+.card-inform h3{
+    font-size: var(--font-lg);
+    font-weight: 600;
+    color:var(--text-primary-color);
+    margin-bottom: 20px;
+}
+.card-inform .details h3 i{
+    margin-right: 7px;
+    font-weight: 400;
+}
+.card-inform p{
+    font-size: var(--font-base);
+    color:var(--text-secondary-color)
+}
+.card-inform p:last-child{
+    margin-top: 20px;
+    font-size: var(--font-xs-2);
+    color:var(--text-primary-color)
+}
+.card-inform .actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.actions a{
+    font-size: var(--font-base);
+    color:var(--text-primary-color);
+    font-weight: 500;
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2024 a las 02:35:30
+-- Tiempo de generación: 12-09-2024 a las 11:36:57
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -39,7 +39,8 @@ CREATE TABLE `brad` (
 INSERT INTO `brad` (`id_brand`, `brad_name`) VALUES
 (1, 'OSTEL'),
 (2, 'FARRARY'),
-(3, 'OTROS');
+(3, 'OTROS'),
+(4, 'MEWIN');
 
 -- --------------------------------------------------------
 
@@ -60,7 +61,8 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (1, 'Electrodomesticos'),
 (2, 'COCINA'),
 (3, 'REFRIGERACION'),
-(4, 'MAS');
+(4, 'MAS'),
+(5, 'Toshiba');
 
 -- --------------------------------------------------------
 
@@ -86,15 +88,29 @@ INSERT INTO `client` (`dni`, `name`, `surname`, `phone`, `image`, `location`) VA
 ('10206100', 'Cristiano Ronaldo', 'Dos Santos', '04127217070', '', 'Portugal'),
 ('10222222', 'Jose', 'Martinez', '04127213331', '', 'Zona Alta'),
 ('10261053', 'Maria Yolanda', 'Victora', '04247714244', '', 'Bisnaca'),
+('102864231', 'Colo', 'kas', '217648721', '', ''),
+('111', 'Gojo', 'Satoru', '04125555555', '', 'Shiga'),
 ('12101901', 'Jose', 'de la Hoz', '04127214412', '', 'Colombia Cartajena'),
+('12114703', 'Gareth', 'Bale', '93317241', '', ''),
+('12114721', 'MisterS', 'Collo', '29187', '', '21987'),
 ('12242111', 'Roy Minzo', 'Crunch', '04247079092', '', 'California'),
 ('12242112', 'Roler Minz', 'Crunch', '04247079091', '', 'California'),
+('12732101', 'Mocomu', '21', '124124', '', ''),
+('12808110', 'Gojo', 'Mico', '04127211010', '', ''),
+('12871', 'Goku', 'hjjak', '41234', '', '12'),
 ('17441222', 'Jose Gregorio', 'Pausides', '04122021707', '', 'Sochi'),
+('18700100', 'Messi', 'Dos Santos', '04127211010', '', ''),
 ('18706617', 'Gavino', 'Mejia', '04127211012', '', 'Sur de Corea'),
 ('30108393', 'Yoselyn', 'Victora', '04127201010', '', 'Andres Bello'),
 ('31744100', 'Jota', 'Dev', '04247079090', '', 'CDI'),
 ('31744101', 'Jhoan Antonio', 'Mejia Victora', '04247079098', '', 'Bisnaca'),
-('73311232', 'Gaby Yoselyn', 'Mejia Victora', '04127071111', '', 'Bisnaca');
+('321879y63', 'Mister', 'Satoru', '78261', '', ''),
+('331', 'Gojo', 'Storu', '124124', '', ''),
+('3312', 'Colo', 'kmjn', '124124', '', ''),
+('73311232', 'Gaby Yoselyn', 'Mejia Victora', '04127071111', '', 'Bisnaca'),
+('9112393', 'Cris', 'Jnr', '9312101', '', ''),
+('93714255', 'Messi', 'Astro', '04212211012', '', ''),
+('987', 'Gojo', 'kmjn', '7987', '', '987');
 
 -- --------------------------------------------------------
 
@@ -120,7 +136,8 @@ INSERT INTO `client_enterprise` (`id`, `dni`, `enterprise_name`) VALUES
 (11, '12101901', 'JDOXX'),
 (12, '17441222', 'Playgrounnd'),
 (13, '73311232', 'Rollbay'),
-(14, '10206100', 'CR7');
+(14, '10206100', 'CR7'),
+(15, '12871', 'Milk');
 
 --
 -- Disparadores `client_enterprise`
@@ -143,15 +160,16 @@ DELIMITER ;
 
 CREATE TABLE `config` (
   `id` int(11) NOT NULL,
-  `dollar_price` float NOT NULL
+  `dollar_price` float NOT NULL,
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `config`
 --
 
-INSERT INTO `config` (`id`, `dollar_price`) VALUES
-(1, 37.04);
+INSERT INTO `config` (`id`, `dollar_price`, `date`) VALUES
+(1, 37, '2024-09-08');
 
 -- --------------------------------------------------------
 
@@ -171,7 +189,13 @@ CREATE TABLE `models` (
 INSERT INTO `models` (`model_id`, `model_name`) VALUES
 (1, 'PEQUEÑO'),
 (2, 'MEDIANO'),
-(3, 'OTROS');
+(3, 'OTROS'),
+(4, 'X12'),
+(5, 'FIJO'),
+(6, 'Bono'),
+(7, 'FIJO'),
+(8, 'Chimbo'),
+(9, '217712');
 
 -- --------------------------------------------------------
 
@@ -199,26 +223,28 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`code`, `name`, `photo`, `selling_price`, `purchase_price`, `category`, `models`, `brand`, `supplier`, `stock`, `stock_min`, `stock_max`) VALUES
-('COC001', 'Hornilla doble', '', 2.3, 1, 2, 2, 1, 30152112, 10, 2, 12),
-('COC002', 'Correa metalica', '', 1.2, 0.5, 2, 2, 1, 30152112, 10, 3, 12),
-('ELE001', 'Tornillo', '', 5.02, 2.05, 1, 1, 1, 31744101, 50, 20, 70),
-('ELE0011', 'Termometro analogo', '../assets/img/66ae8e0eeb996.png', 1, 0.2, 1, 1, 3, 93174101, 1, 1, 2),
-('ELE002', 'Tuerca', '', 2, 1.2, 1, 1, 1, 31744101, 20, 2, 30),
-('ELE003', 'Correa', '', 3, 2.3, 1, 2, 1, 31744101, 30, 10, 40),
-('ELE004', 'Cable Rojo', '', 2.04, 2, 1, 2, 2, 93174101, 30, 10, 60),
-('ELE005', 'Antena direccional', '', 5.23, 2.05, 1, 2, 1, 30152112, 30, 10, 50),
-('ELE006', 'Cuchilla de licuadora', '', 2.1, 1.1, 1, 1, 1, 30152112, 30, 10, 50),
-('ELE007', 'Conector punta fina', '../assets/img/66add8a626bc8', 12.2, 1, 1, 1, 1, 30152112, 5, 1, 10),
-('ELE008', 'Conector punta fina', '../assets/img/66add8d0328dd.jpeg', 12.2, 1, 1, 1, 1, 30152112, 5, 1, 10),
-('ELE009', 'Conector macho', '../assets/img/66add91aed252.png', 3.21, 2.1, 3, 2, 3, 93174101, 10, 3, 30),
-('ELE010', 'Motor de lavadora', '../assets/img/66ae88ec07c3c.png', 12, 5.5, 1, 2, 3, 30152112, 30, 10, 50),
-('ELE012', 'Termometro digital', '', 2.1, 2, 3, 1, 3, 30152112, 2, 1, 4),
-('MAS001', 'Laton de aluminio', '', 10.2, 0.5, 4, 3, 3, 30152112, 20, 1, 40),
-('MAS002', 'Arandela', '', 0.2, 0.1, 4, 1, 3, 31744101, 50, 10, 80),
-('MAS003', 'Tuerca fina', '', 0.4, 0.2, 4, 1, 3, 93174101, 70, 10, 80),
-('MAS004', 'Rosca gruesa', '../assets/img/66ae8477ef28d.jpeg', 10, 2, 1, 1, 1, 30152112, 20, 1, 30),
-('MAS005', 'Bombilla led roja', '', 2, 1.2, 4, 1, 3, 30152112, 2, 1, 5),
-('MAS007', 'Bateria de litio', '', 0.42, 0.12, 4, 1, 3, 93174101, 50, 10, 55);
+('COC001', 'Hornilla doble', '', 2.3, 1, 2, 2, 1, 30152112, 19, 2, 12),
+('COC002', 'Correa metalica', '', 1.2, 0.5, 2, 2, 1, 30152112, 19, 3, 12),
+('ELE001', 'Tornillo', '', 5.02, 2.05, 1, 1, 1, 31744101, 19, 20, 70),
+('ELE0011', 'Termometro analogo', '../assets/img/66ae8e0eeb996.png', 1, 0.2, 1, 1, 3, 93174101, 19, 1, 2),
+('ELE002', 'Tuerca', '', 2, 1.2, 1, 1, 1, 31744101, 19, 2, 30),
+('ELE003', 'Correa', '', 3, 2.3, 1, 2, 1, 31744101, 19, 10, 40),
+('ELE004', 'Cable Rojo', '', 2.04, 2, 1, 2, 2, 93174101, 19, 10, 60),
+('ELE005', 'Antena direccional', '', 5.23, 2.05, 1, 2, 1, 30152112, 19, 10, 50),
+('ELE006', 'Cuchilla de licuadora', '', 2.1, 1.1, 1, 1, 1, 30152112, 19, 10, 50),
+('ELE007', 'Conector punta fina', '../assets/img/66add8a626bc8', 12.2, 1, 1, 1, 1, 30152112, 19, 1, 10),
+('ELE008', 'Conector punta fina', '../assets/img/66add8d0328dd.jpeg', 12.2, 1, 1, 1, 1, 30152112, 19, 1, 10),
+('ELE009', 'Conector macho', '../assets/img/66add91aed252.png', 3.21, 2.1, 3, 2, 3, 93174101, 19, 3, 30),
+('ELE010', 'Motor de lavadora', '../assets/img/66ae88ec07c3c.png', 12, 5.5, 1, 2, 3, 30152112, 19, 10, 50),
+('ELE012', 'Termometro digital', '', 2.1, 2, 3, 1, 3, 30152112, 19, 1, 4),
+('ELE013', 'Mecanismo Doble', '', 30, 12, 1, 2, 3, 31744101, 19, 1, 5),
+('ELE014', 'Mancilla', '', 21, 20, 4, 4, 4, 31744101, 19, 4, 12),
+('MAS001', 'Laton de aluminio', '', 10.2, 0.5, 4, 3, 3, 30152112, 19, 1, 40),
+('MAS002', 'Arandela', '', 0.2, 0.1, 4, 1, 3, 31744101, 19, 10, 80),
+('MAS003', 'Tuerca fina', '', 0.4, 0.2, 4, 1, 3, 93174101, 19, 10, 80),
+('MAS004', 'Rosca gruesa', '../assets/img/66ae8477ef28d.jpeg', 10, 2, 1, 1, 1, 30152112, 19, 1, 30),
+('MAS005', 'Bombilla led roja', '', 2, 1.2, 4, 1, 3, 30152112, 19, 1, 5),
+('MAS007', 'Bateria de litio', '', 0.42, 0.12, 4, 1, 3, 93174101, 19, 10, 55);
 
 -- --------------------------------------------------------
 
@@ -265,7 +291,8 @@ CREATE TABLE `sale` (
 --
 
 INSERT INTO `sale` (`nro_factura`, `client`, `payment`, `date`) VALUES
-('0000212', '10261053', 100.42, '2024-07-16');
+('000001', '31744101', 2.7027, '2024-09-12'),
+('000002', '31744101', 0.1892, '2024-09-12');
 
 -- --------------------------------------------------------
 
@@ -278,6 +305,15 @@ CREATE TABLE `sale_product` (
   `product` varchar(20) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `sale_product`
+--
+
+INSERT INTO `sale_product` (`nro_factura`, `product`, `amount`) VALUES
+('000001', 'ELE001', 1),
+('000001', 'ELE002', 1),
+('000002', 'ELE002', 1);
 
 -- --------------------------------------------------------
 
@@ -326,11 +362,14 @@ CREATE TABLE `tb_users` (
 
 INSERT INTO `tb_users` (`ci`, `username`, `name`, `surname`, `phone`, `password`, `role`, `photo`) VALUES
 (122, 'admin', 'Dulmary', 'Torres', '', '123', 'administrator', ''),
+(1210112, 'mkolo', 'Mkolo', 'Muani', '97247711220', 'muani', 'seller', ''),
 (12101120, 'midudev', 'Miguel Angel', 'Duran', '04127072024', 'vmidu101', 'seller', '../assets/img/66ad53c5a86bb.png'),
 (15101055, 'dulma19', 'Dulmary', 'Torres', '04247211088', 'dulma119', 'seller', ''),
+(21744102, 'cucurella', 'Marc', 'Cucurella', '04217321010', 'j1234', 'seller', ''),
 (30108393, 'vainilla', 'Vanessa Coromoto', 'Teran', '', '1234', 'seller', ''),
 (31744100, 'jota', 'Jota', 'Dev', '', '31744101', 'seller', ''),
-(31744101, 'jotadev0', 'Jhoan Antonio', 'Mejia Mejia', '04247079098', 'jotadev0', 'administrator', '../assets/img/66ad2c431ffdc.png');
+(31744101, 'jotadev0', 'Jhoan Antonio', 'Mejia Victora', '04247079098', 'jotadev0', 'administrator', '../assets/img/66ad2c431ffdc.png'),
+(32101121, 'tato', 'Jesus', 'Dyran', '91210412889', 'tato3', 'seller', '');
 
 --
 -- Índices para tablas volcadas
@@ -425,19 +464,19 @@ ALTER TABLE `tb_users`
 -- AUTO_INCREMENT de la tabla `brad`
 --
 ALTER TABLE `brad`
-  MODIFY `id_brand` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_brand` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `client_enterprise`
 --
 ALTER TABLE `client_enterprise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `config`
@@ -449,7 +488,7 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de la tabla `models`
 --
 ALTER TABLE `models`
-  MODIFY `model_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `model_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
