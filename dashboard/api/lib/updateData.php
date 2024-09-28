@@ -2,7 +2,14 @@
 
 function updateData(PDO $pdo,String $slot,Array $data,Array $message){
     $operationsSQL = array(
-        "config" => "UPDATE config SET dollar_price = :dollar_price,date = :date WHERE id = 1"
+        "config" => "UPDATE config SET dollar_price = :dollar_price,date = :date WHERE id = 1",
+        "role" => "UPDATE role SET manage_stadistics = :manage_stadistics,manage_products = :manage_products,
+        manage_clients = :manage_clients,
+        manage_informs = :manage_informs,
+        manage_providers = :manage_providers,
+        manage_sales = :manage_sales,
+        manage_system = :manage_system,
+        manage_expenses= :manage_expenses WHERE role = :role"
     );
     if($slot == "config"){
         date_default_timezone_set("America/Caracas");
@@ -26,6 +33,8 @@ function updateData(PDO $pdo,String $slot,Array $data,Array $message){
             //     $stmt->bindParam(":photo", $file_name);
             //     continue;
             // };
+            if($key == "on") $key = true;
+            //echo $key. "---".$data[$key]."\n";
 
             $stmt->bindParam(":$key", $data[$key]);
         }
@@ -37,7 +46,7 @@ function updateData(PDO $pdo,String $slot,Array $data,Array $message){
 
         createLog($pdo,"update",$slot);
     }catch (PDOException $e) {
-        $message["description"] = $e;
+        $message["description"] = $e->getMessage();
         return json_encode($message);
     }
     return json_encode($message);

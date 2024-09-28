@@ -39,6 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo updateData($pdo,$slot,$_POST,$message);
         }
     }
+    if($slot === "role"){
+        if($action === "update"){
+            echo updateData($pdo,$slot,$_POST,$message);
+        }
+    }
     if($slot === "client"){
         if($action === "insert"){
             echo insertClient($pdo, array_merge($_POST,$_FILES), $message);

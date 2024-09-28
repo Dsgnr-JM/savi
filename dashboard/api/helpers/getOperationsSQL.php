@@ -13,6 +13,7 @@ $operationsSQL = array(
         "models" => "SELECT * FROM models",
         "logs" => "SELECT * FROM logs ORDER BY id DESC",
         "model" => "SELECT * FROM models WHERE model_id = :model_id",
+        "role" => "SELECT * FROM role WHERE role = :search",
         "categorys" => "SELECT c.category_id as id,c.category_name as name, COUNT(p.code) AS num_products FROM category c LEFT JOIN product p ON c.category_id = p.category GROUP BY c.category_id, c.category_name;",
         "category" => "SELECT * FROM category WHERE category_id = :category_id",
         "brands" => "SELECT * FROM brad",

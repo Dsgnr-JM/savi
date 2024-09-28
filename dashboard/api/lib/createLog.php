@@ -11,6 +11,9 @@ function createLog(PDO $pdo,string $action,string $slot,string $id=""){
         ),
         "config" => array(
             "update" => "Se actualizo el precio del dollar"
+        ),
+        "role" => array(
+            "update" => "Se actualizaron los roles"
         )
     );
     $message = $logTemplates[$slot][$action];

@@ -48,6 +48,9 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
             if($operation == "log"){
                 $stmt->bindParam(":user", $param["search"]);
             }
+            if($operation == "role"){
+                $stmt->bindParam(":search", $param["search"]);
+            }
         }
         if(isset($param["like"])){
             $like = '%'.$param["like"].'%';

@@ -3,11 +3,18 @@
 require_once "../helpers/curlData.php";
 
 $data = getCurl('slot=user&search=' . $_SESSION["session"])[0];
-$role = getCurl("slot=roles")[2];
+$roles = getCurl("slot=roles");
+$role =$roles[0];
 $notifications = getCurl("slot=logs");
 $notificationsLength = $notifications["length"];
 $notifications = $notifications["data"];
 $dollarPrice = getCurl('slot=configs')[0];
+
+$roleNames = array(
+    "assistant" => "Asistente",
+    "seller" => "Vendedor",
+    "administrator" => "Administrador"
+);
 
 $manage = array(
     "products" => $role["manage_products"] ? "checked" : "",
@@ -65,9 +72,10 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                                 <p>Directivas que seguira el sistema dependiendo del rol del usuario.</p>
                                 <label style="width: 300px;">
                                     <p>Rol:</p>
-                                    <select name="role">
-                                        <option value="seller">Vendedor</option>
-                                        <option value="assistant">Asistente</option>
+                                    <select id="role" name="role">
+                                        <?php foreach($roles as $role): ?>
+                                        <option value="<?=$role["role"]?>"><?=$roleNames[$role["role"]]?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </label>
                             </div>
@@ -145,12 +153,12 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                                     <input type="checkbox" name="manage_system" <?= $manage["system"] ?> id="switch">
                                 </label>
                             </div>
-                            <div class="container-buttons" style="justify-content: start;">
+                            <!-- <div class="container-buttons" style="justify-content: start;">
                                 <button class="btn cancel" type="button">
                                     Cancelar
                                 </button>
                                 <button class="btn success">Guardar <i class="ri-save-line"></i></button>
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 </template>
