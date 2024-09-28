@@ -2,8 +2,23 @@ section{
     width: 100%;
     height: 100%;
 }
+.sell{
+    display: flex;
+    flex-direction: column;
+}
 .total-details{
-    margin-top: 30px;
+    flex:1;
+    display: flex;
+    align-items: flex-end;
+}
+.total-details div{
+    margin-top: 40px;
+    width: 320px;
+    padding: 20px;
+    background-color: white;
+    border: var(--border-lighter);
+    box-shadow: var(--box-shadow-cards);
+    border-radius: 8px;
     line-height: 1.5;
     text-align: left;
     color:var(--text-primary-color);

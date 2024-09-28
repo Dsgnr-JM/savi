@@ -16,6 +16,7 @@ require_once "lib/getData.php";
 require_once "lib/updateAditional.php";
 require_once "lib/insertClient.php";
 require_once "lib/insertData.php";
+require_once 'lib/updateData.php';
 
 $action = $_GET["action"] ?? "";
 $slot = $_GET["slot"] ?? "";
@@ -31,6 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }     
         if($action === "updateAditional"){
             echo updateAditional($pdo, array_merge($_FILES, $_POST), $message);
+        }
+    }
+    if($slot === "config"){
+        if($action === "update"){
+            echo updateData($pdo,$slot,$_POST,$message);
         }
     }
     if($slot === "client"){

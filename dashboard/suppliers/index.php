@@ -24,22 +24,25 @@ $data = $data["data"];
     <?php include '../ui/navbar.php' ?>
     <section>
         <?php if (!$place) : ?>
-        <div class="table">
-        <button class="more btn-rounded">
-                    <i class="ri-more-2-fill "></i>
-                </button>
-                <h2>Proveedores</h2>
-                <p>Echale un vistazo a los proveedores de productos registrados en tu organizaciòn</p>
-                <form id="form-search">
-                    <label class="search">
-                        <button>
+        <h2>Proveedores</h2>
+        <p>Echale un vistazo a los proveedores de productos registrados en tu organizaciòn</p>
+        <div class="table-options">
+                <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+                    <label style="margin:0;">
+                            <span>
                             <i class="ri-search-line"></i>
-                        </button>
-                        <span>
-                            <input type="text" id="search" placeholder="Sotchi">
+                            <input type="text" id="search-product" placeholder="Tornillo xs">
                         </span>
                     </label>
                 </form>
+                <button class="more" data-show="show">
+                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <ol>
+                        <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                    </ol>
+                </button>
+            </div>
+            <div class="table">
             <table>
                 <thead>
                     <tr>
@@ -80,6 +83,7 @@ $data = $data["data"];
 
                 </tbody>
             </table>
+            </div>
             <div class="pagination <?= $pagination > 1 ? '': "hidden" ?>">
                     <button id="movePage">
                         <i class="ri-arrow-left-s-line"></i>
@@ -94,7 +98,6 @@ $data = $data["data"];
                     </button>
                 </div>
             </div>
-        </div>
         <script type="module" src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "register") : ?>

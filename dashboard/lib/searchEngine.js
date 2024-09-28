@@ -4,12 +4,18 @@ let interval;
 /**
  * @param {String} value
  * @param {String} slot
+ * @param {Boolean} isAll
  */
-export default function searchEngine(slot,value){
+export default function searchEngine(slot,value,isAll,filter=""){
     clearTimeout(interval)
-     interval = setTimeout(async()=>{
-        console.log(`slot=${slot}&like=${value}`)
-        const fetch = await getData(`slot=${slot}&search=${value}`)
-        console.log(fetch)
-    },1000)
+    return new Promise((res,rej)=>{
+        interval = setTimeout(async()=>{
+            //if(!value) return
+            let params = `slot=${slot}&like=${value}`
+            if(isAll) params+= `&all=true`
+            if(filter) params+= `&filter=${filter}`
+            const fetch = await getData(params)
+            res(fetch)
+        },500)
+    })
 }

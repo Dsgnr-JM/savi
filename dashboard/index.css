@@ -3,6 +3,7 @@ section header {
   justify-content: space-between;
   gap: 7px;
   width: 100%;
+  margin-top: 20px;
 }
 
 section header .card{
@@ -12,6 +13,7 @@ section header .card{
   border-radius: 8px;
   border:var(--border-lighter);
   background-color: white;
+  box-shadow: var(--box-shadow-cards);
 }
 .card > p{
   font-size: var(--font-xs-2);
@@ -77,7 +79,7 @@ section header .card{
   background-color: rgb(255, 255, 255);
   border:var(--border-lighter);
   border-radius: 8px;
-
+  box-shadow: var(--box-shadow-cards);
 }
 .chart{
   grid-area: stadistics;
@@ -121,6 +123,7 @@ section header .card{
   border: var(--border-lighter);
   background-color: white;
   border-radius: 8px;
+  box-shadow: var(--box-shadow-cards);
 }
 .actual-activity h2, .chart h2{
   color:var(--text-primary-color);

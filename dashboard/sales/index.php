@@ -3,6 +3,11 @@ require "../ui/header.php";
 require_once '../helpers/curlData.php';
 $place = $_GET["place"] ?? "";
 $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
+$categorys = getCurl("slot=categorys");
+
+$productNum = array_reduce($categorys, function ($carry, $item) {
+    return $carry + $item["num_products"];
+}, 0);
 ?>
 <title>Ventas - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
@@ -10,34 +15,35 @@ $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
 <link rel="stylesheet" href="../../lib/dialog.css">
 <?php if ($place) : ?>
     <link rel="stylesheet" href="./fact.css">
+<?php else: ?>
+    <link rel="stylesheet" href="./menu.css">
 <?php endif ?>
 </head>
 
 <body>
     <?php include '../ui/navbar.php' ?>
-    <section>
+    <section class="sell">
         <?php if (!$place) : ?>
-            <div class="table">
-                <h2>Productos</h2>
-                <p>Echale un vistazo al inventario de productos registrados en tu organizaciòn</p>
-
-                <button class="more btn-rounded" data-show="show">
-                    <i class="ri-more-2-fill" data-show="show"></i>
-                    <ol>
-                        <li id="conversion">Cambiar divisa a <span>$</span></li>
-                    </ol>
-                </button>
-                <form id="form-search">
-                    <label class="search">
-                        <button id="search-products">
+            <h2><i class="ri-shopping-basket-line"></i>Ventas</h2>
+            <p>Crea una venta a partir de los diferentes productos registrados en la empresa.</p>
+            <div class="table-options">
+                <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+                    <label style="margin:0;">
+                            <span>
                             <i class="ri-search-line"></i>
-                        </button>
-                        <span>
                             <input type="text" id="search-product" placeholder="Tornillo xs">
                         </span>
                     </label>
                 </form>
-                <table>
+                <button class="more" data-show="show">
+                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <ol>
+                        <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                    </ol>
+                </button>
+            </div>
+            <div class="table">  
+                <table class="empty">
                     <thead>
                         <tr>
                             <td style="width: 50px;">#</td>
@@ -50,7 +56,7 @@ $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
                         </tr>
                     </thead>
                     <tbody id="table-products">
-                        <tr class="empty">
+                        <tr>
                         </tr>
                         <!-- <tr>
                         <td>ELE2012</td>
@@ -75,7 +81,9 @@ $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
                     </tr> -->
                     </tbody>
                 </table>
-                <div class="total-details">
+            </div>
+            <div class="total-details">
+                <div>
                     <p>Total neto: <span id="total-neto">0.00</span></p>
                     <p>I.V.A: <span id="total-iva">0.00</span></p>
                     <h3>Total <span id="convertSign">Bs</span>: <span id="total-price">0.00</span></h3>
@@ -186,6 +194,79 @@ $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
                     </form>
                 </div>
             </main>
+            <aside>
+                <button>
+                    <i class="ri-shopping-cart-line"></i>
+                </button>
+                <h2><i class="ri-filter-3-line"></i>Clasificaciones:</h2>
+
+                <div class="classifiers">
+                    <button class="active" id="category" data-category="" data-name="">
+                        <h3>Todos</h3>
+                        <p><span><?=$productNum?></span> productos</p>
+                    </button>
+                    <?php foreach($categorys as $category): ?>
+                    <button id="category" data-name="<?=$category["name"]?>" data-category="<?=$category["id"]?>">
+                        <h3><?=$category["name"]?></h3>
+                        <p><span><?=$category["num_products"]?></span> productos</p>
+                    </button>
+                    <?php endforeach ?>
+                </div>
+                <form class="form not-ring" style="width: 100%;margin:15px 0;">
+                    <label style="margin:0;">
+                            <span>
+                            <i class="ri-search-line"></i>
+                            <input type="text" id="search-car" placeholder="Tornillo xs">
+                        </span>
+                    </label>
+                </form>
+                <div class="products">
+                    <ol id="products-list">
+                        <!-- <li>
+                            <img src="../../assets/Screenshot_20240915-211427.jpg">
+                            <h3>Tornsillo XS</h3>
+                            <div class="details">
+                                <div class="badge warning">
+                                    Mas
+                                </div>
+                                <h2>$ <span>1.2</span></h2>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="../../assets/Screenshot_20240915-211427.jpg">
+                            <h3>Mecanismo</h3>
+                            <div class="details">
+                                <div class="badge success">
+                                    Electrodomestico
+                                </div>
+                                <h2>$ <span>100</span></h2>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="../../assets/Screenshot_20240915-211427.jpg">
+                            <h3>Cuchilla maquina</h3>
+                            <div class="details">
+                                <div class="badge success">
+                                    Refrigeración
+                                </div>
+                                <h2>$ <span>100</span></h2>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="../../assets/Screenshot_20240915-211427.jpg">
+                            <h3>Cuchilla de licuadora</h3>
+                            <div class="details">
+                                <div class="badge success">
+                                    Cocina
+                                </div>
+                                <h2>$ <span>100</span></h2>
+                            </div>
+                        </li> -->
+                    </ol>
+                </div>
+            </aside>
+            <div class="bg_menu"></div>
+            <script type="module" src="./shopping-car.js"></script>
             <script type="module" src="./index.js"></script>
         <?php endif ?>
         <?php if ($place === "correct") : ?>
@@ -194,7 +275,7 @@ $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
                     <i class="ri-arrow-left-line"></i>
                     Volver
                 </a>
-                <a href="./print.php?ref=<?= $_GET["ref"] ?>" class="btn primary" style="max-width: 100px;">
+                <a href="./print/ticket.php?ref=<?=$_GET["ref"] ?>&conversion=<?= $_GET["conversion"] ?? "" ?>" class="btn primary" style="max-width: 100px;">
                     Imprimir
                     <i class="ri-printer-line"></i>
                 </a>

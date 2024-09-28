@@ -8,17 +8,11 @@ section main{
     gap: 15px;
 }
 section .profile{
-    flex:1;
-    border:var(--border-lighter);
-/*  min-width: 100%;*/
-  padding: 25px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: var(--box-shadow-base);
+  flex:1;
 }
 section .profile .navigation{
     font-size: var(--font-base);
-    margin: 30px 0;
+    margin: 10px 0 30px 0;
     display: flex;
     justify-content: start;
     border-bottom: var(--border-navigation);
@@ -53,43 +47,111 @@ section .profile .activity h3 {
   font-weight: 600;
   color: var(--text-primary-color);
 }
-section .profile form div > p{
+section .profile form > div > p{
   font-size: var(--font-xs-2);
   margin: 5px 0 15px 0;
   color: var(--text-secondary-color);
   line-height: 1.4;
   width: 100%;
 }
-section .permissions form div:nth-child(1){
-  max-width: 400px;
-}
-section .permissions label{
-  margin: 15px 0;
-}
-section .permissions form{
-  justify-content: start;
-  width: 100%;
-  gap:40px;
-  display: flex;
-}
-section .permissions form > div{
-  width: fit-content;
-}
-
-section .sale-message{
-  flex-wrap: nowrap;
-  margin: 1.5rem 0;
-  font-size: var(--font-sm);
-  display: flex;
-  align-items: center;
-  padding: 1.5rem;
-  line-height: 1.5;
-  border-radius: 8px;
-  color: var(--text-terciary-color);
-  background: #f4f4f4;
-  width: 100%;
-  gap:1rem;
-}
 section .sale-message > i{
   font-size: 22px;
+}
+.permissions h3{
+  font-size: var(--font-xl);
+  color: var(--text-primary-color);
+  margin-bottom: 5px;
+}
+.permissions > p{
+  font-size: var(--font-sm);
+  color:var(--text-secondary-color);
+  width: 70%;
+  line-height: 1.4;
+}
+.permission .details{
+  width: 80%;
+}
+.permission .details p{
+  margin-bottom: 0;
+}
+.form{
+  background: transparent !important;
+}
+.form > h3, .content > h3{
+  font-size: var(--font-xl) !important;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color:var(--text-primary-color);
+}
+.form > p, .content > p{
+  margin-bottom: 25px !important;
+  font-size: var(--font-sm) !important;
+  line-height: 1.4;
+  color:var(--text-secondary-color);
+}
+.form > div:not(.container-buttons, .alert-message){
+  padding: 20px;
+  background: white;
+  border:var(--border-lighter);
+  box-shadow: var(--box-shadow-cards);
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.permission{
+  display: flex;
+  justify-content: space-between;
+}
+.content > ol{
+  background-color: white;
+  border-radius: 8px;
+  border:var(--border-lighter);
+  box-shadow: var(--box-shadow-cards);
+}
+.content > ol li{
+  position: relative;
+  color:var(--text-primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 20px;
+  gap:20px;
+  border-bottom: var(--border-lighter);
+}
+.content > ol li:last-child{
+  border-bottom: none;
+}
+.content > ol li i{
+  display: grid;
+  font-size: 1.2rem;
+  padding: 5px;
+  height: 32px;
+  width: 32px;
+  background: rgba(245, 209, 4, 0.15);
+  border: 1px solid rgba(238, 205, 21, 0.3);
+  border-radius: 100%;
+  color:rgba(212, 126, 14, 0.95);
+}
+.content > ol li i::before{
+  margin: auto;
+}
+.content ol li p{
+  font-size: var(--font-base);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.content ol li p:last-of-type{
+  color:var(--text-secondary-color);
+  font-weight: 400;
+}
+.content ol li span{
+  font-weight: 600;
+}
+.content ol li .badge{
+  position: absolute;
+  font-weight: 500;
+  right: 0;
+  margin-right: 20px;
+  top:50%;
+  transform: translateY(-50%);
 }

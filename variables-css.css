@@ -1,11 +1,11 @@
 :root{
-    --border-lighter: 1px solid rgb(100 116 139/.3);
-    --border: 1px solid rgb(100 116 139/.4);
-    --border-color: rgb(100 116 139/.4);
-    --border-color-darker: rgb(100 116 139/.35);
+    --border-lighter: 1px solid rgb(100 116 139/.2);
+    --border: 1px solid rgb(100 116 139/.3);
+    --border-color: rgb(100 116 139/.3);
+    --border-color-darker: rgb(100 116 139/.25);
     --border-navigation: 2px solid rgb(100 116 139/.2);
 
-    --box-shadow-base: 0 5px 12px rgb(0 0 0 / 0.05);
+    --box-shadow-base: 0 5px 7px rgb(0 0 0 / 0.03);
     --box-shadow-input:1px 2px 2px rgb(233 233 233 / .3);
     --box-shadow-input-darker:1px 2px 2px rgb(233 233 233 / .5);
     --box-shadow-cards:2px 2px 3px rgb(233 233 233 / .7);

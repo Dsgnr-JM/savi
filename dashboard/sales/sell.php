@@ -10,6 +10,19 @@
             return $result;
         }
         $numFactura = createFactura($pdo);
+
+        function updateSale(PDO $pdo,string $nro_factura,string $payment){
+            $stmt = $pdo->prepare("Select sum((p.selling_price * sp.amount) + (p.selling_price * sp.amount)*.16) as total from sale_product sp join product p ON sp.product = p.code where nro_factura = :sale");
+            $stmt->bindParam(":sale",$nro_factura);
+            $stmt->execute();
+            $result = $stmt->fetch()["total"];
+            if($payment >= $result){
+                $stmt = $pdo->prepare("UPDATE sale SET status = 'complete' WHERE nro_factura = :nro_factura");
+                $stmt->bindParam(":nro_factura",$nro_factura);
+                $stmt->execute();
+            }
+
+        }
         
         function registSale(PDO $pdo, string $numFactura)
         {
@@ -27,7 +40,7 @@
 
                 date_default_timezone_set("America/Caracas");
                 $date = date("Y-m-d");
-                $stmt = $pdo->prepare("INSERT INTO sale (nro_factura,client,payment,date) VALUES(:nro_factura,:client,:payment,:date);");
+                $stmt = $pdo->prepare("INSERT INTO sale (nro_factura,client,payment,date,status) VALUES(:nro_factura,:client,:payment,:date,'pending');");
                 $stmt->bindParam(":nro_factura",$numFactura);
                 $stmt->bindParam(":client", $_POST["client"]);
                 $stmt->bindParam(":payment", $payment);
@@ -37,6 +50,7 @@
                 require_once './registSaleProduct.php';
     
                 registProducts($pdo, $numFactura);
+                updateSale($pdo,$numFactura,$payment);
                 return $conv;
     
             }catch(PDOException $e){

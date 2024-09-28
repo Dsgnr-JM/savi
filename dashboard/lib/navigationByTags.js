@@ -1,11 +1,11 @@
 const $navigationBtn = document.querySelectorAll("button[data-slot-pointed]")
 const $contentContainer = document.querySelector("#contentContainer")
 const $navigation = document.querySelector(".navigation")
-
+let dependeciesTransitive;
 let actualSlot = $navigationBtn[0].getAttribute("data-slot-pointed")
-const dependeciesTransitive = $navigationBtn[0].getAttribute("data-dependecies-transitive").split(" ")
+dependeciesTransitive = $navigationBtn[0].getAttribute("data-dependecies-transitive")?.split(" ")
 
-dependeciesTransitive.forEach(dependecie => {
+dependeciesTransitive?.forEach(dependecie => {
     appendScript(dependecie, "../lib/")
 })
 appendScript(actualSlot)
@@ -53,7 +53,13 @@ function appendScript(dependencie, isLib){
         const script = document.createElement("script")
         script.type = "module"
         script.setAttribute("data-dependecies", "true")
-        script.src = url + dependencie + ".js"
+        import(`${window.location.href + dependencie}.js`).then(module => {
+            module.default()
+        }).catch(error => {
+            console.log(error)
+        })
+        console.log(url)
+        script.src = url + dependencie + `.js?v=${Math.random()}`
         document.body.appendChild(script)
         actualDependencie = dependencie
     }

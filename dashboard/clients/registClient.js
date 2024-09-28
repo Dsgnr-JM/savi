@@ -1,8 +1,9 @@
 import Bell from "../../lib/bell.esm.js"
-import "../lib/checkInputFile.js"
+import checkInputFile from "../lib/checkInputFile.js"
 import "../../lib/showFileInput.js"
 import {appendAvatar} from "../lib/createAvatar.js"
 
+checkInputFile()
 const $list = document.querySelectorAll("#avatar")
 
 $list.forEach($td => {

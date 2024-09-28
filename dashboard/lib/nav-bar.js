@@ -8,7 +8,6 @@ const $navScroll = $(".nav_items")
 const $btnScrollNav = $(".scroll")
 const $NavItems = [...$$("#nav_items > li > a")].filter($item => $item.querySelector("#arrowDown"))
 const $NavOptions = $$("#nav_items #options")
-const tricks = ["buscar usuarios", "ver inventario","registro de productos","analisis de estadisticas","configuracion"]
 let scrollX = 1000;
 
 const listURLs = [
@@ -18,12 +17,15 @@ const listURLs = [
 ];
 
 const [_, URL] = window.location.pathname.split("/dashboard/");
+const urlNormalize = URL.replace("/","")
+
+document.querySelector(`a[data-url="${urlNormalize}"]`).classList.add("active")
+
 
 //if(shortNav) $navBar.classList.add("short")
 
 listURLs.forEach((urlItem, i) => {
   urlItem.forEach(item =>  {
-    const urlNormalize = URL.replace("/","")
     if (item == urlNormalize) {
       $categories[i].classList.add("active")
       console.log($categories[i].offsetTop)

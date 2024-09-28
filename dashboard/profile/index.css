@@ -59,7 +59,7 @@ section .profile .activity > p{
   width: 70%;
 }
 section .profile .activity > p{
-  font-size: .82rem;
+  font-size: var(--font-xs-2);
   margin: 5px 0 15px 0;
   color: var(--text-secondary-color);
 }

@@ -6,7 +6,9 @@
 <body>
     <?php require 'ui/navbar.php' ?>
     <section>
-        <header>
+        <h2 class="toLeft"><i class="ri-dashboard-line"></i>Vision general</h2>
+        <p class="toLeft">Bienvenido de nuevo <strong><?= $user["name"]." ".$user["surname"]?></strong></p>
+        <header class="toDown">
             <div class="card">
                 <p>Ingresos</p>
                 <div class="details">
@@ -61,17 +63,17 @@
             </div>
         </header>
         <div class="stadistics" style="width: 100%" height=200>
-            <div class="chart">
+            <div class="chart toDown">
                 <h2>Ventas por mes</h2>
                 <canvas id="Chart"></canvas>
             </div>
-            <div class="card-details">
+            <div class="card-details toDown">
                 <div class="details">
                     <h2>Ganancias</h2>
                     <p>Promedio de ganancias entre gastos e ingresos, dicho promedio es mensual y esta disenado estadisticamente.</p>
                 </div>
             </div>
-            <div class="actual-activity">
+            <div class="actual-activity toDown">
                 <h2>Notificaciones recientes</h2>
                 <ol>
                     <li>
@@ -118,6 +120,7 @@
         </div> -->
     </section>
     </div>
+    <?php include 'ui/animate.php' ?>
     <script src="lib/chart.js"></script>
     <script src="index.js" type="module"></script>
 </body>

@@ -8,6 +8,8 @@
     {
         return !empty($text) ? $class : "";
     }
+    $activity = getCurl("slot=log&search=".$_SESSION["session"]);
+    $countActivity = count($activity);
 
     $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_system"] + $data["manage_informs"] + $data["manage_stadistics"] + $data["manage_providers"] + $data["manage_expenses"] + $data["manage_sales"];
 
@@ -26,12 +28,14 @@
 <body>
     <?php include '../ui/navbar.php' ?>
     <section>
-        <main>
+        <h2><i class="ri-user-line"></i>Perfil</h2>
+        <p>Administracion general de tu cuenta</p>
+        <main style="margin-top:20px">
         <div class="profile">
             <h2>Cuenta y gestion de usuario</h2>
             <p>Gestiona tu informacion personal, notificacion y radea tu actividad.</p>
             <div class="navigation">
-                <button class="active" data-slot-pointed="account-details" data-need-dependencies="true" data-dependecies-transitive="checkInputFile">Detalles de la cuenta</button>
+                <button class="active" data-slot-pointed="account-details">Detalles de la cuenta</button>
                 <button data-slot-pointed="permissions">Permisos</button>
                 <button data-slot-pointed="activity" data-need-dependencies="true">Actividad</button>
             </div>
@@ -211,22 +215,17 @@
                     <h3>Actividad y rastreo</h3>
                     <p>Visualiza todo tu historial de operaciones en el sistema.</p>
                     <div class="activity-overview">
-                        <p>Vision general (9)</p>
+                        <p>Vision general <?=$countActivity?></p>
                         <ol>
+                            <?php foreach($activity as $item): ?>
                             <li>
                                 <span></span>
                                 <div>
-                                    <p>Tornillo xs vendido</p>
-                                    <p>Hecho el 2024-11-03</p>
+                                    <p><?=$item["message"]?></p>
+                                    <p>Hecho el <?=$item["date"]?></p>
                                 </div>
                             </li>
-                            <li>
-                                <span></span>
-                                <div>
-                                    <p>Tornillo xs vendido</p>
-                                    <p>Hecho el 2024-11-03</p>
-                                </div>
-                            </li>
+                            <?php endforeach ?>
                         </ol>
                     </div>
                 </div>

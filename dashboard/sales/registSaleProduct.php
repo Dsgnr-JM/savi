@@ -10,9 +10,12 @@ function registProducts(PDO $pdo, string $numFactura){
             $stmt->bindParam(":product",$products[$i]);
             $stmt->bindParam(":amount",$amounts[$i]);
             $stmt->execute();
-            $stmt = $pdo->prepare("UPDATE product SET stock = stock - :amount");
+            $stmt = $pdo->prepare("UPDATE product SET stock = stock - :amount WHERE code = :code");
             $stmt->bindParam(":amount",$amounts[$i]);
-            $stmt->execute();
+            $stmt->bindParam(":code",$products[$i]);
+            $result = $stmt->execute();
+
+            //var_dump($products[$i]);
             //$stmt = $pdo->prepare("UPDATE");
         }
         

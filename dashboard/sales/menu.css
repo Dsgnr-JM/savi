@@ -1,0 +1,195 @@
+aside{
+    font-family: 'Inter';
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -65vw;
+    width: 65vw;
+    background-color: #f9f9f9;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 -2px 8px rgb(0 0 0 /.12);
+    border:var(--border-lighter);
+    transition: .2s ease right;
+    padding: 30px;
+}
+aside h2{
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color:var(--text-primary-color);
+    margin-bottom: 20px;
+}
+aside h2 i{
+    font-weight: normal;
+    margin-right: 5px;
+}
+aside .classifiers{
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+}
+.classifiers > button, aside .products li{
+    transition: .15s ease all;
+    font-family: 'Inter';
+    background-color: white;
+    width: fit-content;
+    text-align: left;
+    padding: 12px;
+    border-radius: 8px;
+    border: var(--border-lighter);
+}
+.classifiers > button h3{
+    font-size: var(--font-base-2);
+    font-weight: 600;
+    margin-bottom: 5px;
+    color:var(--text-primary-color);
+}
+.classifiers > button p{
+    font-size: var(--font-sm);
+    line-height: 1.5;
+    color:var(--text-secondary-color);
+}
+aside:hover{
+    right: 0;
+}
+aside:hover ~ .bg_menu{
+    opacity: 1;
+    pointer-events: auto;
+}
+aside > button{
+    position: absolute;
+    background-color: var(--primary-color);
+    top: 0;
+    right: calc(100% + 1px);
+    top:17%;
+    width: 55px;
+    font-size: 1rem;
+    color:white;
+    height: 40px;
+    padding: 5px;
+    transform: translateY(-50%);
+    border-radius: 20px 0 0 20px;
+    transform: .15s ease all;
+}
+.bg_menu{
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0 0 0 / .5);
+    position: fixed;
+    pointer-events: none;
+    inset: 0;
+    z-index: 98;
+    opacity: 0;
+    transition: .2s ease opacity;
+}
+.products{
+    flex:1;
+    overflow-y: auto;
+}
+.products ol li{
+    height: fit-content;
+    width: 100%;
+    cursor: pointer;
+    transition: .2s ease all, .1s ease scale;
+}
+.products ol li:hover, .classifiers button.active, .classifiers button:hover{
+    border-color: var(--primary-color);
+    box-shadow: var(--box-shadow-success);
+}
+.products ol li:hover h2,.classifiers button.active p,.classifiers button.active h3, .products ol li:hover h3, .classifiers button:hover h3, .classifiers button:hover p{
+    color:var(--primary-color)
+}
+.products ol li:active, .classifiers button:active{
+    scale: .95;
+}
+.products ol{
+    padding: 10px 10px 10px 0;
+    display: grid;
+    overflow: hidden;
+    gap:10px;
+    grid-template-columns: calc(33% - 5px) calc(33% - 5px) calc(33% - 5px);
+}
+.products h3{
+    margin-top: 5px;
+    font-size: var(--font-base-2);
+    color:var(--text-primary-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.products img{
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover; 
+    border-radius: 5px;
+    background: #f0f0f0;
+}
+.products .details{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+}
+.details h2{
+    color:var(--text-primary-color)
+}
+.products ol li .badge{
+    font-weight: 500;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}   
+.products .badge[data-theme="0"], .products .badge[data-theme="5"] {
+    background-color: #00ffff17;
+    color:#07927ee3;
+    border-color: #049ca536;
+}
+.products .badge[data-theme="2"],.products .badge[data-theme="6"] {
+    background-color: #00ff2a17;
+    color:#07920ee3;
+    border-color: #04a51936;
+}
+.products .badge[data-theme="3"],.products .badge[data-theme="7"] {
+    background-color: #6200ff17;
+    color:#510792d6;
+    border-color: #5504a536;
+}
+.products .badge[data-theme="4"],.products .badge[data-theme="8"] {
+    background-color: #ff00dd17;
+    color:#920787d6;
+    border-color: #a5048a36;
+}
+.shopping_animate{
+    pointer-events: none;
+    position: absolute;
+    z-index: 100;
+    border-radius: 8px;
+    animation: shopping_animate .8s linear forwards;
+}
+@keyframes shopping_animate {
+    30%{
+        scale: .5;
+        top: var(--shopping-top);
+    }
+    100%{
+        opacity: 0;
+        left:20%;
+        rotate: -80deg;
+        scale: .5;
+    }
+}
+.loader{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto;
+    height: 60px;
+}
+.shopping_empty{
+    font-size: var(--font-base-2);
+    color:var(--text-secondary-color);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

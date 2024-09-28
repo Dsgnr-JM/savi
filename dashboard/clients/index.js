@@ -3,7 +3,7 @@ import {appendAvatar} from "../lib/createAvatar.js"
 import paginationTable from "../lib/paginationTable.js"
 
 
-paginationTable("clients",["dni","image","name","enterprise_name","phone","actions"])
+paginationTable("clients",["dni","image","name","enterprise_name","phone","status","actions"])
 
 const $tdTables = document.querySelectorAll("#avatar")
 

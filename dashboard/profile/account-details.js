@@ -1,15 +1,18 @@
 import Bell from '../../lib/bell.esm.js'
-if (true) {
+import checkInputFile from '../lib/checkInputFile.js'
+
+export default function () {
+    checkInputFile()
     const msgResult = {
-        updatePersonal:{
+        updatePersonal: {
             title: "Datos actualizados",
             description: "Nombre u apellido actualizado correctamente"
         },
-        updatePassword:{
+        updatePassword: {
             title: "Datos actualizados",
             description: "Contraseña cambiada correctamente"
         },
-        updateAditional:{
+        updateAditional: {
             title: "Datos actualizados",
             description: "Informacion cambiada correctamente"
         }
@@ -32,7 +35,7 @@ if (true) {
 
             if (data.result) {
                 const bell = new Bell(
-                    { title: msgResult[action].title, description: msgResult[action].description},
+                    { title: msgResult[action].title, description: msgResult[action].description },
                     "success",
                     {
                         isColored: false,
@@ -60,5 +63,5 @@ if (true) {
                 $btn.disabled = false
             }
         })
-    }) 
+    })
 }

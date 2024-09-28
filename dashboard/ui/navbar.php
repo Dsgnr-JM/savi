@@ -16,7 +16,9 @@
         include_once './helpers/routeShow.php';
     }
     $user = getCurl('slot=user&search='.$_SESSION["session"])[0];
+
     $image = $user["photo"];
+    if(!file_exists($image)) $image = str_replace("../","",$image);
 ?>
 
 
@@ -33,23 +35,23 @@
         <ol class="nav_items" id="nav_items">
             <li class="items">
                 <h3>Home</h3>
-                <a href="/SAVI/dashboard/">
+                <a href="/SAVI/dashboard/" data-url="">
                     <div>
                         <i class="ri-home-line"></i>
                         <p>Inicio</p>
                     </div>
                 </a>
-                <a href="/SAVI/dashboard/profile/">
+                <a href="/SAVI/dashboard/profile/" data-url="profile">
                     <div>
-                        <i class="ri-profile-line"></i>
+                        <i class="ri-user-line"></i>
                         <p>Perfil</p>
                     </div>
                 </a>
             </li>
-            <li class="items" data-url="analitics">
+            <li class="items">
                 <h3>Analitics</h3>
                 <?php if($user["manage_stadistics"]): ?>
-                <a href="/SAVI/dashboard/stadistics">
+                <a href="/SAVI/dashboard/stadistics" data-url="stadistics">
                     <div>
                         <i class="ri-pie-chart-line"></i>
                         <p>Estadisticas</p>
@@ -68,10 +70,10 @@
                     </li>
                 </ol>
             <?php endif ?>
-                <a href="/SAVI/dashboard/products">
+                <a href="/SAVI/dashboard/products" data-url="products">
                     <div>
-                        <i class="ri-folder-line"></i>
-                        <p>Productos</p>
+                        <i class="ri-folder-5-line"></i>
+                        <p>Inventario</p>
                     </div>
                     <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
                 </a>
@@ -90,7 +92,7 @@
                     </li>
                 </ol>
                 <?php if($user["manage_providers"]): ?>
-                <a href="/SAVI/dashboard/suppliers">
+                <a href="/SAVI/dashboard/suppliers" data-url="suppliers">
                     <div>
                         <i class="ri-caravan-line"></i>
                         <p>Provedores</p>
@@ -99,7 +101,7 @@
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="/SAVI/dashboard/suppliers?place=register">Registro</a>
+                        <a href="/SAVI/dashboard/suppliers?place=register" >Registro</a>
                     </li>
                     <li>
                         <a href="#">Consultas</a>
@@ -109,13 +111,22 @@
             </li>
             <li class="items" data-url="sales">
                 <h3>Sales</h3>
-                <a href="/SAVI/dashboard/sales">
+                <a href="/SAVI/dashboard/sales" data-url="sales">
                     <div>
                         <i class="ri-shopping-basket-line"></i>
                         <p>Ventas</p>
                     </div>
+                    <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
                 </a>
-                <a href="/SAVI/dashboard/clients">
+                <ol id="options">
+                    <li>
+                        <a href="/SAVI/dashboard/sales?place=list">Listado de ventas</a>
+                    </li>
+                    <li>
+                        <a href="/SAVI/dashboard/sales?place=pending">Ventas pendientes</a>
+                    </li>
+                </ol>
+                <a href="/SAVI/dashboard/clients" data-url="clients">
                     <div>
                         <i class="ri-group-2-line"></i>
                         <p>Clientes</p>
@@ -132,7 +143,7 @@
                 </ol>
                 <?php if($user["manage_informs"]): ?>
 
-                <a href="/SAVI/dashboard/informs">
+                <a href="/SAVI/dashboard/informs" data-url="informs">
                     <div>
                         <i class="ri-file-text-line"></i>
                         <p>Informes</p>
@@ -159,13 +170,13 @@
     </div>
     <div class="end-">
         <?php if($user["manage_system"]): ?>
-        <a href="/SAVI/dashboard/maintenace" class="config">
+        <a href="/SAVI/dashboard/maintenace" class="config" data-url="maintenace">
             <div>
                 <i class="ri-shield-check-line"></i>
                 <p>Mantenimiento</p>
             </div>
         </a>
-        <a href="/SAVI/dashboard/settings" class="config">
+        <a href="/SAVI/dashboard/settings" class="config" data-url="settings">
             <div>
                 <i class="ri-settings-4-line"></i>
                 <p>Configuracion</p>

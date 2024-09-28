@@ -72,7 +72,7 @@ body > main {
 .form.form.not-ring > p{
   margin: 5px 0 20px 0;
 }
-.form > p, .listed > p{
+.form > p,.form > div > div p, .listed > p{
   font-size: var(--font-xs-2);
   margin: 5px 0 15px 0;
   line-height: 1.4;
@@ -263,6 +263,36 @@ label.search{
 label.search span{
   padding: 0 5px;
 }
+.switch{
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  padding: 2px;
+  background-color: #f0f0f0;
+  border:var(--border-lighter);
+  border-radius: 22px;
+  box-shadow: inset 1px 1px 3px rgb(0 0 0 /.1);
+  transition: .2s ease background;
+}
+.switch.active{
+  background-color: var(--primary-color);
+}
+.switch::before{
+  content: "";
+  height: 100%;
+  width: 24px;
+  background-color: white;
+  border-radius: 22px;
+  transition: .2s ease margin-left, .2s ease background;
+}
+.switch.active::before{
+  margin-left: calc(100% - 24px);
+}
+.switch input{
+  display: none;
+}
 .form label span input[type="file"]{
   height: 100%;
   width: 100%;
@@ -390,6 +420,9 @@ main h1 {
   box-shadow: var(--box-shadow-base);
   border-radius: 7px;
   background: white;
+}
+.btn.fit{
+  width: fit-content;
 }
 .listed ol{
   margin: 20px 0 10px 0;

@@ -3,26 +3,33 @@ import getData from "../lib/getData.js"
 import Bell from "../../lib/bell.esm.js";
 import '../lib/table.js'
 import {openDialog,closeDialog} from '../../lib/dialog.js'
-
 const $inputSearch = document.querySelector("#search-product")
 const $formSearch = document.querySelector("#form-search")
 const $btnOpenSellForm = document.querySelector("#sale")
 const $showRegistClient = document.querySelector("#registClient")
 const [$totalModal, $totalIva, $totalPayment] = document.querySelectorAll(".details p span")
 const dolarPrice = document.querySelector("#dolarPrice").value
-let sale = []
+export let sale = []
 let conversion = true;
 
 function cleanPrice(convert, num){
     return Number(convert ? num * dolarPrice : num).toFixed(2)
 }
 
-$formSearch.addEventListener("submit",async e =>{
+$formSearch.addEventListener("submit",e =>{
     e.preventDefault()
     let value = $inputSearch.value
     if(!value) return
-    let productData = await getData(`slot=product&search=${value}`)
+    handleAddProduct(value)
+})
 
+/**
+ * 
+ * @param {String} value 
+ * @returns 
+ */
+export async function handleAddProduct(value){
+    let productData = await getData(`slot=product&search=${value}`)
     if(productData.length <= 0) {
         new Bell({
         title: "No se encontro el producto"
@@ -45,13 +52,9 @@ $formSearch.addEventListener("submit",async e =>{
     else{
         sale.push(data)
     }
-    // const s = await fetch("./test/api.php",{
-    //     method: "POST",
-    //     body: JSON.stringify(sale)
-    // })
-    // console.log( await s.text())
     createProductsHTML()
-})
+    return true
+}
 
 const $tableProducts = document.querySelector("#table-products")
 const $total_Price = document.querySelector("#total-price")
@@ -75,6 +78,7 @@ function createProductsHTML(){
     $totalIva.textContent = `${convertSign}: ` + cleanPrice(conversion,total)
     $tableProducts.innerHTML = ""
     let index = 1;
+    $tableProducts.parentElement.classList.remove("empty")
     
     for(let product of sale){
         const $tr = document.createElement("tr");
@@ -124,7 +128,7 @@ function createProductsHTML(){
     }
     if(sale.length <= 0){
         const $tr = document.createElement("tr")
-        $tr.classList.add("empty")
+        $tableProducts.parentElement.classList.add("empty")
         $tableProducts.appendChild($tr)
     }
 }

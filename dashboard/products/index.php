@@ -35,45 +35,49 @@ $optionsTitle = array(
     <?php include '../ui/navbar.php' ?>
     <section>
         <?php if (!$place) : ?>
-            <div class="table">
-                <button class="more btn-rounded">
-                    <i class="ri-more-2-fill "></i>
-                </button>
-                <h2>Productos</h2>
+                <h2><i class="ri-folder-5-line"></i>Productos</h2>
                 <p>Echale un vistazo al inventario de productos registrados en tu organizaciòn</p>
-                <form id="form-search">
-                    <label class="search">
-                        <button>
-                            <i class="ri-search-line"></i>
-                        </button>
-                        <span>
-                            <input type="text" id="search" placeholder="Mini correa 12">
-                        </span>
-                    </label>
-                </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Codigo</td>
-                            <td>Nombre</td>
-                            <td>Imagen</td>
-                            <td>Precio Venta</td>
-                            <td>Precio Compra</td>
-                            <td>Stock</td>
-                            <td>Acciones</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($data as $row): ?>
+                <div class="table-options">
+                    <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+                        <label style="margin:0;">
+                            <span>
+                                <i class="ri-search-line"></i>
+                                <input type="text" id="search-product" placeholder="Tornillo xs">
+                            </span>
+                        </label>
+                    </form>
+                    <button class="more" data-show="show">
+                        <i class="ri-more-2-fill" data-show="show"></i>
+                        <ol>
+                            <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                        </ol>
+                    </button>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><?= $row["code"]  ?></td>
-                                <td><?= $row["name"]  ?></td>
-                                <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
-                                    <?php if(!empty($row["photo"])): ?>
-                                        <img src="<?= $row["photo"] ?>" ></td>
-                                    <?php endif ?>
-                                <td><?= "$ ".$row["selling_price"]  ?></td>
-                                <td><?= "$ ".$row["purchase_price"] ?></td>
+                                <td>Codigo</td>
+                                <td>Nombre</td>
+                                <td>Imagen</td>
+                                <td>Precio Venta</td>
+                                <td>Precio Compra</td>
+                                <td>Stock</td>
+                                <td>Acciones</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($data as $row) : ?>
+                                <tr>
+                                    <td><?= $row["code"]  ?></td>
+                                    <td><?= $row["name"]  ?></td>
+                                    <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0, 1) ?>">
+                                        <?php if (!empty($row["photo"])) : ?>
+                                            <img src="<?= $row["photo"] ?>">
+                                    </td>
+                                <?php endif ?>
+                                <td><?= "$ " . $row["selling_price"]  ?></td>
+                                <td><?= "$ " . $row["purchase_price"] ?></td>
                                 <td><?= $row["stock"]  ?></td>
                                 <td data-code="<?= $row["code"]  ?>">
                                     <div class="actions">
@@ -85,25 +89,25 @@ $optionsTitle = array(
                                         </button>
                                     </div>
                                 </td>
-                            </tr>
-                            
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
-                <div class="pagination <?= $pagination > 1 ? '': "hidden" ?>">
+                                </tr>
+    
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination <?= $pagination > 1 ? '' : "hidden" ?>">
                     <button id="movePage">
                         <i class="ri-arrow-left-s-line"></i>
                     </button>
                     <div class="items_pagination">
-                        <?php for($i = 1; $i <= $pagination;$i++): ?>
-                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?=$i?></button>
-                        <?php endfor ?> 
+                        <?php for ($i = 1; $i <= $pagination; $i++) : ?>
+                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?= $i ?></button>
+                        <?php endfor ?>
                     </div>
                     <button id="movePage">
                         <i class="ri-arrow-right-s-line"></i>
                     </button>
                 </div>
-            </div>
             <script type="module" src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "product") : ?>
@@ -138,7 +142,7 @@ $optionsTitle = array(
                         <label>
                             <p>Modelo:</p>
                             <select name="models">
-                                
+
                                 <?php foreach ($models as $result) : ?>
                                     <option value="<?= $result['model_id'] ?>"><?= $result['model_name'] ?></option>
                                 <?php endforeach ?>
@@ -148,7 +152,7 @@ $optionsTitle = array(
                             <p>Marca:</p>
                             <span>
                                 <select name="brand">
-                                    
+
                                     <?php foreach ($brands as $result) : ?>
                                         <option value="<?= $result['id_brand'] ?>"><?= $result['brad_name'] ?></option>
                                     <?php endforeach ?>
@@ -160,13 +164,13 @@ $optionsTitle = array(
                     <label>
                         <p>Proveedor:</p>
                         <span>
-                                <select name="supplier">
-                                   
-                                    <?php foreach ($suppliers as $result) : ?>
-                                        <option value="<?= $result['rif'] ?>"><?= $result['name'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </span>
+                            <select name="supplier">
+
+                                <?php foreach ($suppliers as $result) : ?>
+                                    <option value="<?= $result['rif'] ?>"><?= $result['name'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </span>
                     </label>
                     <div class="line-space"></div>
                     <div class="inputs-container">
@@ -231,26 +235,26 @@ $optionsTitle = array(
                     </div>
                 </form>
                 <div class="listed">
-                <h2>Listado de productos</h2>
+                    <h2>Listado de productos</h2>
                     <p>Productos que se encuentran en el sistema.</p>
                     <ol>
-                        <?php $data = array_slice($data,0,5)?>
-                        <?php foreach($data as $row):?>
-                        <li>
-                            <a href="">
-                                <picture id="<?= empty($row['photo']) ? 'avatar' : ''?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
-                                    <?php if(!empty($row["photo"])): ?>
-                                    <img src="<?= $row["photo"] ?>" >
-                                    <?php endif ?>
-                                </picture>
-                                </picture>
-                                <div class="details">
-                                    <p><?= $row["name"] ?></p>
-                                    <p><?= $row["code"] ?></p>
-                                </div>
-                                <i class="ri-arrow-right-line"></i>
-                            </a>
-                        </li>
+                        <?php $data = array_slice($data, 0, 5) ?>
+                        <?php foreach ($data as $row) : ?>
+                            <li>
+                                <a href="">
+                                    <picture id="<?= empty($row['photo']) ? 'avatar' : '' ?>" data-avatar="<?= substr($row["name"], 0, 1) ?>">
+                                        <?php if (!empty($row["photo"])) : ?>
+                                            <img src="<?= $row["photo"] ?>">
+                                        <?php endif ?>
+                                    </picture>
+                                    </picture>
+                                    <div class="details">
+                                        <p><?= $row["name"] ?></p>
+                                        <p><?= $row["code"] ?></p>
+                                    </div>
+                                    <i class="ri-arrow-right-line"></i>
+                                </a>
+                            </li>
                         <?php endforeach ?>
                     </ol>
                     <a href="./" class="btn cancel"> Ver mas </a>
