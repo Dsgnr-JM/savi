@@ -5,6 +5,7 @@ $operationsSQL = array(
         "user" => "SELECT us.*, rl.* FROM tb_users us LEFT JOIN role rl ON us.role = rl.role WHERE us.ci = :ci",
         "products" => "SELECT p.code,p.name,p.photo,p.purchase_price,p.selling_price,p.stock,p.stock_max,p.stock_min,p.supplier,c.category_name as category, b.brad_name as brand FROM product p JOIN category c ON p.category = c.category_id JOIN brad b ON b.id_brand = p.brand",
         "sale_product" => "SELECT p.*, sp.nro_factura,sp.amount FROM sale_product sp JOIN product p ON sp.product = p.code WHERE nro_factura = :search",
+        "sales" => "SELECT s.nro_factura,s.client, s.status,s.payment,s.date, CASE WHEN s.status = 'complete' THEN s.payment ELSE SUM(p.selling_price * sp.amount) * 1.16 END AS total FROM sale s JOIN sale_product sp ON s.nro_factura = sp.nro_factura JOIN product p ON sp.product = p.code GROUP BY s.client, s.status,s.nro_factura,s.payment",
         "product" => "SELECT * FROM product WHERE name = :search OR code = :search",
         "sale" => "SELECT * FROM sale WHERE nro_factura = :search",
         "client" => "SELECT * FROM client WHERE dni = :search",
@@ -30,6 +31,7 @@ $operationsSQL = array(
         "logs" => "SELECT COUNT(*) as total FROM logs",
         "suppliers" => "SELECT COUNT(*) as total FROM supliers",
         "clients" => "SELECT COUNT(*) as total FROM client",
+        "sales" => "SELECT COUNT(*) as total FROM sale"
     ),
     "like" => array(
         "products" => "WHERE (code LIKE :like OR name LIKE :like OR c.category_name LIKE :like OR selling_price LIKE :like)",
