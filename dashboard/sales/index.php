@@ -1,9 +1,15 @@
 <?php
 require "../ui/header.php";
 require_once '../helpers/curlData.php';
+require '../helpers/NameTranslator.php';
 $place = $_GET["place"] ?? "";
 $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
 $categorys = getCurl("slot=categorys");
+$data;
+
+if ($place === "list") {
+    ["data" => $data,"length" => $pagination] = getCurl("slot=sales");
+}
 
 $productNum = array_reduce($categorys, function ($carry, $item) {
     return $carry + $item["num_products"];
@@ -15,7 +21,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
 <link rel="stylesheet" href="../../lib/dialog.css">
 <?php if ($place) : ?>
     <link rel="stylesheet" href="./fact.css">
-<?php else: ?>
+<?php else : ?>
     <link rel="stylesheet" href="./menu.css">
 <?php endif ?>
 </head>
@@ -29,7 +35,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
             <div class="table-options">
                 <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
                     <label style="margin:0;">
-                            <span>
+                        <span>
                             <i class="ri-search-line"></i>
                             <input type="text" id="search-product" placeholder="Tornillo xs">
                         </span>
@@ -42,7 +48,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     </ol>
                 </button>
             </div>
-            <div class="table">  
+            <div class="table">
                 <table class="empty">
                     <thead>
                         <tr>
@@ -203,18 +209,18 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                 <div class="classifiers">
                     <button class="active" id="category" data-category="" data-name="">
                         <h3>Todos</h3>
-                        <p><span><?=$productNum?></span> productos</p>
+                        <p><span><?= $productNum ?></span> productos</p>
                     </button>
-                    <?php foreach($categorys as $category): ?>
-                    <button id="category" data-name="<?=$category["name"]?>" data-category="<?=$category["id"]?>">
-                        <h3><?=$category["name"]?></h3>
-                        <p><span><?=$category["num_products"]?></span> productos</p>
-                    </button>
+                    <?php foreach ($categorys as $category) : ?>
+                        <button id="category" data-name="<?= $category["name"] ?>" data-category="<?= $category["id"] ?>">
+                            <h3><?= $category["name"] ?></h3>
+                            <p><span><?= $category["num_products"] ?></span> productos</p>
+                        </button>
                     <?php endforeach ?>
                 </div>
                 <form class="form not-ring" style="width: 100%;margin:15px 0;">
                     <label style="margin:0;">
-                            <span>
+                        <span>
                             <i class="ri-search-line"></i>
                             <input type="text" id="search-car" placeholder="Tornillo xs">
                         </span>
@@ -275,7 +281,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     <i class="ri-arrow-left-line"></i>
                     Volver
                 </a>
-                <a href="./print/ticket.php?ref=<?=$_GET["ref"] ?>&conversion=<?= $_GET["conversion"] ?? "" ?>" class="btn primary" style="max-width: 100px;">
+                <a href="./print/ticket.php?ref=<?= $_GET["ref"] ?>&conversion=<?= $_GET["conversion"] ?? "" ?>" class="btn primary" style="max-width: 100px;">
                     Imprimir
                     <i class="ri-printer-line"></i>
                 </a>
@@ -322,23 +328,23 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                             foreach ($products as $product) :
                             ?>
                                 <?php
-                                    $price = $convert ? $product["selling_price"] * $dolarPrice : $product["selling_price"];
-                                    $amountPrice = $price * $product["amount"];
-                                    $conv = $convert ? "Bs" : "$";
+                                $price = $convert ? $product["selling_price"] * $dolarPrice : $product["selling_price"];
+                                $amountPrice = $price * $product["amount"];
+                                $conv = $convert ? "Bs" : "$";
                                 ?>
                                 <tr>
                                     <td style="width: 50px;"><?= $index++ ?></td>
                                     <td><?= $product["name"] ?></td>
                                     <td><?= $product["amount"] ?></td>
-                                    <td><?= $price." ". $conv ?></td>
-                                    <td><?= $amountPrice." ". $conv ?></td>
+                                    <td><?= $price . " " . $conv ?></td>
+                                    <td><?= $amountPrice . " " . $conv ?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
                     </table>
                     <div class="total">
                         <p><strong>Total <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($total, 2)  ?></p>
-                        <p><strong>Total + (I.V.A) <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($total + $total*.16, 2)  ?></p>
+                        <p><strong>Total + (I.V.A) <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($total + $total * .16, 2)  ?></p>
                         <p><strong>Pago <?= $convert ? "Bs" : "$" ?>: </strong><?= number_format($convert ? $data["payment"] * $dolarPrice : $data["payment"], 2) ?></p>
                     </div>
                 </div>
@@ -351,6 +357,80 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     <p><strong>Nota:</strong> Recuerda que puedes configurar las facturas desde los ajustes del sistema</p>
                 </article>
             </main>
+        <?php endif ?>
+        <?php if ($place === "list") : ?>
+            <h2><i class="ri-sh-line"></i>Ventas</h2>
+            <p>Echale un vistazo a todas las ventas realizadas</p>
+            <div class="table-options">
+                <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+                    <label style="margin:0;">
+                        <span>
+                            <i class="ri-search-line"></i>
+                            <input type="text" id="search-product" placeholder="000006">
+                        </span>
+                    </label>
+                </form>
+                <button class="more" data-show="show">
+                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <ol>
+                        <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                    </ol>
+                </button>
+            </div>
+            <div class="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Nro de Factura</td>
+                            <td>Cliente</td>
+                            <td>Total</td>
+                            <td>Pago</td>
+                            <td>Estado</td>
+                            <td>Fecha</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($data as $row) : ?>
+                            <tr>
+                                <td><?= $row["nro_factura"]  ?></td>
+                                <td><?= $row["client"]  ?></td>
+                                <td><?= "$ " . number_format($row["total"],2)  ?></td>
+                                <td><?= "$ " . number_format($row["payment"],2)  ?></td>
+                                <td>
+                                    <span class="badge <?= $row["status"] ?>"><?= nameTranslator($row["status"]) ?></span>
+                                </td>
+                                <td><?= $row["date"] ?></td>
+                                <td data-code="<?= $row["nro_factura"]  ?>">
+                                    <div class="actions">
+                                        <button class="btn-square edit">
+                                            <i class="ri-edit-line"></i>
+                                        </button>
+                                        <button class="btn-square delete">
+                                            <i class="ri-delete-bin-6-line"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination <?= $pagination > 1 ? '' : "hidden" ?>">
+                <button id="movePage">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <div class="items_pagination">
+                    <?php for ($i = 1; $i <= $pagination; $i++) : ?>
+                        <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?= $i ?></button>
+                    <?php endfor ?>
+                </div>
+                <button id="movePage">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
+            <script type="module" src="index.js"></script>
         <?php endif ?>
     </section>
 </body>
