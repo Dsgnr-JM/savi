@@ -636,12 +636,12 @@ table.empty tbody ::before{
   top:50%;
   transform: translateY(-50%);
 }
-.badge.success {
+.badge:is(.success,.complete) {
   background: #00ff2a17;
   color: #07922ad9;
   border-color: #04a52736;
 }
-.badge.warning {
+.badge:is(.warning,.pending) {
   background: #ff000012;
     color: #cc0000ad;
     border-color: #b824242f;
