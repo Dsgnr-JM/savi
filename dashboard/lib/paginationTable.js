@@ -2,14 +2,51 @@ import getData from "../lib/getData.js"
 import { createTable } from "../lib/createTable.js"
 import { appendAvatar } from "../lib/createAvatar.js"
 
+const $paginationContainer = document.querySelector(".items_pagination")
+const $tbody = document.querySelector("tbody")
+const $input = document.querySelector("#form-search input")
+let actualNum = 0;
+let slotActual = ""
+let schemeDataActual =[];
+const [$btnPrev, $btnNext] = document.querySelectorAll("#movePage");
+
+$btnPrev.addEventListener("click", handlePrev)
+async function handlePrev(e){
+    const $paginationBtns = document.querySelectorAll(".items_pagination button")
+    const num = (Number(actualNum) - 1)
+    if (num <= 0 || num == actualNum) return
+    const $btn = $paginationBtns[num - 1]
+    activeBtn($paginationBtns, $btn)
+    updateActualNum($btn, num, $paginationContainer);
+    const { data } = await getData(`slot=${slotActual}&page=${num}`)
+    $tbody.innerHTML = ""
+    const childs = createTable(data, schemeDataActual,$input.value)
+    $tbody.append(...childs)
+    scrollTo()
+}
+
+$btnNext.addEventListener("click", handleNext)
+async function handleNext() {
+    const $paginationBtns = document.querySelectorAll(".items_pagination button")
+    const num = (Number(actualNum) + 1)
+    if (num > $paginationBtns.length || num == actualNum) return
+    const $btn = $paginationBtns[num - 1]
+    activeBtn($paginationBtns, $btn)
+    updateActualNum($btn, num, $paginationContainer);
+    const { data } = await getData(`slot=${slotActual}&page=${num}`)
+    $tbody.innerHTML = ""
+    const childs = createTable(data, schemeDataActual,$input.value)
+    $tbody.append(...childs)
+    scrollTo()
+}
 
 export default function paginationTable(slot, schemeData) {
+    slotActual = slot
+    schemeDataActual = schemeData
     const $paginationBtns = document.querySelectorAll(".items_pagination button")
-    const $paginationContainer = document.querySelector(".items_pagination")
-    const [$btnPrev, $btnNext] = document.querySelectorAll("#movePage");
-    const $tbody = document.querySelector("tbody")
-    let actualNum = 0;
-
+    activePagination($paginationBtns,slot,$tbody,schemeData)
+}
+function activePagination($paginationBtns,slot,$tbody,schemeData){
     $paginationBtns.forEach($btn => {
         let num = $btn.getAttribute("data-num")
 
@@ -22,63 +59,20 @@ export default function paginationTable(slot, schemeData) {
             activeBtn($paginationBtns, $btnTarget)
 
             updateActualNum($btn, num, $paginationContainer)
-
             const { data } = await getData(`slot=${slot}&page=${num}`)
             $tbody.innerHTML = ""
-            const childs = createTable(data, schemeData)
+            const childs = createTable(data, schemeData,$input.value)
             $tbody.append(...childs)
-
-            const $tdTables = document.querySelectorAll("#avatar")
-
-            $tdTables.forEach($td => {
-                appendAvatar($td)
-            })
             scrollTo()
         })
     })
+}
 
-    $btnPrev.addEventListener("click", async () => {
-        const num = (Number(actualNum) - 1)
-        if (num <= 0 || num == actualNum) return
-        const $btn = $paginationBtns[num - 1]
-        activeBtn($paginationBtns, $btn)
-        updateActualNum($btn, num, $paginationContainer);
-        const { data } = await getData(`slot=${slot}&page=${num}`)
-        $tbody.innerHTML = ""
-        const childs = createTable(data, schemeData)
-        $tbody.append(...childs)
-
-        const $tdTables = document.querySelectorAll("#avatar")
-
-        $tdTables.forEach($td => {
-            appendAvatar($td)
-        })
-        scrollTo()
-    })
-
-    $btnNext.addEventListener("click", async () => {
-        const num = (Number(actualNum) + 1)
-        if (num > $paginationBtns.length || num == actualNum) return
-        const $btn = $paginationBtns[num - 1]
-        activeBtn($paginationBtns, $btn)
-        updateActualNum($btn, num, $paginationContainer);
-        const { data } = await getData(`slot=${slot}&page=${num}`)
-        $tbody.innerHTML = ""
-        const childs = createTable(data, schemeData)
-        $tbody.append(...childs)
-
-        const $tdTables = document.querySelectorAll("#avatar")
-
-        $tdTables.forEach($td => {
-            appendAvatar($td)
-        })
-        scrollTo()
-    })
     /**
      * 
      * @param {HTMLButtonElement} $btn 
      */
-    function updateActualNum($btn, num, $paginationContainer) {
+     function updateActualNum($btn, num, $paginationContainer) {
         if ($btn.classList.contains("active")) {
             actualNum = num
             $btn.disabled = true
@@ -107,8 +101,26 @@ export default function paginationTable(slot, schemeData) {
         })
     }
 
-}
 function scrollTo() {
     const $root = document.querySelector(".root > section")
     $root.scrollTo(0, $root.clientHeight)
+}
+
+export function updatePagination(length,searchActual,scheme){
+    $paginationContainer.innerHTML = ""
+    const $paginatination = $paginationContainer.parentElement
+    if(length <= 1) {
+        $paginatination.classList.add("hidden")
+        return
+    }
+    $paginatination.classList.remove("hidden")
+    for(let i = 1; i <= length;i++){
+        const $btn = document.createElement("button")
+        $btn.dataset.num = i
+        if(i === 1)$btn.classList.add("active")
+        $btn.textContent = i
+        $paginationContainer.appendChild($btn)
+    }
+    actualNum = 1
+    paginationTable(searchActual,scheme)
 }
