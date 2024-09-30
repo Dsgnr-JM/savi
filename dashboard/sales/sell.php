@@ -15,7 +15,7 @@
             $stmt = $pdo->prepare("Select sum((p.selling_price * sp.amount) + (p.selling_price * sp.amount)*.16) as total from sale_product sp join product p ON sp.product = p.code where nro_factura = :sale");
             $stmt->bindParam(":sale",$nro_factura);
             $stmt->execute();
-            $result = $stmt->fetch()["total"];
+            $result = number_format($stmt->fetch()["total"],2);
             if($payment >= $result){
                 $stmt = $pdo->prepare("UPDATE sale SET status = 'complete' WHERE nro_factura = :nro_factura");
                 $stmt->bindParam(":nro_factura",$nro_factura);
