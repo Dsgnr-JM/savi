@@ -5,9 +5,8 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
     try {
         $sql = $operationsSQL["list"][$operation];
         $outerParam = "";
-        if(isset($param["like"])) {
-            $outerParam = " ".$operationsSQL["like"][$operation];
-        };
+        $whereOperation = isset($param["like"]) ? $operationsSQL["like"][$operation] : "";
+        $sql = str_replace("{{where}}",$whereOperation,$sql);
         if(isset($param["filter"])){
             $outerParam = $outerParam." ".$operationsSQL["filter"][$operation];
         }
@@ -64,7 +63,8 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if(isset($operationsSQL["count"][$operation]) && !isset($_GET["all"])){
-            $sql = $operationsSQL["count"][$operation].$outerParam;
+            $sql = $operationsSQL["count"][$operation];
+            $sql = str_replace("{{where}}",$whereOperation,$sql);
             $countStmt = $pdo->prepare($sql);
             if(isset($param["like"])){
                 $like = '%'.$param["like"].'%';
