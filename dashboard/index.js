@@ -84,5 +84,4 @@ new Chart($graficaTwo, {
 */
 document.querySelector("#btn-profile").addEventListener("click",() => {
   document.querySelector(".dropdown_profile").classList.toggle("active")
-  console.log("hola")
 })
