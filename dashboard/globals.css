@@ -119,13 +119,16 @@ section > p{
 .primary_navbar.short .items {
   padding: 5px 10px !important;
 }
-.header .nav_items .items.active {
+/* .header .nav_items .items.active {
   border-left: 2px solid rgb(55 151 222);
-}
+} */
 .header .nav_items .items {
   width: 100%;
   height: auto;
   padding: 5px 15px;
+}
+.header .nav_items .items:first-child a{
+  margin: 5px 0;
 }
 .header .nav_items .items h3 {
   margin: 10px 0;
@@ -171,7 +174,6 @@ section > p{
 }
 .nav_items .items > a,
 .config{
-  overflow: hidden;
   position: relative;
   z-index: 1;
   margin: 3px 0;
@@ -182,6 +184,7 @@ section > p{
 .nav_items .items > a::before,
 .config::before{
   content: "";
+  border-radius: 4px;
   top: 0;
   left: 0;
   z-index: -1;
@@ -191,10 +194,27 @@ section > p{
   background-color: #54606728;
   transition: .15s ease-in-out width;
 }
+.nav_items .items > a::after,.config::after{
+  content: "";
+  border-radius: 8px;
+  top: 0;
+  left: -7px;
+  height: 100%;
+  width: 3px;
+  position: absolute;
+  background: var(--primary-color);
+  opacity: 0;
+  transition: .2s ease-in-out opacity;
+}
 .nav_items .items > a:hover::before,
 .config:hover::before, a.active::before{
-  border-right:5px solid rgba(255, 255, 255, 0.2);
+  /* border-right:5px solid rgba(255, 255, 255, 0.2); */
   width: 100% !important;
+}
+.nav_items .items > a:hover::after,
+.config:hover::after, a.active::after{
+  /* border-right:5px solid rgba(255, 255, 255, 0.2); */
+  opacity: 1 !important;
 }
 .nav_items .items a i,
 .config i {
@@ -458,7 +478,7 @@ body .root > section {
   right: 0;
   width: 200px;
   background-color: white;
-  font-size: var(--font-base);
+  font-size: var(--font-xs-2);
   font-weight: 500;
   transition: .15s ease all;
   color:var(--text-primary-color)
@@ -526,6 +546,9 @@ table tbody td {
 }
 td {
   padding: 2px;
+}
+td span.match{
+  color:var(--primary-color);
 }
 table tbody td img {
   width: 35px;
