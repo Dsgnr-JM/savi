@@ -1,3 +1,11 @@
+import { appendAvatar } from "./createAvatar.js"
+import paintTextMatched from "../lib/paintToMatch.js"
+
+const translations = {
+    complete: "completa",
+    pending: "pendiente"
+}
+
 /**
  * 
  * @param {Array} data 
@@ -5,7 +13,7 @@
  * @returns 
  */
 
-export function createTable(data, schemeData){
+export function createTable(data, schemeData,match=""){
     
     const childs = []
     
@@ -23,6 +31,7 @@ export function createTable(data, schemeData){
                     $td.id = "avatar"
                     //$td.classList.add("active")
                     $td.setAttribute("data-avatar", item["name"].substring(0,1))
+                    appendAvatar($td)
                 }
             }else if(schemeItem == "actions"){
                 $td.setAttribute(`data-${schemeData[0]}`,item[schemeData[0]])
@@ -40,12 +49,22 @@ export function createTable(data, schemeData){
                 $btnEdit.appendChild($iEdit)
                 $div.append($btnEdit, $btnDelete)
                 $td.appendChild($div)
-            }else{
-                if(schemeItem == "enterprise_name" && !item[schemeItem]) $td.classList.add("value-null")
-                $td.textContent = schemeItem === "name" ?
-                    `${item["name"]} ${item["surname"] ?? ""}` :
-                    schemeItem == "purchase_price" || schemeItem == "selling_price" ?
-                     `$ ${item[schemeItem]}` : item[schemeItem]
+            }else if(schemeItem == "status"){
+                const $badge = document.createElement("span")
+                $badge.classList.add(item[schemeItem],"badge")
+                $badge.textContent = translations[item[schemeItem]]
+                $td.appendChild($badge)
+            }
+            else{
+                let text = schemeItem === "name" ?
+                `${item["name"]} ${item["surname"] ?? ""}` :
+                schemeItem == "purchase_price" || schemeItem == "selling_price" || schemeItem == "payment" || schemeItem == "total" ?
+                 `$ ${Number(item[schemeItem]).toFixed(2)}` : item[schemeItem]
+                if(schemeItem == "enterprise_name" && !item[schemeItem]){
+                    $td.classList.add("value-null")
+                }else{
+                    $td.innerHTML = paintTextMatched(match,text)
+                }
             }
 
             $tr.appendChild($td)
