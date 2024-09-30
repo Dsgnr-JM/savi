@@ -47,7 +47,7 @@ $optionsTitle = array(
                         </label>
                     </form>
                     <button class="more" data-show="show">
-                        <i class="ri-more-2-fill" data-show="show"></i>
+                        <i class="ri-filter-3-fill" data-show="show"></i>
                         <ol>
                             <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
                         </ol>
@@ -60,7 +60,8 @@ $optionsTitle = array(
                                 <td>Codigo</td>
                                 <td>Nombre</td>
                                 <td>Imagen</td>
-                                <td>Precio Venta</td>
+                                <!-- <td>Precio Venta</td> -->
+                                <td>Departamento</td>
                                 <td>Precio Compra</td>
                                 <td>Stock</td>
                                 <td>Acciones</td>
@@ -74,10 +75,10 @@ $optionsTitle = array(
                                     <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0, 1) ?>">
                                         <?php if (!empty($row["photo"])) : ?>
                                             <img src="<?= $row["photo"] ?>">
-                                    </td>
-                                <?php endif ?>
+                                        </td>
+                                        <?php endif ?>
+                                        <td><?= $row["category"]  ?></td>
                                 <td><?= "$ " . $row["selling_price"]  ?></td>
-                                <td><?= "$ " . $row["purchase_price"] ?></td>
                                 <td><?= $row["stock"]  ?></td>
                                 <td data-code="<?= $row["code"]  ?>">
                                     <div class="actions">

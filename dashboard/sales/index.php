@@ -3,6 +3,7 @@ require "../ui/header.php";
 require_once '../helpers/curlData.php';
 require '../helpers/NameTranslator.php';
 $place = $_GET["place"] ?? "";
+$page = $_GET["page"] ?? 1;
 $dolarPrice = getCurl("slot=configs")[0]["dollar_price"];
 $categorys = getCurl("slot=categorys");
 $data;
@@ -366,12 +367,12 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     <label style="margin:0;">
                         <span>
                             <i class="ri-search-line"></i>
-                            <input type="text" id="search-product" placeholder="000006">
+                            <input type="text" id="search-table" placeholder="000006">
                         </span>
                     </label>
                 </form>
                 <button class="more" data-show="show">
-                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <i class="ri-filter-3-fill" data-show="show"></i>
                     <ol>
                         <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
                     </ol>
@@ -430,7 +431,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     <i class="ri-arrow-right-s-line"></i>
                 </button>
             </div>
-            <script type="module" src="index.js"></script>
+            <script type="module" src="./list.js"></script>
         <?php endif ?>
     </section>
 </body>

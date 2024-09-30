@@ -35,7 +35,7 @@ $data = $data["data"];
                     </label>
                 </form>
                 <button class="more" data-show="show">
-                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <i class="ri-filter-3-fill" data-show="show"></i>
                     <ol>
                         <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
                     </ol>
