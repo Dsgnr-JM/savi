@@ -25,7 +25,7 @@ $data = $data["data"];
     <section>
         <?php if (!$place) : ?>
         <h2>Proveedores</h2>
-        <p>Echale un vistazo a los proveedores de productos registrados en tu organizaciòn</p>
+        <p>&Eacute;chale un vistazo a los proveedores de productos registrados en tu organizaci&oacute;n</p>
         <div class="table-options">
                 <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
                     <label style="margin:0;">
@@ -49,9 +49,9 @@ $data = $data["data"];
                         <td>Rif</td>
                         <td>Empresa</td>
                         <td>Imagen</td>
-                        <td>Telefono</td>
+                        <td>Tel&eacute;fono</td>
                         <td>Email</td>
-                        <td>Localizacion</td>
+                        <td>Localizaci&oacute;n</td>
                         <td>Acciones</td>
                     </tr>
                 </thead>
@@ -104,7 +104,7 @@ $data = $data["data"];
             <main>
                 <form action="dashboard" class="form" id="register" style="max-width: 400px;">
                     <h2>Registro de proveedores</h2>
-                    <p>Guarde un proveedor de productos para usar despues.</p>
+                    <p>Guarde un proveedor de productos para usar despu&eacute;s.</p>
                     <input type="hidden">
                     <label>
                         <p>DNI (Rif/CI):</p>
@@ -128,7 +128,7 @@ $data = $data["data"];
                         </span>
                     </label>
                     <label>
-                        <p>Telefono:</p>
+                        <p>Tel&eacute;fono:</p>
                         <span>
                             <i class="ri-phone-line"></i>
                             <input type="number" name="phone" required placeholder="0424-7714244">
@@ -142,7 +142,7 @@ $data = $data["data"];
                         </span>
                     </label>
                     <label>
-                        <p>Localizacion:</p>
+                        <p>Localizaci&oacute;n:</p>
                         <span>
                             <i class="ri-gps-line"></i>
                             <input type="text" name="location" required placeholder="Bisnaca">

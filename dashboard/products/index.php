@@ -36,7 +36,7 @@ $optionsTitle = array(
     <section>
         <?php if (!$place) : ?>
                 <h2><i class="ri-folder-5-line"></i>Productos</h2>
-                <p>Echale un vistazo al inventario de productos registrados en tu organizaciòn</p>
+                <p>&Eacute;chale un vistazo al inventario de productos registrados en tu organizaci&oacute;n</p>
                 <div class="table-options">
                     <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
                         <label style="margin:0;">
@@ -57,7 +57,7 @@ $optionsTitle = array(
                     <table>
                         <thead>
                             <tr>
-                                <td>Codigo</td>
+                                <td>C&oacute;digo</td>
                                 <td>Nombre</td>
                                 <td>Imagen</td>
                                 <!-- <td>Precio Venta</td> -->
@@ -115,9 +115,9 @@ $optionsTitle = array(
             <main>
                 <form action="dashboard" class="form" id="register" style="width: 450px;">
                     <h2>Registro de productos</h2>
-                    <p>Almacena productos de manera rapida y eficaz.</p>
+                    <p>Almacena productos de manera r&aacute;pida y eficaz.</p>
                     <label>
-                        <p>Codigo:</p>
+                        <p>C&oacute;digo:</p>
                         <span>
                             <input type="text" name="code" required placeholder="ELE4521">
                             <i class="ri-barcode-line" id="icon-form"></i>
@@ -136,7 +136,7 @@ $optionsTitle = array(
                             <p>Departamento:</p>
                             <select name="category">
                                 <?php foreach ($categorys as $result) : ?>
-                                    <option value="<?= $result['category_id'] ?>"><?= $result['category_name'] ?></option>
+                                    <option value="<?= $result['id'] ?>"><?= $result['name'] ?></option>
                                 <?php endforeach ?>
                             </select>
                         </label>
@@ -183,14 +183,14 @@ $optionsTitle = array(
                             </span>
                         </label>
                         <label>
-                            <p>Stock minimo:</p>
+                            <p>Stock m&iacute;nimo:</p>
                             <span>
                                 <input type="number" name="stock_min" required placeholder="0">
                                 <i class="ri-shopping-basket-line" id="icon-form"></i>
                             </span>
                         </label>
                         <label>
-                            <p>Stock maximo:</p>
+                            <p>Stock m&aacute;ximo:</p>
                             <span>
                                 <input type="number" name="stock_max" required placeholder="0">
                                 <i class="ri-shopping-basket-line" id="icon-form"></i>
@@ -267,7 +267,7 @@ $optionsTitle = array(
             <main>
                 <form action="dashboard" class="form" id="register" style="max-width: 400px;">
                     <h2>Registro de marcas</h2>
-                    <p>Guarda una marca de producto para usar despues.</p>
+                    <p>Guarda una marca de producto para usar despu&eacute;s.</p>
                     <label>
                         <p>Nombre:</p>
                         <span>
@@ -293,7 +293,7 @@ $optionsTitle = array(
             <main>
                 <form action="dashboard" class="form" id="register" style="max-width: 400px;">
                     <h2>Registro de modelos</h2>
-                    <p>Guarda un modelo de un producto para usar despues.</p>
+                    <p>Guarda un modelo de un producto para usar despu&eacute;s.</p>
                     <label>
                         <p>Nombre:</p>
                         <span>
@@ -317,8 +317,8 @@ $optionsTitle = array(
         <?php if ($place === "category") : ?>
             <main>
                 <form action="dashboard" class="form" id="register" style="max-width: 400px;">
-                    <h2>Registro de categorias</h2>
-                    <p>Guarda una categoria para un producto y asi poder usar despues.</p>
+                    <h2>Registro de categor&iacute;as</h2>
+                    <p>Guarda una categor&iacute;a para un producto y as&iacute; poder usar despu&eacute;s.</p>
                     <label>
                         <p>Nombre:</p>
                         <span>

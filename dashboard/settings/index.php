@@ -37,7 +37,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
 
 
 ?>
-<title>Configuracion - Inv.Refrihogar</title>
+<title>Configuraci&oacute;n - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="../../forms.css">
 <link rel="stylesheet" href="../../lib/dialog.css">
@@ -84,7 +84,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Productos</h3>
-                                    <p>Permite al usuario acceder al modulo de productos. Tambien puede editar, ver, borrar y actualizar los productos y sus diferentes categorias, modelos, etc.</p>
+                                    <p>Permite al usuario acceder al módulo de productos. Tambi&eacute;n puede editar, ver, borrar y actualizar los productos y sus diferentes categor&iacute;as, modelos, etc.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_products" <?= $manage["products"] ?> id="switch">
@@ -92,8 +92,8 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             </div>
                             <div class="permission">
                                 <div class="details">
-                                    <h3>Estadisticas</h3>
-                                    <p>Permite al usuario acceder al modulo, asi como tambien generar estadisticas de productos, clientes etc.</p>
+                                    <h3>Estad&iacute;sticas</h3>
+                                    <p>Permite al usuario acceder al módulo, as&iacute; como tambi&eacute;n generar estad&iacute;sticas de productos, clientes etc.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_stadistics" <?= $manage["stadistics"] ?> id="switch">
@@ -102,7 +102,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Proveedores</h3>
-                                    <p>Permite al usuario acceder al modulo de proveedores, añadir, eliminar y actualizarlos.</p>
+                                    <p>Permite al usuario acceder al módulo de proveedores, añadir, eliminar y actualizarlos.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_providers" <?= $manage["providers"] ?> id="switch">
@@ -111,7 +111,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Clientes</h3>
-                                    <p>Permite al usuario acceder al modulo de clientes, añadir, eliminar y actualizarlos.</p>
+                                    <p>Permite al usuario acceder al módulo de clientes, añadir, eliminar y actualizarlos.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_clients" <?= $manage["clients"] ?> id="switch">
@@ -120,7 +120,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Ventas</h3>
-                                    <p>Permite al usuario acceder al modulo de ventas. Tambien puede generarlas y visualizarlas.</p>
+                                    <p>Permite al usuario acceder al módulo de ventas. Tambi&eacute;n puede generarlas y visualizarlas.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_sales" <?= $manage["sales"] ?> id="switch">
@@ -129,7 +129,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Gastos</h3>
-                                    <p>Permite al usuario acceder al modulo de gastos. Tambien puede añadir, eliminar y actulizar los gastos.</p>
+                                    <p>Permite al usuario acceder al módulo de gastos. Tambi&eacute;n puede añadir, eliminar y actulizar los gastos.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_expenses" <?= $manage["expenses"] ?> id="switch">
@@ -138,7 +138,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Informes</h3>
-                                    <p>Permite al usuario acceder al modulo de informes. Tambien puede generar, actualizar, descargar y visualizar los diferentes informes.</p>
+                                    <p>Permite al usuario acceder al módulo de informes. Tambi&eacute;n puede generar, actualizar, descargar y visualizar los diferentes informes.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_informs" <?= $manage["informs"] ?> id="switch">
@@ -147,7 +147,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                             <div class="permission">
                                 <div class="details">
                                     <h3>Sistema</h3>
-                                    <p>Permite al usuario acceder al modulo de configuracion y mantenimiento. Puede cambiar roles, ver actividad, precio de divisas, exportacion e importacion de datos.</p>
+                                    <p>Permite al usuario acceder al módulo de configuraci&oacute;n y mantenimiento. Puede cambiar roles, ver actividad, precio de divisas, exportaci&oacute;n e importaci&oacute;n de datos.</p>
                                 </div>
                                 <label class="switch">
                                     <input type="checkbox" name="manage_system" <?= $manage["system"] ?> id="switch">
@@ -172,14 +172,14 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                                 <div class="details">
                                     <p><?= $notification["message"] . "." ?></p>
                                     <p><?= $notification["date"] ?></p>
-                                    <span class="badge info">Accion realizada por el usuario <?= $notification["user"] ?></span>
+                                    <span class="badge info">Acci&oacute;n realizada por el usuario <?= $notification["user"] ?></span>
                                 </div>
                             </li>
                         <?php endforeach ?>
                     </ol>
                     <?php if ($notificationsLength > 1) : ?>
                         <button class="btn cancel" style="margin:20px auto;width:fit-content;" id="view-more">
-                            Ver mas
+                            Ver m&aacute;s
                             <i class="ri-arrow-down-s-line"></i>
                         </button>
                     <?php endif ?>
@@ -201,8 +201,8 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                         <div class="alert-message info">
                             <i class="ri-error-warning-line"></i>
                             <div class="details">
-                                <h3>Informacion importante</h3>
-                                <p>El precio del dolar actual es <?= $dollarPrice["dollar_price"] ?> Bs, informacion del <?= $dollarPrice["date"] ?>.</p>
+                                <h3>Informaci&oacute;n importante</h3>
+                                <p>El precio del dolar actual es <?= $dollarPrice["dollar_price"] ?> Bs, informaci&oacute;n del <?= $dollarPrice["date"] ?>.</p>
                             </div>
                         </div>
                     </form>

@@ -29,11 +29,11 @@
     <?php include '../ui/navbar.php' ?>
     <section>
         <h2><i class="ri-user-line"></i>Perfil</h2>
-        <p>Administracion general de tu cuenta</p>
+        <p>Administraci&oacute;n general de tu cuenta</p>
         <main style="margin-top:20px">
         <div class="profile">
-            <h2>Cuenta y gestion de usuario</h2>
-            <p>Gestiona tu informacion personal, notificacion y radea tu actividad.</p>
+            <h2>Cuenta y gesti&oacute;n de usuario</h2>
+            <p>Gestiona tu informaci&oacute;n personal, notificaci&oacute;n y radea tu actividad.</p>
             <div class="navigation">
                 <button class="active" data-slot-pointed="account-details">Detalles de la cuenta</button>
                 <button data-slot-pointed="permissions">Permisos</button>
@@ -55,7 +55,7 @@
                         </span>
                     </label>
                     <label>
-                        <p>Tu cedula:</p>
+                        <p>Tu c&eacute;dula:</p>
                         <span>
                             <input type="text" name="name" disabled required placeholder="31744***" value="<?= $data["ci"] ?>">
                             <i class="ri-profile-line" id="icon-form"></i>
@@ -90,17 +90,17 @@
                 </form>
                 <div class="line-space"></div>
                 <form action="#" class="form not-ring" data-action="updatePassword" id="updatedName" style="width: 400px;">
-                    <h3>Contraseña</h3>
-                    <p>Actualiza la contraseña asosociada a tu cuenta.</p>
+                    <h3>Contrase&ntilde;a</h3>
+                    <p>Actualiza la contrase&ntilde;a asosociada a tu cuenta.</p>
                     <label>
-                        <p>Contraseña actual:</p>
+                        <p>Contrase&ntilde;a actual:</p>
                         <span>
                             <input type="text" name="name" value="<?= $data["password"] ?>" disabled required placeholder="31744101" disabled>
                             <i class="ri-lock-unlock-line" id="icon-form"></i>
                         </span>
                     </label>
                     <label>
-                        <p>Nueva contraseña:</p>
+                        <p>Nueva contrase&ntilde;a:</p>
                         <span>
                             <input type="password" name="password" required placeholder="jotadev">
                             <i class="ri-lock-line" id="icon-form"></i>
@@ -108,7 +108,7 @@
                     </label>
                     <div class="container-buttons left">
                         <button class="btn success">
-                            Actualizar contraseña
+                            Actualizar contrase&ntilde;a
                         </button>
                     </div>
                 </form>
@@ -117,7 +117,7 @@
                     <h3>Adicionales</h3>
                     <p>Actualiza los datos opcionales de tu cuenta.</p>
                     <label>
-                        <p>Actualiza telefono:</p>
+                        <p>Actualiza tel&eacute;fono:</p>
                         <span>
                             <input type="text" name="phone" value="<?= $data["phone"] ?>" required placeholder="04247079098">
                             <i class="ri-phone-line" id="icon-form"></i>
@@ -151,7 +151,7 @@
                             <i class="<?= !empty($data["manage_sales"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> role icon"></i>
                             <div class="details">
                                 <h3>Vender productos</h3>
-                                <p>Vende productos de la organizacion a clientes registrados.</p>
+                                <p>Vende productos de la organizaci&oacute;n a clientes registrados.</p>
                             </div>
                         </div>
                         <div class="card <?= appendClassIfTrue($data["manage_clients"], "active") ?>">
@@ -165,7 +165,7 @@
                             <i class="<?= !empty($data["manage_expenses"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
                             <div class="details">
                                 <h3>Administrar gastos</h3>
-                                <p>Acceso al registro, modificacion y eliminacion de los gastos.</p>
+                                <p>Acceso al registro, modificaci&oacute;n y eliminaci&oacute;n de los gastos.</p>
                             </div>
                         </div>
                         <div class="card <?= appendClassIfTrue($data["manage_products"], "active") ?>">
@@ -185,15 +185,15 @@
                         <div class="card <?= appendClassIfTrue($data["manage_stadistics"], "active") ?>">
                             <i class="<?= !empty($data["manage_stadistics"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
                             <div class="details">
-                                <h3>Visualizar estadisticas</h3>
-                                <p>Generacion y visualizacion de estadisticas y graficos.</p>
+                                <h3>Visualizar estad&iacute;sticas</h3>
+                                <p>Generaci&oacute;n y visualizaci&oacute;n de estad&iacute;sticas y gr&aacute;ficos.</p>
                             </div>
                         </div>
                         <div class="card <?= appendClassIfTrue($data["manage_informs"], "active") ?>">
                             <i class="<?= !empty($data["manage_informs"]) ? "ri-checkbox-circle-fill" : "ri-close-circle-fill" ?> icon"></i>
                             <div class="details">
                                 <h3>Generar informes</h3>
-                                <p>Administracion y generacion de informes generales entre otros.</p>
+                                <p>Administraci&oacute;n y generaci&oacute;n de informes generales entre otros.</p>
                             </div>
                         </div>
                         <div class="card <?= appendClassIfTrue($data["manage_system"], "active") ?>">
@@ -215,7 +215,7 @@
                     <h3>Actividad y rastreo</h3>
                     <p>Visualiza todo tu historial de operaciones en el sistema.</p>
                     <div class="activity-overview">
-                        <p>Vision general <?=$countActivity?></p>
+                        <p>Visi&oacute;n general <?=$countActivity?></p>
                         <ol>
                             <?php foreach($activity as $item): ?>
                             <li>

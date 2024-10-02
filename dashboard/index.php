@@ -6,7 +6,7 @@
 <body>
     <?php require 'ui/navbar.php' ?>
     <section>
-        <h2 class="toLeft"><i class="ri-dashboard-line"></i>Vision general</h2>
+        <h2 class="toLeft"><i class="ri-dashboard-line"></i>Visi&oacute;n general</h2>
         <p class="toLeft">Bienvenido de nuevo <strong><?= $user["name"]." ".$user["surname"]?></strong></p>
         <header class="toDown">
             <div class="card">
@@ -70,7 +70,7 @@
             <div class="card-details toDown">
                 <div class="details">
                     <h2>Ganancias</h2>
-                    <p>Promedio de ganancias entre gastos e ingresos, dicho promedio es mensual y esta disenado estadisticamente.</p>
+                    <p>Promedio de ganancias entre gastos e ingresos, dicho promedio es mensual y esta dise&ntilde;ado estadisticamente.</p>
                 </div>
             </div>
             <div class="actual-activity toDown">

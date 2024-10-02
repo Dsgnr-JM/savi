@@ -24,7 +24,7 @@ $data = $data["data"];
     <section>
         <?php if (!$place) : ?>
             <h2>Clientes</h2>
-            <p>Echale un vistazo a todos los clientes registrados en tu organizaciòn</p>
+            <p>&Eacute;chale un vistazo a todos los clientes registrados en tu organizaci&oacute;n</p>
             <div class="table-options">
                 <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
                     <label style="margin:0;">
@@ -45,12 +45,12 @@ $data = $data["data"];
                     <table>
                         <thead>
                             <tr>
-                                <td>Cedula</td>
+                                <td>C&eacute;dula</td>
                                 <td>Imagen</td>
                                 <td>Nombre y Apellido</td>
                                 <td>Empresa</td>
                                 <!-- <td>Estado</td> -->
-                                <td>Telefono</td>
+                                <td>Tel&eacute;fono</td>
                                 <td>Acciones</td>
                             </tr>
                         </thead>
@@ -105,7 +105,7 @@ $data = $data["data"];
             <main>
                 <form action="dashboard" class="form" id="register" style="max-width: 400px;">
                     <h2>Registro de cliente</h2>
-                    <p>Guarde un cliente para realizar una venta despues.</p>
+                    <p>Guarde un cliente para realizar una venta despu&eacute;s.</p>
                     <input type="hidden">
                     <label>
                         <p id="dni">CI:</p>
@@ -141,14 +141,14 @@ $data = $data["data"];
                     </label>
                     <div class="line-space"></div>
                     <label>
-                        <p>Telefono:</p>
+                        <p>Tel&eacute;fono:</p>
                         <span>
                             <i class="ri-phone-line"></i>
                             <input type="number" name="phone" required placeholder="0424-7714244">
                         </span>
                     </label>
                     <label>
-                        <p>Localizacion:</p>
+                        <p>Localizaci&oacute;n:</p>
                         <span>
                             <i class="ri-gps-line"></i>
                             <input type="text" name="location" required placeholder="Bisnaca">
@@ -198,7 +198,7 @@ $data = $data["data"];
                         </li>
                         <?php endforeach ?>
                     </ol>
-                    <a href="./" class="btn cancel"> Ver mas </a>
+                    <a href="./" class="btn cancel"> Ver m&aacute;s </a>
                 </div>
             </main>
             <script type="module" src="./registClient.js"></script>

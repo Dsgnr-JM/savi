@@ -20,7 +20,7 @@ if (isset($_SESSION["session"])) {
     <section>
         <form action="" class="form" id="signup">
             <h2>Registro</h2>
-            <p>Tomate unos minutos para registrar tu usuario y poder comenzar.</p>
+            <p>Tomat&eacute; unos minutos para registrar tu usuario y poder comenzar.</p>
             <div class="inputs-container">
                 <label>
                     <p>Nombre:</p>
@@ -38,14 +38,14 @@ if (isset($_SESSION["session"])) {
                 </label>             
             </div>
             <label>
-                <p>Telefono:</p>
+                <p>Tel&eacute;fono:</p>
                 <span>
                     <input type="number" name="phone" required data-length="11" placeholder="04247079098">
                     <i class="ri-id-card-line" id="icon-form"></i>
                 </span>
             </label>
             <label>
-                <p>Cedula:</p>
+                <p>C&eacute;dula:</p>
                 <span>
                     <input type="number" name="ci" required data-length="7" placeholder="317079091">
                     <i class="ri-id-card-line" id="icon-form"></i>
@@ -60,7 +60,7 @@ if (isset($_SESSION["session"])) {
                     </span>
                 </label>
                 <label>
-                    <p>Contraseña:</p>
+                    <p>Contrase&ntilde;a:</p>
                     <span>
                         <input type="password" name="password" required data-length="5" placeholder="******">
                         <i class="ri-lock-line" id="icon-form"></i>
@@ -79,7 +79,7 @@ if (isset($_SESSION["session"])) {
     </section>
     <main>
         <h1>
-            <span style="color:coral;">SAVI</span>: administrar un sistema de <span style="color:mediumseagreen"> inventario </span> nunca fue tan <span style="color:cornflowerblue;">facil</span>
+            <span style="color:coral;">SAVI</span>: administrar un sistema de <span style="color:mediumseagreen"> inventario </span> nunca fue tan <span style="color:cornflowerblue;">f&aacute;cil</span>
         </h1>
     </main>
     <script type="module" src="./signup.js"></script>

@@ -11,7 +11,7 @@ if (isset($_SESSION["session"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicie sesion para continuar</title>
+    <title>Inicie sesi&oacute;n para continuar</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="forms.css">
     <link rel="stylesheet" href="lib/bell.css">
@@ -20,13 +20,13 @@ if (isset($_SESSION["session"])) {
 <body>
     <main>
         <h1>
-            La <span style="color:coral">gestion</span> de inventario y POS es un <span style="color:mediumseagreen">proceso</span> tedioso haslo facil con <span style="color:cornflowerblue">SAVI</span>
+            La <span style="color:coral">gesti&oacute;n</span> de inventario y POS es un <span style="color:mediumseagreen">proceso</span> tedioso haslo f&aacute;cil con <span style="color:cornflowerblue">SAVI</span>
         </h1>
     </main>
     <section>
         <form action="dashboard" class="form" id="login">
-            <h2>Inicio de Sesion</h2>
-            <p>Tus datos de inicio de sesion son totalmente privados.</p>
+            <h2>Inicio de Sesi&oacute;n</h2>
+            <p>Tus datos de inicio de sesi&oacute;n son totalmente privados.</p>
             <label>
                 <p>Usuario:</p>
                 <span>
@@ -35,7 +35,7 @@ if (isset($_SESSION["session"])) {
                 </span>
             </label>
             <label>
-                <p>Contraseña:</p>
+                <p>Contrase&ntilde;a:</p>
                 <span>
                     <input type="password" name="password" required placeholder="******"data-length="8">
                     <i class="ri-lock-line" id="icon-form"></i>
@@ -43,7 +43,7 @@ if (isset($_SESSION["session"])) {
             </label>
             <label class="terms">
                 <input type="checkbox" name="terms" required>
-                <p>Mantener sesion iniciada</p>
+                <p>Mantener sesi&oacute;n iniciada</p>
             </label>
             <button class="btn success" disabled>
                 Entrar
@@ -52,7 +52,7 @@ if (isset($_SESSION["session"])) {
             <span>
                 o
             </span>
-            <a href="index.php">No tienes cuenta</a>
+            <a href="index.php">¿No tienes cuenta?</a>
         </form>
     </section>
     <script src="./lib/passwordHidden.js"></script>

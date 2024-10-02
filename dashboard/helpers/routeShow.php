@@ -9,7 +9,7 @@ function getRoute(){
         "regist" => "registro" ,
         "profile" => "perfil",
         "model" => "modelo",
-        "settings" => "configuracion",
+        "settings" => "configuración",
         "stadistics" => "estadisticas",
         "suppliers" => "provedores",
         "clients" => "clientes",

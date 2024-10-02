@@ -54,8 +54,8 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     <thead>
                         <tr>
                             <td style="width: 50px;">#</td>
-                            <td>Codigo</td>
-                            <td>Descripcion</td>
+                            <td>C&oacute;digo</td>
+                            <td>Descripci&oacute;n</td>
                             <td>Cantidad</td>
                             <td>Precio</td>
                             <td>Total</td>
@@ -156,10 +156,10 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                 </div>
                 <div class="client">
                     <h2>Registre un cliente</h2>
-                    <p>Si necesita registrar un cliente de forma avanzada necesita ir a <a href="../clients/?place=register">Clientes</a> para mayor seguridad y gestion.</p>
+                    <p>Si necesita registrar un cliente de forma avanzada necesita ir a <a href="../clients/?place=register">Clientes</a> para mayor seguridad y gesti&oacute;n.</p>
                     <form class="form">
                         <label>
-                            <p>Cedula:</p>
+                            <p>C&eacute;dula:</p>
                             <span>
                                 <i class="ri-profile-line"></i>
                                 <input type="text" name="dni" required placeholder="31744101">
@@ -182,7 +182,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                             </label>
                         </div>
                         <label>
-                            <p>Telefono:</p>
+                            <p>Tel&eacute;fono:</p>
                             <span>
                                 <input type="text" name="phone" required placeholder="04247714244">
                                 <i class="ri-phone-line" id="icon-form"></i>
@@ -353,7 +353,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
             <main class="sale-message">
                 <i class="ri-information-fill"></i>
                 <article class="description">
-                    <p>Para imprimir haga click en el boton <i class="ri-printer-fill"></i> de la esquina superior izquierda.</p>
+                    <p>Para imprimir haga click en el bot&oacute;n <i class="ri-printer-fill"></i> de la esquina superior izquierda.</p>
                     <p>Recomendamos usar un navegador basado en chromium y desde un ordenador.</p>
                     <p><strong>Nota:</strong> Recuerda que puedes configurar las facturas desde los ajustes del sistema</p>
                 </article>
@@ -361,7 +361,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
         <?php endif ?>
         <?php if ($place === "list") : ?>
             <h2><i class="ri-sh-line"></i>Ventas</h2>
-            <p>Echale un vistazo a todas las ventas realizadas</p>
+            <p>&Eacute;chale un vistazo a todas las ventas realizadas</p>
             <div class="table-options">
                 <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
                     <label style="margin:0;">

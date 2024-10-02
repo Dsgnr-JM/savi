@@ -54,13 +54,13 @@
                 <a href="/SAVI/dashboard/stadistics" data-url="stadistics">
                     <div>
                         <i class="ri-pie-chart-line"></i>
-                        <p>Estadisticas</p>
+                        <p>Estad&iacute;sticas</p>
                     </div>
                     <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="#">Periodicas</a>
+                        <a href="#">Peri&oacute;dicas</a>
                     </li>
                     <li>
                         <a href="#">Productos</a>
@@ -88,14 +88,14 @@
                         <a href="/SAVI/dashboard/products?place=brand&action=regist">Registro de marca</a>
                     </li>
                     <li>
-                        <a href="/SAVI/dashboard/products?place=category&action=regist">Registro de categoria</a>
+                        <a href="/SAVI/dashboard/products?place=category&action=regist">Registro de categor&iacute;a</a>
                     </li>
                 </ol>
                 <?php if($user["manage_providers"]): ?>
                 <a href="/SAVI/dashboard/suppliers" data-url="suppliers">
                     <div>
                         <i class="ri-caravan-line"></i>
-                        <p>Provedores</p>
+                        <p>Proveedores</p>
                     </div>
                     <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
                 </a>
@@ -152,7 +152,7 @@
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="#">Periodicas</a>
+                        <a href="#">Peri&oacute;dicas</a>
                     </li>
                     <li>
                         <a href="#">De productos</a>
@@ -179,7 +179,7 @@
         <a href="/SAVI/dashboard/settings" class="config" data-url="settings">
             <div>
                 <i class="ri-settings-4-line"></i>
-                <p>Configuracion</p>
+                <p>Configuraci&oacute;n</p>
             </div>
         </a>
         <?php endif ?>

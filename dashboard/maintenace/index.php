@@ -22,21 +22,21 @@
                 <i class="ri-import-line"></i>
                 <div>
                     <h3>Importar datos</h3>
-                    <p>Sube tu propio base de datos, y <strong>modifica</strong> los datos actuales.</p>
+                    <p>Sube tu propia base de datos, y <strong>modifica</strong> los datos actuales.</p>
                 </div>
             </button>
             <button class="card" data-dialog="contact">
                 <i class="ri-discuss-line"></i>
                 <div>
                     <h3>Contactar soporte</h3>
-                    <p>Envia un correo de soporta al equipo de desarrollo.</p>
+                    <p>Env&iacute;a un correo de soporta al equipo de desarrollo.</p>
                 </div>
             </button>
         </div>
         <div class="bg_dialog"></div>
         <main class="dialog" id="export_bd">
-            <h2>¿Esta seguro de exportar la Base de Datos?</h2>
-            <p>Tenga en cuenta que esto puede poner recaer en peligro a la seguridad del sistema. Si desea continuar porfavor presione el boton de exportar.</p>
+            <h2>¿Est&aacute;s seguro de exportar la Base de Datos?</h2>
+            <p>Tenga en cuenta que esto puede poner recaer en peligro a la seguridad del sistema. Si desea continuar por favor presione el bot&oacute;n de exportar.</p>
             <div class="container-buttons">
                 <button class="btn cancel">
                     Cancelar
@@ -48,8 +48,8 @@
             </div>
         </main>
         <main class="dialog" id="import_bd">
-            <h2>¿Esta seguro de importar una Base de Datos?</h2>
-            <p>Esto puede ocacionar fugaz o pedida de informacion que escapa de la zona segura del sistema. Si desea continuar presione cargue el archivo SQL</p>
+            <h2>¿Est&aacute;s seguro de importar la Base de Datos?</h2>
+            <p>Esto puede ocacionar fugaz o perdida de informaci&oacute;n que escapa de la zona segura del sistema. Si desea continuar presione cargue el archivo SQL</p>
             <div class="container-buttons">
                 <button class="btn cancel">
                     Cancelar
@@ -61,8 +61,8 @@
             </div>
         </main>
         <main class="dialog" id="contact">
-            <h2>¿Tiene algun problema o inconformidad?</h2>
-            <p>Contacte al equipo de desarrolladores de SAVI y denos <strong>feedback</strong> del problema para asi poder ayudarle.</p>
+            <h2>¿Tiene alg&uacute;n problema o inconformidad?</h2>
+            <p>Contacte al equipo de desarrolladores de SAVI y denos <strong>feedback</strong> del problema para as&iacute; poder ayudarle.</p>
             <form class="form">
                 <div class="inputs-container">
                     <label>

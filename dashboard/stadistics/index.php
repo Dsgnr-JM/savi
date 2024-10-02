@@ -9,8 +9,8 @@
         <header class="description">
             <i class="ri-pie-chart-fill"></i>
             <div>
-                <h1>Estadisticas</h1>
-                <p><i class="ri-information-fill"></i>Esta es el area de visualizacion de estadisticas</p>
+                <h1>Estad&iacute;sticas</h1>
+                <p><i class="ri-information-fill"></i>Esta es el area de visualizaci&oacute;n de estad&iacute;sticas</p>
             </div>
         </header>
         <div class="stadistics">
