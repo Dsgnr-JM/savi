@@ -42,7 +42,7 @@ $optionsTitle = array(
                         <label style="margin:0;">
                             <span>
                                 <i class="ri-search-line"></i>
-                                <input type="text" id="search-product" placeholder="Tornillo xs">
+                                <input type="text" id="search-table" placeholder="Tornillo xs">
                             </span>
                         </label>
                     </form>
