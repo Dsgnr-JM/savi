@@ -5,6 +5,7 @@ function getRoute(){
         "" => "",
         "products" => "productos",
         "maintenace" => "mantenimiento",
+        "purchase" => "compra",
         "product" => "producto",
         "regist" => "registro" ,
         "profile" => "perfil",
@@ -30,7 +31,7 @@ function getRoute(){
     
     foreach($urlTemplate as $route){
         $template = $routes[$route] ?? $route;
-        echo " ".$template." ";
+        echo " "."<a href=''>".$template."</a> ";
         if($index + 1 < count($urlTemplate)) echo "/";
         $index++;
     }
