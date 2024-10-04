@@ -82,6 +82,9 @@
                         <a href="/SAVI/dashboard/products?place=product&action=regist">Registro de producto</a>
                     </li>
                     <li>
+                        <a href="/SAVI/dashboard/products?place=product&action=purchase">Compras de stock</a>
+                    </li>
+                    <li>
                         <a href="/SAVI/dashboard/products?place=model&action=regist">Registro de modelo</a>
                     </li>
                     <li>
