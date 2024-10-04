@@ -9,7 +9,7 @@ $categorys = getCurl("slot=categorys");
 $data;
 
 if ($place === "list") {
-    ["data" => $data,"length" => $pagination] = getCurl("slot=sales");
+    ["data" => $data, "length" => $pagination] = getCurl("slot=sales");
 }
 
 $productNum = array_reduce($categorys, function ($carry, $item) {
@@ -43,7 +43,7 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     </label>
                 </form>
                 <button class="more" data-show="show">
-                    <i class="ri-more-2-fill" data-show="show"></i>
+                    <i class="ri-more-2-line" data-show="show"></i>
                     <ol>
                         <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
                     </ol>
@@ -101,16 +101,6 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                 <button id="sale">
                     <i class="ri-check-fill"></i>
                 </button>
-                <!-- <div>
-                <div class="counted" id="sale_options">
-                    <span>Contado</span>
-                    <button><i class="ri-bank-card-2-fill"></i></button>
-                </div>
-                <div class="apart" id="sale_options">
-                    <span>Apartado</span>
-                    <button><i class="ri-calendar-2-fill"></i></button>
-                </div>
-            </div> -->
             </div>
             <div class="bg_dialog"></div>
             <main class="dialog" id="dialog">
@@ -229,46 +219,6 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                 </form>
                 <div class="products">
                     <ol id="products-list">
-                        <!-- <li>
-                            <img src="../../assets/Screenshot_20240915-211427.jpg">
-                            <h3>Tornsillo XS</h3>
-                            <div class="details">
-                                <div class="badge warning">
-                                    Mas
-                                </div>
-                                <h2>$ <span>1.2</span></h2>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="../../assets/Screenshot_20240915-211427.jpg">
-                            <h3>Mecanismo</h3>
-                            <div class="details">
-                                <div class="badge success">
-                                    Electrodomestico
-                                </div>
-                                <h2>$ <span>100</span></h2>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="../../assets/Screenshot_20240915-211427.jpg">
-                            <h3>Cuchilla maquina</h3>
-                            <div class="details">
-                                <div class="badge success">
-                                    Refrigeración
-                                </div>
-                                <h2>$ <span>100</span></h2>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="../../assets/Screenshot_20240915-211427.jpg">
-                            <h3>Cuchilla de licuadora</h3>
-                            <div class="details">
-                                <div class="badge success">
-                                    Cocina
-                                </div>
-                                <h2>$ <span>100</span></h2>
-                            </div>
-                        </li> -->
                     </ol>
                 </div>
             </aside>
@@ -372,9 +322,27 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                     </label>
                 </form>
                 <button class="more" data-show="show">
-                    <i class="ri-filter-3-fill" data-show="show"></i>
+                    <i class="ri-more-2-line" data-show="show"></i>
                     <ol>
-                        <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                        <li>
+                            <i class="ri-filter-3-line"></i>Ordernar por:
+                            <ol>
+                                <li>Nro de Factura</li>
+                                <li>Cliente</li>
+                                <li>Estado</li>
+                                <li>Fecha</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-file-download-line"></i>Exportar en:
+                            <ol>
+                                <li><i class="ri-file-excel-2-line"></i>Excel</li>
+                                <li><i class="ri-file-pdf-2-line"></i>PDF</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-delete-bin-6-line"></i>Eliminar todas
+                        </li>
                     </ol>
                 </button>
             </div>
@@ -396,8 +364,8 @@ $productNum = array_reduce($categorys, function ($carry, $item) {
                             <tr>
                                 <td><?= $row["nro_factura"]  ?></td>
                                 <td><?= $row["client"]  ?></td>
-                                <td><?= "$ " . number_format($row["total"],2)  ?></td>
-                                <td><?= "$ " . number_format($row["payment"],2)  ?></td>
+                                <td><?= "$ " . number_format($row["total"], 2)  ?></td>
+                                <td><?= "$ " . number_format($row["payment"], 2)  ?></td>
                                 <td>
                                     <span class="badge <?= $row["status"] ?>"><?= nameTranslator($row["status"]) ?></span>
                                 </td>

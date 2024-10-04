@@ -5,6 +5,7 @@ $page = $_GET["page"] ?? 1;
 $data = getCurl("slot=products");
 $pagination = $data["length"];
 $data = $data["data"];
+$action = $_GET["action"] ?? null;
 
 $brands = getCurl("slot=brands");
 $models = getCurl("slot=models");
@@ -19,6 +20,10 @@ $categorys = getCurl("slot=categorys");
 <title>Productos - Inv.Refrihogar</title>
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="../../forms.css">
+<?php if ($action == "purchase") : ?>
+    <link rel="stylesheet" href="./purchase.css">
+    <link rel="stylesheet" href="../../lib/dialog.css">
+<?php endif ?>
 
 
 <?php
@@ -35,83 +40,107 @@ $optionsTitle = array(
     <?php include '../ui/navbar.php' ?>
     <section>
         <?php if (!$place) : ?>
-                <h2><i class="ri-folder-5-line"></i>Productos</h2>
-                <p>&Eacute;chale un vistazo al inventario de productos registrados en tu organizaci&oacute;n</p>
-                <div class="table-options">
-                    <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
-                        <label style="margin:0;">
-                            <span>
-                                <i class="ri-search-line"></i>
-                                <input type="text" id="search-table" placeholder="Tornillo xs">
-                            </span>
-                        </label>
-                    </form>
-                    <button class="more" data-show="show">
-                        <i class="ri-filter-3-fill" data-show="show"></i>
-                        <ol>
-                            <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
-                        </ol>
-                    </button>
-                </div>
-                <div class="table">
-                    <table>
-                        <thead>
+            <h2><i class="ri-folder-5-line"></i>Productos</h2>
+            <p>&Eacute;chale un vistazo al inventario de productos registrados en tu organizaci&oacute;n</p>
+            <div class="table-options">
+                <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+                    <label style="margin:0;">
+                        <span>
+                            <i class="ri-search-line"></i>
+                            <input type="text" id="search-table" placeholder="Tornillo xs">
+                        </span>
+                    </label>
+                </form>
+                <button class="more" data-show="show">
+                    <i class="ri-more-2-line" data-show="show"></i>
+                    <ol>
+                        <li>
+                            <i class="ri-filter-3-line"></i>Ordernar por:
+                            <ol>
+                                <li>Codigo</li>
+                                <li>Nombre</li>
+                                <li>Departamento</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-file-download-line"></i>Exportar en:
+                            <ol>
+                                <li><i class="ri-file-excel-2-line"></i>Excel</li>
+                                <li><i class="ri-file-pdf-2-line"></i>PDF</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-file-add-line"></i>Importar por:
+                            <ol>
+                                <li><i class="ri-file-excel-2-line"></i>Excel</li>
+                                <li><i class="ri-file-2-line"></i>CSV</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-delete-bin-6-line"></i>Eliminar todos
+                        </li>
+                    </ol>
+                </button>
+            </div>
+            <div class="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>C&oacute;digo</td>
+                            <td>Nombre</td>
+                            <td>Imagen</td>
+                            <!-- <td>Precio Venta</td> -->
+                            <td>Departamento</td>
+                            <td>Precio Venta</td>
+                            <td>Stock</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($data as $row) : ?>
                             <tr>
-                                <td>C&oacute;digo</td>
-                                <td>Nombre</td>
-                                <td>Imagen</td>
-                                <!-- <td>Precio Venta</td> -->
-                                <td>Departamento</td>
-                                <td>Precio Compra</td>
-                                <td>Stock</td>
-                                <td>Acciones</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($data as $row) : ?>
-                                <tr>
-                                    <td><?= $row["code"]  ?></td>
-                                    <td><?= $row["name"]  ?></td>
-                                    <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0, 1) ?>">
-                                        <?php if (!empty($row["photo"])) : ?>
-                                            <img src="<?= $row["photo"] ?>">
-                                        </td>
-                                        <?php endif ?>
-                                        <td><?= $row["category"]  ?></td>
-                                <td><?= "$ " . $row["selling_price"]  ?></td>
-                                <td><?= $row["stock"]  ?></td>
-                                <td data-code="<?= $row["code"]  ?>">
-                                    <div class="actions">
-                                        <button class="btn-square edit">
-                                            <i class="ri-edit-line"></i>
-                                        </button>
-                                        <button class="btn-square delete">
-                                            <i class="ri-delete-bin-6-line"></i>
-                                        </button>
-                                    </div>
+                                <td><?= $row["code"]  ?></td>
+                                <td><?= $row["name"]  ?></td>
+                                <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0, 1) ?>">
+                                    <?php if (!empty($row["photo"])) : ?>
+                                        <img src="<?= $row["photo"] ?>">
                                 </td>
-                                </tr>
-    
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+                            <?php endif ?>
+                            <td><?= $row["category"]  ?></td>
+                            <td><?= "$ " . $row["selling_price"]  ?></td>
+                            <td><?= $row["stock"]  ?></td>
+                            <td data-code="<?= $row["code"]  ?>">
+                                <div class="actions">
+                                    <button class="btn-square edit">
+                                        <i class="ri-edit-line"></i>
+                                    </button>
+                                    <button class="btn-square delete">
+                                        <i class="ri-delete-bin-6-line"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            </tr>
+
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination <?= $pagination > 1 ? '' : "hidden" ?>">
+                <button id="movePage">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <div class="items_pagination">
+                    <?php for ($i = 1; $i <= $pagination; $i++) : ?>
+                        <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?= $i ?></button>
+                    <?php endfor ?>
                 </div>
-                <div class="pagination <?= $pagination > 1 ? '' : "hidden" ?>">
-                    <button id="movePage">
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
-                    <div class="items_pagination">
-                        <?php for ($i = 1; $i <= $pagination; $i++) : ?>
-                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?= $i ?></button>
-                        <?php endfor ?>
-                    </div>
-                    <button id="movePage">
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
+                <button id="movePage">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
             <script type="module" src="index.js"></script>
         <?php endif ?>
-        <?php if ($place === "product") : ?>
+        <?php if ($place === "product" && $action == "regist") : ?>
             <main>
                 <form action="dashboard" class="form" id="register" style="width: 450px;">
                     <h2>Registro de productos</h2>
@@ -262,6 +291,107 @@ $optionsTitle = array(
                 </div>
             </main>
             <script type="module" src="./registProduct.js"></script>
+        <?php endif ?>
+        <?php if ($place === "product" && $action == "purchase") : ?>
+            <h2><i class="ri-shopping-cart-line"></i>Compras</h2>
+            <p>Genera compras de productos, aumenta su stock y maneja sus precios.</p>
+            <div class="table-options">
+                <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+                    <label style="margin:0;">
+                        <span>
+                            <i class="ri-search-line"></i>
+                            <input type="text" id="search-modal" placeholder="Tornillo xs">
+                        </span>
+                    </label>
+                </form>
+                <button class="more" data-show="show">
+                    <i class="ri-more-2-line" data-show="show"></i>
+                    <ol>
+                        <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                    </ol>
+                </button>
+            </div>
+            <div class="table">
+                <table class="empty">
+                    <thead>
+                        <tr>
+                            <td style="width: 50px;">#</td>
+                            <td>C&oacute;digo</td>
+                            <td>Descripci&oacute;n</td>
+                            <td>Stock Actual</td>
+                            <td>Cantidad</td>
+                            <td>Precio</td>
+                            <td>Total</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody id="table-products">
+                        <tr>
+                        </tr>
+                        <!-- <tr>
+                        <td>ELE2012</td>
+                        <td>Otdos</td>
+                        <td>4</td>
+                        <td>$5</td>
+                        <td>$20</td>
+                        <td class="actions">
+                            <button class="btn-square edit">
+                                <i class="ri-edit-line"></i>
+                            </button>
+                            <button class="btn-square add">
+                                <i class="ri-add-line"></i>
+                            </button>
+                            <button class="btn-square subtract">
+                                <i class="ri-subtract-line"></i>
+                            </button>
+                            <button class="btn-square delete">
+                                <i class="ri-delete-bin-6-line"></i>
+                            </button>
+                        </td>
+                    </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-details">
+                <div>
+                    <h3>Total <span id="convertSign">Bs</span>: <span id="total-price">0.00</span></h3>
+                    <p>Total <span id="convertSign">$</span>: <span id="total-dollar">0.00</span></p>
+                </div>
+            </div>
+            <div class="float">
+                <button id="purchase">
+                    <i class="ri-check-fill"></i>
+                </button>
+            </div>
+            <div class="bg_dialog"></div>
+            <main class="dialog products">
+                <h2>Busca los productos que deseas añadir a la compra</h2>
+                <p>Ten en cuenta que solo puedes cambiar el stock a productos ya registrados.</p>
+                <form class="form">
+                    <label style="margin-top:20px;">
+                        <span>
+                            <i class="ri-search-line"></i>
+                            <input type="text" id="search-product" placeholder="Tornillo xs">
+                        </span>
+                    </label>
+                </form>
+                <div class="table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Codigo</td>
+                                <td>Descripción</td>
+                            </tr>
+                        </thead>
+                        <tbody>     
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container-buttons">
+                    <button type="button" class="btn fit success" id="close-modal"><i class="ri-check-line"></i>Listo</button>
+                </div>
+            </main>
+            <script type="module" src="./purchase.js"></script>
         <?php endif ?>
         <?php if ($place === "brand") : ?>
             <main>

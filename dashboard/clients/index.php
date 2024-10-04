@@ -28,77 +28,102 @@ $data = $data["data"];
             <div class="table-options">
                 <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
                     <label style="margin:0;">
-                            <span>
+                        <span>
                             <i class="ri-search-line"></i>
                             <input type="text" id="search-table" placeholder="Tornillo xs">
                         </span>
                     </label>
                 </form>
                 <button class="more" data-show="show">
-                    <i class="ri-filter-3-fill" data-show="show"></i>
+                    <i class="ri-more-2-line" data-show="show"></i>
                     <ol>
-                        <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+                        <li>
+                            <i class="ri-filter-3-line"></i>Ordernar por:
+                            <ol>
+                                <li>Cédula</li>
+                                <li>Nombre y Apellido</li>
+                                <li>Tipo</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-file-download-line"></i>Exportar en:
+                            <ol>
+                                <li><i class="ri-file-excel-2-line"></i>Excel</li>
+                                <li><i class="ri-file-pdf-2-line"></i>PDF</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-file-add-line"></i>Importar por:
+                            <ol>
+                                <li><i class="ri-file-excel-2-line"></i>Excel</li>
+                                <li><i class="ri-file-2-line"></i>CSV</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <i class="ri-delete-bin-6-line"></i>Eliminar todos
+                        </li>
                     </ol>
                 </button>
             </div>
             <div class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>C&eacute;dula</td>
-                                <td>Imagen</td>
-                                <td>Nombre y Apellido</td>
-                                <td>Empresa</td>
-                                <!-- <td>Estado</td> -->
-                                <td>Tel&eacute;fono</td>
-                                <td>Acciones</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if($pagination <= 0): ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>C&eacute;dula</td>
+                            <td>Imagen</td>
+                            <td>Nombre y Apellido</td>
+                            <td>Empresa</td>
+                            <!-- <td>Estado</td> -->
+                            <td>Tel&eacute;fono</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if ($pagination <= 0) : ?>
                             <tr class="not-elements" style="--text-alert:'No hay registros aun';">
                             </tr>
-                            <?php endif ?>
-                            <?php foreach($data as $row): ?>
-                                <tr>
-                                    <td><?= $row["dni"]  ?></td>
-                                    <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0,1) ?>">
-                                        <?php if(!empty($row["image"])): ?>
-                                            <img src="../../assets/img/<?= $row["image"] ?>" ></td>
-                                            <?php endif ?>
-                                            <td><?= $row["name"]. " " .$row["surname"]  ?></td>
-                                <td class="<?= empty($row["enterprise_name"]) ? "value-null" : "" ?>"><?= $row["enterprise_name"] ?></td>
-                                <!-- <td><span class="badge success">pendiente</span></td> -->
-                                <td><?= $row["phone"]  ?></td>
-                                <!---<td><?= $row["status"]  ?></td>-->
-                                <td data-dni="<?= $row["dni"]  ?>">
-                                    <div class="actions">
-                                        <button class="btn-square edit">
-                                            <i class="ri-edit-line"></i>
-                                        </button>
-                                        <button class="btn-square delete">
-                                            <i class="ri-delete-bin-6-line"></i>
-                                        </button>
-                                    </div>
+                        <?php endif ?>
+                        <?php foreach ($data as $row) : ?>
+                            <tr>
+                                <td><?= $row["dni"]  ?></td>
+                                <td id="avatar" class="<?= !empty($row["photo"]) ? "inactive" : "active" ?>" data-avatar="<?= substr($row["name"], 0, 1) ?>">
+                                    <?php if (!empty($row["image"])) : ?>
+                                        <img src="../../assets/img/<?= $row["image"] ?>">
                                 </td>
-                                </tr>
+                            <?php endif ?>
+                            <td><?= $row["name"] . " " . $row["surname"]  ?></td>
+                            <td class="<?= empty($row["enterprise_name"]) ? "value-null" : "" ?>"><?= $row["enterprise_name"] ?></td>
+                            <!-- <td><span class="badge success">pendiente</span></td> -->
+                            <td><?= $row["phone"]  ?></td>
+                            <!---<td><?= $row["status"]  ?></td>-->
+                            <td data-dni="<?= $row["dni"]  ?>">
+                                <div class="actions">
+                                    <button class="btn-square edit">
+                                        <i class="ri-edit-line"></i>
+                                    </button>
+                                    <button class="btn-square delete">
+                                        <i class="ri-delete-bin-6-line"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            </tr>
                         <?php endforeach ?>
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination <?= $pagination > 1 ? '' : "hidden" ?>">
+                <button id="movePage">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+                <div class="items_pagination">
+                    <?php for ($i = 1; $i <= $pagination; $i++) : ?>
+                        <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?= $i ?></button>
+                    <?php endfor ?>
                 </div>
-                <div class="pagination <?= $pagination > 1 ? '': "hidden" ?>">
-                    <button id="movePage">
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
-                    <div class="items_pagination">
-                        <?php for($i = 1; $i <= $pagination;$i++): ?>
-                            <button data-num="<?= $i ?>" class="<?= ($page == $i) ? "active" : "" ?>"><?=$i?></button>
-                        <?php endfor ?> 
-                    </div>
-                    <button id="movePage">
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
+                <button id="movePage">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </div>
             <script type="module" src="index.js"></script>
         <?php endif ?>
         <?php if ($place === "register") : ?>
@@ -180,22 +205,22 @@ $data = $data["data"];
                     <h2>Listado de clientes</h2>
                     <p>Clientes que ya se encuentran en el sistema.</p>
                     <ol>
-                        <?php $data = array_slice($data,0,5)?>
-                        <?php foreach($data as $row):?>
-                        <li>
-                            <a href="">
-                                <picture id="avatar" data-avatar="<?= substr($row["name"], 0,1) ?>">
-                                    <?php if(!empty($row["image"])): ?>
-                                    <img src="<?= $row["image"] ?>" >
-                                    <?php endif ?>
-                                </picture>
-                                <div class="details">
-                                    <p><?= $row["name"] ." ".$row["surname"]  ?></p>
-                                    <p><?= $row["dni"] ?></p>
-                                </div>
-                                <i class="ri-arrow-right-line"></i>
-                            </a>
-                        </li>
+                        <?php $data = array_slice($data, 0, 5) ?>
+                        <?php foreach ($data as $row) : ?>
+                            <li>
+                                <a href="">
+                                    <picture id="avatar" data-avatar="<?= substr($row["name"], 0, 1) ?>">
+                                        <?php if (!empty($row["image"])) : ?>
+                                            <img src="<?= $row["image"] ?>">
+                                        <?php endif ?>
+                                    </picture>
+                                    <div class="details">
+                                        <p><?= $row["name"] . " " . $row["surname"]  ?></p>
+                                        <p><?= $row["dni"] ?></p>
+                                    </div>
+                                    <i class="ri-arrow-right-line"></i>
+                                </a>
+                            </li>
                         <?php endforeach ?>
                     </ol>
                     <a href="./" class="btn cancel"> Ver m&aacute;s </a>

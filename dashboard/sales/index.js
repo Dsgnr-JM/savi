@@ -1,7 +1,7 @@
 import searchEngine from "../lib/searchEngine.js"
 import getData from "../lib/getData.js"
 import Bell from "../../lib/bell.esm.js";
-import '../lib/table.js'
+import '../lib/showOptions.js'
 import {openDialog,closeDialog} from '../../lib/dialog.js'
 const $inputSearch = document.querySelector("#search-product")
 const $formSearch = document.querySelector("#form-search")

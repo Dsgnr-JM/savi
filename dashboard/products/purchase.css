@@ -1,0 +1,45 @@
+.root section{
+    display: flex;
+    flex-direction: column;
+}
+.total-details{
+    flex:1;
+    display: flex;
+    align-items: flex-end;
+}
+.total-details div{
+    margin-top: 40px;
+    width: 320px;
+    padding: 20px;
+    background-color: white;
+    border: var(--border-lighter);
+    box-shadow: var(--box-shadow-cards);
+    border-radius: 8px;
+    line-height: 1.5;
+    text-align: left;
+    color:var(--text-primary-color);
+}
+.total-details h3{
+    font-size: var(--font-xl);
+    font-weight: 600;
+}
+.total-details p{
+    font-size: var(--font-sm);
+}
+.dialog .table{
+    margin-top: 2px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    box-shadow: none !important;
+}
+.dialog table thead, .dialog tbody tr{
+    height: 40px;
+}
+.dialog table tbody tr{
+    transition: .12s ease background-color;
+}
+.dialog table tbody tr:hover{
+    cursor: pointer;
+    background-color: #eff1f16b;
+}
