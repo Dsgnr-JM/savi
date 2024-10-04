@@ -127,6 +127,12 @@ section > p{
   height: auto;
   padding: 5px 15px;
 }
+.first-header .location a{
+  color:var(--text-primary-color);
+}
+.first-header .location a:hover{
+  color:var(--primary-color);
+}
 .header .nav_items .items:first-child a{
   margin: 5px 0;
 }
@@ -469,28 +475,53 @@ body .root > section {
 .table-options .more ol{
   position: absolute;
   border:var(--border-lighter);
-  padding: 10px;
+  padding: 10px 0;
   border-radius: 8px;
   opacity: 0;
   pointer-events: none;
   z-index: -1;
   top:35px;
-  right: 0;
-  width: 200px;
+  right: -1px;
+  width: fit-content;
+  white-space: nowrap;
+  box-shadow: var(--box-shadow-base);
   background-color: white;
   font-size: var(--font-xs-2);
   font-weight: 500;
   transition: .15s ease all;
-  color:var(--text-primary-color)
+  color:var(--text-terciary-color)
 }
 .more ol li{
+  position: relative;
   width: 100%;
-  padding: 10px 7px;
-  border-radius: 5px;
+  padding: 13px 30px 13px 13px;
+  text-align: left;
+}
+.table-options .more.active ol li > ol{
+  z-index: 100;
+  position: absolute;
+  right: 80%;
+  transform: translateY(-50%);
+  top:50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.table-options .more.active ol li:hover > ol{
+  right:98%;
+  opacity: 1;
+  pointer-events: all;
+}
+.table-options .more.active ol li:first-child > ol{
+  top: -10px;
+  transform: translateY(0%);
+}
+.table-options .more.active ol li:last-child > ol{
+  top: calc(-100% - 10px);
+  transform: translateY(0%);
 }
 .more ol li i{
   font-size: var(--font-base-2);
-  margin-right: 5px;
+  margin-right: 8px;
 }
 .table-options .more ol li:hover{
   background: whitesmoke;
