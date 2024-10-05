@@ -3,7 +3,7 @@
 function getRoute(){
     $routes = array(
         "" => "",
-        "products" => "productos",
+        "products" => "inventario",
         "maintenace" => "mantenimiento",
         "purchase" => "compra",
         "product" => "producto",

@@ -463,14 +463,14 @@ body .root > section {
   height: 37px;
   border:var(--border-lighter);
   border-radius: 8px;
-  background: #f1f1f1;
+  background: #f3f3f3;
   font-weight: 900;
   z-index: 1;
   font-size: var(--font-lg);
   color: #28292bad;
 }
 .table-options .more:hover {
-  background-color: #32343813;
+  background-color: #f0f2f3;
 }
 .table-options .more ol{
   position: absolute;

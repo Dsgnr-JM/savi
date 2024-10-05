@@ -56,12 +56,13 @@ function handleAddProduct(code) {
     createTableProducts($tableProduct, purchase)
 }
 
-function handleProduct(code, product, amount,type) {
+function handleProduct(code, product, amount,type,isInput) {
     let repeatProduct = purchase.find(product => product.code == code)
     if (repeatProduct) {
         let value = Number(repeatProduct[type])
-        repeatProduct[type] = (value + amount).toFixed(2)
-        if(amount > 1) repeatProduct[type] = amount
+        amount = Number(amount)
+        repeatProduct[type] = type != "amount" ? (value + amount).toFixed(2) : (value + amount)
+        if(isInput) repeatProduct[type] = type != "amount" ? amount.toFixed(2) : amount
     } else {
         let { code, name, purchase_price, stock, stock_max } = product
         purchase.push({ code, name, purchase_price, stock, stock_max, amount: amount })
@@ -108,16 +109,17 @@ function handleAdd(code,type) {
 }
 function handleRemove(code,type) {
     let product = purchase.find(product => product.code == code)
-    console.log(type)
     if (type=="amount" && product.amount - 1 < 1) {
         purchase = purchase.filter(item => item !== product);
         createTableProducts($tableProduct, purchase)
         return
     }else{
-        handleProduct(product.code, product, -1,type)
+        let value = product.purchase_price - 1 < 0 ? 0 : -1
+        handleProduct(product.code, product, value,type,!Boolean(value))
         createTableProducts($tableProduct,purchase)
     }
 }
+
 function handleInput(code,value,type){
     let product = purchase.find(product => product.code == code)
     if (value < 1) {
@@ -125,7 +127,7 @@ function handleInput(code,value,type){
         createTableProducts($tableProduct, purchase)
         return
     }
-    handleProduct(product.code, product, Number(value),type)
+    handleProduct(product.code, product, Number(value),type,true)
     createTableProducts($tableProduct,purchase)
 }
 
