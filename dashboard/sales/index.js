@@ -36,6 +36,7 @@ export async function handleAddProduct(value){
         },"warning",{
             screenTime: 6000,
             removeOn: "click",
+            theme: "light",
             isColored: false,
             typeAnimation: "bound-2",
             position:"bottom-center"
@@ -89,6 +90,7 @@ function createProductsHTML(){
         const $price = document.createElement("td")
         const $total = document.createElement("td")
         const $actions = document.createElement("td")
+        const $actionsContainer = document.createElement("div")
         const $btnAdd = document.createElement("button");
         const $btnsubtract = document.createElement("button");
         const $btnDelete = document.createElement("button");
@@ -102,10 +104,11 @@ function createProductsHTML(){
         $amount.textContent = product.amount
         $price.textContent = cleanPrice(conversion, product.selling_price) + ` ${convertSign}`
         $total.textContent =  cleanPrice(conversion, product.selling_price * product.amount) + ` ${convertSign}`
-        $actions.classList.add("actions")
-        $btnAdd.className = "btn-square add"
-        $btnDelete.className = "btn-square delete"
-        $btnsubtract.className = "btn-square subtract";
+        $actionsContainer.classList.add("actions")
+        $actions.append($actionsContainer)
+        $btnAdd.className = "add"
+        $btnDelete.className = "delete"
+        $btnsubtract.className = "subtract";
         [$btnAdd,$btnDelete,$btnsubtract].forEach(i => i.dataset.code = product.code)
         $iconAdd.classList.add("ri-add-line")
         $iconDelete.classList.add("ri-delete-bin-6-line")
@@ -113,7 +116,7 @@ function createProductsHTML(){
         $btnAdd.appendChild($iconAdd)
         $btnDelete.appendChild($iconDelete)
         $btnsubtract.appendChild($iconsubtract)
-        $actions.append($btnAdd, $btnsubtract, $btnDelete)
+        $actionsContainer.append($btnAdd, $btnsubtract, $btnDelete)
         $tr.append($num, $code, $description, $amount, $price, $total, $actions)
         $tableProducts.appendChild($tr)
         $btnsubtract.addEventListener("click", () =>{
@@ -219,7 +222,6 @@ $prevBtn.addEventListener("click",()=>{
 
 $dialog.querySelector(".client form").addEventListener("submit",async e=>{
     e.preventDefault()
-    console.log("e")
     const $form = e.target
     const formData = new FormData($form)
     const $btn = e.submitter
@@ -238,6 +240,7 @@ $dialog.querySelector(".client form").addEventListener("submit",async e=>{
                 position: "top-center",
                 typeAnimation: "bound-2",
                 timeScreen: 5000,
+                theme: "light",
                 expand: true,
                 distance:{
                     y: 10

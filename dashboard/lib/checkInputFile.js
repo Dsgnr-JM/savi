@@ -1,10 +1,9 @@
 export default function checkInputFile() {
     const $inputFile = document.querySelector("input[type='file']")
     const $labelFile = document.querySelector(".inputFile")
-    const typeValid = ['image/png', 'image/webp']
+    const typeValid = ['image/png', 'image/webp',"image/jpg","image/jpeg"]
 
     $inputFile.addEventListener("input", e => {
-        console.log("sa")
         let file = $inputFile.files[0]
         if (file) {
             if (!typeValid.includes(file.type)) {

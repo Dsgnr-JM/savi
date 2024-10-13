@@ -1,5 +1,5 @@
 <main>
-    <form action="dashboard" class="form" id="register" style="width: 450px;">
+    <form autocomplete="off"action="dashboard" class="form" id="register" style="width: 450px;">
         <h2>Registro de productos</h2>
         <p>Almacena productos de manera r&aacute;pida y eficaz.</p>
         <label>
@@ -16,7 +16,6 @@
                 <i class="ri-profile-line" id="icon-form"></i>
             </span>
         </label>
-        <div class="line-space"></div>
         <div class="inputs-container">
             <label>
                 <p>Departamento:</p>
@@ -27,47 +26,19 @@
                 </select>
             </label>
             <label>
-                <p>Modelo:</p>
-                <select name="models">
-
-                    <?php foreach ($models as $result) : ?>
-                        <option value="<?= $result['model_id'] ?>"><?= $result['model_name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-            </label>
-            <label>
-                <p>Marca:</p>
+                <p>Proveedor:</p>
                 <span>
-                    <select name="brand">
-
-                        <?php foreach ($brands as $result) : ?>
-                            <option value="<?= $result['id_brand'] ?>"><?= $result['brad_name'] ?></option>
+                    <select name="supplier">
+    
+                        <?php foreach ($suppliers as $result) : ?>
+                            <option value="<?= $result['rif'] ?>"><?= $result['name'] ?></option>
                         <?php endforeach ?>
                     </select>
                 </span>
             </label>
-
         </div>
-        <label>
-            <p>Proveedor:</p>
-            <span>
-                <select name="supplier">
-
-                    <?php foreach ($suppliers as $result) : ?>
-                        <option value="<?= $result['rif'] ?>"><?= $result['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-            </span>
-        </label>
         <div class="line-space"></div>
         <div class="inputs-container">
-            <label>
-                <p>Stock:</p>
-                <span>
-                    <input type="number" name="stock" required placeholder="0">
-                    <i class="ri-shopping-basket-line" id="icon-form"></i>
-                </span>
-            </label>
             <label>
                 <p>Stock m&iacute;nimo:</p>
                 <span>
@@ -85,14 +56,14 @@
         </div>
         <div class="inputs-container">
             <label>
-                <p>Precio salida:</p>
+                <p>Precio Venta:</p>
                 <span>
                     <input type="number" name="selling_price" step="any" required placeholder="120">
                     <i class="ri-price-tag-line" id="icon-form"></i>
                 </span>
             </label>
             <label>
-                <p>Precio entrada:</p>
+                <p>Precio Compra:</p>
                 <span>
                     <i class="ri-price-tag-line"></i>
                     <input type="number" name="purchase_price" step="any" required placeholder="120">

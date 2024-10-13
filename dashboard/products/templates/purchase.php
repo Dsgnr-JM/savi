@@ -1,7 +1,8 @@
 <h2><i class="ri-shopping-cart-line"></i>Compras</h2>
 <p>Genera compras de productos, aumenta su stock y maneja sus precios.</p>
 <div class="table-options">
-    <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+    <form autocomplete="off"id="form-search" class="form not-ring" style="width:320px;margin:0;">
+        <input type="hidden" id="dolarPrice" value="<?= $dolarPrice ?>" disabled>
         <label style="margin:0;">
             <span>
                 <i class="ri-search-line"></i>
@@ -12,7 +13,15 @@
     <button class="more" data-show="show">
         <i class="ri-more-2-line" data-show="show"></i>
         <ol>
-            <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li>
+            <li>
+                <i class="ri-camera-lens-line"></i>Escanear <span class="badge ia">IA</span>
+                <ol>
+                    <li>Tomar fotografia</li>
+                    <li>Subir archivo</li>
+                </ol>
+            </li>
+            <!-- <li id="conversion"><i class="ri-coins-line"></i>Cambiar divisa a <span>$</span></li> -->
+            <li id="deleteAll"><i class="ri-delete-bin-6-line"></i>Borrar todo</li>
         </ol>
     </button>
 </div>
@@ -60,7 +69,7 @@
 <div class="total-details">
     <div>
         <h3>Total <span id="convertSign">Bs</span>: <span id="total-price">0.00</span></h3>
-        <p>Total <span id="convertSign">$</span>: <span id="total-dollar">0.00</span></p>
+        <p>Total <span id="convertSign">$</span>: <span id="total-price">0.00</span></p>
     </div>
 </div>
 <div class="float">
@@ -72,7 +81,7 @@
 <main class="dialog products">
     <h2>Busca los productos que deseas añadir a la compra</h2>
     <p>Ten en cuenta que solo puedes cambiar el stock a productos ya registrados.</p>
-    <form class="form">
+    <form autocomplete="off"class="form">
         <label style="margin-top:20px;">
             <span>
                 <i class="ri-search-line"></i>

@@ -58,7 +58,6 @@ function appendScript(dependencie, isLib){
         }).catch(error => {
             console.log(error)
         })
-        console.log(url)
         script.src = url + dependencie + `.js?v=${Math.random()}`
         document.body.appendChild(script)
         actualDependencie = dependencie

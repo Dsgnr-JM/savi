@@ -17,6 +17,8 @@ require_once "lib/updateAditional.php";
 require_once "lib/insertClient.php";
 require_once "lib/insertData.php";
 require_once 'lib/updateData.php';
+require_once 'lib/deleteData.php';
+require_once 'lib/recoveryData.php';
 
 $action = $_GET["action"] ?? "";
 $slot = $_GET["slot"] ?? "";
@@ -24,37 +26,36 @@ $message = array("result" => false, "description" => "");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($slot === "profile") {
-        if($action === "updatePersonal"){
+        if ($action === "updatePersonal") {
             echo updateName($pdo, $_POST, $message);
         }
-        if($action === "updatePassword"){
+        if ($action === "updatePassword") {
             echo updatePassword($pdo, $_POST, $message);
-        }     
-        if($action === "updateAditional"){
+        }
+        if ($action === "updateAditional") {
             echo updateAditional($pdo, array_merge($_FILES, $_POST), $message);
         }
     }
-    if($slot === "config"){
-        if($action === "update"){
-            echo updateData($pdo,$slot,$_POST,$message);
+    if ($action === "update") {
+        echo updateData($pdo, $slot, array_merge($_FILES,$_POST), $message);
+    }
+    if($action === "delete"){
+        echo deleteData($pdo,$slot,$_POST,$message);
+    }
+    if ($slot === "client") {
+        if ($action === "insert") {
+            echo insertClient($pdo, array_merge($_POST, $_FILES), $message);
         }
     }
-    if($slot === "role"){
-        if($action === "update"){
-            echo updateData($pdo,$slot,$_POST,$message);
-        }
+    if($action === "recovery"){
+        echo recoveryData($pdo,$slot,$_POST,$message);
     }
-    if($slot === "client"){
-        if($action === "insert"){
-            echo insertClient($pdo, array_merge($_POST,$_FILES), $message);
-        }
-    }
-    if($slot !== "client"){
-        if($action === "insert"){
-            echo insertData($pdo, $slot ,array_merge($_POST,$_FILES), $message);
+    if ($slot !== "client") {
+        if ($action === "insert") {
+            echo insertData($pdo, $slot, array_merge($_POST, $_FILES), $message);
         }
     }
 }
-if($_SERVER["REQUEST_METHOD"] == "GET"){
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
     echo getData($pdo, $slot, $_GET);
 }

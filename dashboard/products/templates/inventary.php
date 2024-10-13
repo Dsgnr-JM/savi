@@ -1,7 +1,7 @@
-<h2><i class="ri-folder-5-line"></i>Inventario</h2>
-<p>&Eacute;chale un vistazo al inventario de productos registrados en tu organizaci&oacute;n</p>
+<h2 class="toLeft"><i class="ri-folder-5-line"></i>Inventario</h2>
+<p class="toLeft">&Eacute;chale un vistazo a los productos <?= $isRemoved ? "eliminados de": "registrados en" ?> tu organizaci&oacute;n</p>
 <div class="table-options">
-    <form id="form-search" class="form not-ring" style="width:320px;margin:0;">
+    <form autocomplete="off" id="form-search" class="form not-ring toDown" style="width:320px;margin:0;">
         <label style="margin:0;">
             <span>
                 <i class="ri-search-line"></i>
@@ -9,7 +9,8 @@
             </span>
         </label>
     </form>
-    <button class="more" data-show="show">
+    <?php if(!$isRemoved): ?>
+    <button class="more toDown" data-show="show">
         <i class="ri-more-2-line" data-show="show"></i>
         <ol>
             <li>
@@ -20,9 +21,9 @@
                     <li>Departamento</li>
                 </ol>
             </li>
-            <li>
+            <!-- <li>
                 <i class="ri-coins-line"></i>Cambiar divisa a Bs
-            </li>
+            </li> -->
             <li>
                 <i class="ri-file-download-line"></i>Exportar en:
                 <ol>
@@ -42,8 +43,9 @@
             </li>
         </ol>
     </button>
+    <?php endif ?>
 </div>
-<div class="table">
+<div class="table toDown">
     <table>
         <thead>
             <tr>
@@ -57,7 +59,7 @@
                 <td>Acciones</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody data-slot="product">
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <td><?= $row["code"]  ?></td>
@@ -72,13 +74,21 @@
                 <td><?= $row["stock"]  ?></td>
                 <td data-code="<?= $row["code"]  ?>">
                     <div class="actions">
-                        <button class="btn-square edit">
-                            <i class="ri-edit-line"></i>
-                        </button>
-                        <button class="btn-square delete">
-                            <i class="ri-delete-bin-6-line"></i>
-                        </button>
-                    </div>
+                        <?php if ($isRemoved) : ?>
+                            <button aria-label="Recuperar" data-balloon-pos="up" class="recovery">
+                                <i class="ri-arrow-turn-forward-line"></i>
+                            </button>
+                        <?php else : ?>
+                            <button aria-label="Ver" data-balloon-pos="up" class="subtract">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                            <button class="edit" aria-label="Editar" data-balloon-pos="up">
+                                <i class="ri-edit-line"></i>
+                            </button>
+                            <button class="delete" aria-label="Borrar" data-balloon-pos="up">
+                                <i class="ri-delete-bin-6-line"></i>
+                            </button>
+                        <?php endif ?>
                 </td>
                 </tr>
 
@@ -99,4 +109,101 @@
         <i class="ri-arrow-right-s-line"></i>
     </button>
 </div>
+<div class="bg_dialog"></div>
+<main class="dialog" id="edit">
+    <h2>Edición del Producto</h2>
+    <p>Edite los datos básicos del producto seleccionado.</p>
+    <form autocomplete="off" class="form">
+        <input type="hidden" name="key" value="">
+        <label>
+            <p>C&oacute;digo:</p>
+            <span>
+                <input type="text" name="code" required placeholder="ELE4521">
+                <i class="ri-barcode-line" id="icon-form"></i>
+            </span>
+        </label>
+        <label>
+            <p>Nombre:</p>
+            <span>
+                <input type="text" name="name" required placeholder="Tuerca xm">
+                <i class="ri-profile-line" id="icon-form"></i>
+            </span>
+        </label>
+        <div class="inputs-container">
+            <label>
+                <p>Departamento:</p>
+                <select name="category">
+                    <?php foreach ($categorys as $result) : ?>
+                        <option value="<?= $result['id'] ?>"><?= $result['name'] ?></option>
+                    <?php endforeach ?>
+                </select>
+            </label>
+            <label>
+                <p>Proveedor:</p>
+                <span>
+                    <select name="supplier">
+
+                        <?php foreach ($suppliers as $result) : ?>
+                            <option value="<?= $result['rif'] ?>"><?= $result['name'] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </span>
+            </label>
+        </div>
+        <div class="line-space"></div>
+        <div class="inputs-container">
+            <label>
+                <p>Stock m&iacute;nimo:</p>
+                <span>
+                    <input type="number" name="stock_min" required placeholder="0">
+                    <i class="ri-shopping-basket-line" id="icon-form"></i>
+                </span>
+            </label>
+            <label>
+                <p>Stock m&aacute;ximo:</p>
+                <span>
+                    <input type="number" name="stock_max" required placeholder="0">
+                    <i class="ri-shopping-basket-line" id="icon-form"></i>
+                </span>
+            </label>
+        </div>
+        <div class="inputs-container">
+            <label>
+                <p>Precio Venta:</p>
+                <span>
+                    <input type="number" name="selling_price" step="any" required placeholder="120">
+                    <i class="ri-price-tag-line" id="icon-form"></i>
+                </span>
+            </label>
+            <label>
+                <p>Precio Compra:</p>
+                <span>
+                    <i class="ri-price-tag-line"></i>
+                    <input type="number" name="purchase_price" step="any" required placeholder="120">
+                </span>
+            </label>
+        </div>
+        <label class="showSetFile">
+            <input type="checkbox" id="setFile">
+            <p>Subir imagen</p>
+        </label>
+        <label class="inputFile">
+            <input type="file" name="photo" id="inputFile">
+            <div class="presentation">
+                <i class="ri-gallery-line"></i>
+                <p>Arrastre y suelte una imagen en formato png | jpeg | webp</p>
+            </div>
+        </label>
+        <div class="line-space"></div>
+        <div class="container-buttons">
+            <button class="btn cancel" type="button">
+                Cancelar
+            </button>
+            <button class="btn success">
+                Actualizar
+                <i class="ri-arrow-drop-right-line"></i>
+            </button>
+        </div>
+    </form>
+</main>
 <script type="module" src="index.js"></script>

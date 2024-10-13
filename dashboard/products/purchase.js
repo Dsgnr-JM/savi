@@ -1,6 +1,9 @@
 import { $, $$ } from '../lib/dom-selector.js'
 import { openDialog, closeDialog } from '../../lib/dialog.js'
+import Bell from '../../lib/bell.esm.js'
 import searchEngine from '../lib/searchEngine.js'
+import {cleanPrice} from '../lib/conversion.js'
+import '../lib/showOptions.js'
 
 const $openModal = $("#search-modal")
 const $dialogProducts = $(".dialog.products")
@@ -8,8 +11,23 @@ const $closeModal = $("#close-modal")
 const $searchProduct = $("#search-product")
 const $tableDialog = $(".dialog tbody")
 const $tableProduct = $("#table-products")
+const $deleteAll = $("#deleteAll")
+const $purchaseBtn = $("#purchase")
+// const $conversion = $("#conversion")
+const [$firstSign,$secondSign] = $$("#convertSign")
+const [$firstTotal,$secondTotal] = $$("#total-price")
+let conversion = false
 let store = []
 let purchase = []
+
+$deleteAll.addEventListener("click",()=>{
+    purchase.length = 0
+    createTableProducts($tableProduct,[])
+})
+// $conversion.addEventListener("click",()=>{
+//     conversion = !conversion
+//     createTableProducts($tableProduct,purchase)
+// })
 
 $openModal.addEventListener("click", () => { 
     $searchProduct.focus()
@@ -71,7 +89,13 @@ function handleProduct(code, product, amount,type,isInput) {
 
 function createTableProducts($container, data) {
     $container.innerHTML = ""
+    let [signFirst,secondFirst] = conversion ? ["Bs","$"] : ["$","Bs"]
+    let totalSale = Number(purchase.reduce((acc,product) => product.purchase_price * product.amount + acc,0)).toFixed(2)
     const $parent = $container.parentElement
+    $firstSign.textContent = signFirst
+    $secondSign.textContent = secondFirst
+    $firstTotal.textContent = cleanPrice(conversion,totalSale)
+    $secondTotal.textContent = cleanPrice(!conversion,totalSale)
     if(data.length <= 0){
         $parent.classList.add("empty")
         $container.innerHTML = "<tr></tr>"
@@ -80,10 +104,13 @@ function createTableProducts($container, data) {
         $parent.classList.remove("empty")
     }
     data.forEach((product, i) => {
+        const price = cleanPrice(conversion,product.purchase_price)
+        const total = cleanPrice(conversion,product.purchase_price * product.amount)
+
         const $tr = document.createElement("tr")
         const [$index, $code, $description, $stock, $amount, $price, $total, $actions] = [...Array(8)].map(() => document.createElement("td"))
         const $number_selector = createNumberSelector(product.code, product.amount,"amount")
-        const $price_selector = createNumberSelector(product.code, product.purchase_price,"purchase_price")
+        const $price_selector = createNumberSelector(product.code, price,"purchase_price")
         const $btnDelete = document.createElement("button");
         $index.textContent = i + 1
         $code.textContent = product.code
@@ -91,9 +118,13 @@ function createTableProducts($container, data) {
         $amount.append($number_selector);
         $description.textContent = product.name
         $price.appendChild($price_selector)
-        $total.textContent = Number(product.purchase_price * product.amount).toFixed(2)
+        $total.textContent = total + ` ${signFirst}`
         $btnDelete.className = "btn-square delete"
         $btnDelete.innerHTML = `<i class="ri-delete-bin-6-line"></i>`
+        $btnDelete.addEventListener("click",()=>{
+            purchase = purchase.filter(product => product.code != $btnDelete.closest("tr").dataset.code)
+            createTableProducts($tableProduct,purchase)
+        })
         $tr.dataset.code = product.code
         $actions.classList.add("actions")
         $actions.appendChild($btnDelete)
@@ -157,3 +188,47 @@ function createNumberSelector(code, value,type) {
     $container.append($input, $action);
     return $container;
 }
+
+$purchaseBtn.addEventListener("click",async()=>{
+    if(purchase.length < 1) return
+
+    const $form = document.querySelector("form")
+    $form.action = "purchase.php"
+    $form.method = "POST"
+    purchase.map(product => {
+        const $inputProduct = document.createElement("input")
+        const $inputAmount = document.createElement("input")
+        const $inputPrice = document.createElement("input")
+        $inputProduct.value = product.code
+        $inputProduct.type = "hidden"
+        $inputAmount.type = "hidden"
+        $inputPrice.type = "hidden"
+        $inputAmount.value = product.amount
+        $inputPrice.value = product.purchase_price
+        $inputProduct.name = "product[]"
+        $inputAmount.name = "amount[]"
+        $inputPrice.name = "price[]"
+        $form.append($inputProduct,$inputAmount,$inputPrice)
+    })
+    const data = await fetch("purchase.php",{
+        body: new FormData($form),
+        method: "POST"
+    })
+    const result = await data.json()
+    if(result.message == "correct"){
+        purchase.length = 0
+        createTableProducts($tableProduct,purchase)
+        new Bell({title: "Compra realizada exitosamente"},"success",{
+            screenTime: 5000,
+            theme: "light",
+            position: "top-center"
+        }).launch()
+    }else{
+        new Bell({title: "No se pudo realizar al compra"},"error",{
+            screenTime: 5000,
+            theme: "light",
+            position: "top-center"
+        }).launch()
+    }
+    //$form.submit()
+})

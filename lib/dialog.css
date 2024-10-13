@@ -10,8 +10,11 @@
     transition: 0.2s ease-out all;
 }
 .dialog{
+    flex-direction: row;
     position: fixed;
+    max-height: 95vh;
     top: 30%;
+    overflow-y: auto;
     left: 50%;
     z-index: 101;
     transform: translate(-50%,-50%);
@@ -25,9 +28,15 @@
     pointer-events: none;
     transition: 0.2s ease-out all;
 }
+.dialog *{
+    pointer-events: none !important;
+}
 .dialog.active, .bg_dialog.active{
     opacity: 1;
     pointer-events: auto;
+}
+.dialog.dialog.active *{
+    pointer-events: all !important;
 }
 .dialog.active{
     top:50%;
@@ -37,9 +46,10 @@
     font-size: var(--font-xl);
     font-weight: 600;
     color:rgb(5 10 20);
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 .dialog > p {
+    display: block;
     line-height: 1.5;
     color:rgb(107 114 128);
     font-size: .9rem;

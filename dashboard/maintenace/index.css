@@ -41,7 +41,7 @@ button.card p{
 }
 button.card:hover{
     border-color: var(--primary-color);
-    background: #fcfcfc;
+    background: #f9fbff;
 }
 button.card > i{
     color: white;

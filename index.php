@@ -13,12 +13,13 @@ if (isset($_SESSION["session"])) {
     <title>Registrese para continuar</title>
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="forms.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="lib/bell.css">
 </head>
 
 <body>
     <section>
-        <form action="" class="form" id="signup">
+        <form autocomplete="off"action="" class="form" id="signup">
             <h2>Registro</h2>
             <p>Tomat&eacute; unos minutos para registrar tu usuario y poder comenzar.</p>
             <div class="inputs-container">

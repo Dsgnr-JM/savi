@@ -13,12 +13,10 @@ const $form = document.querySelector("#register")
 
 const message = {
     202:{
-        title: "Categoria registrada",
-        description: "La categoria fue registrada"
+        title: "Departamento registrado",
     },
     1062:{
-        title: "No se registro",
-        description: "Nobre de categoria duplicado"
+        title: "El Departamento ya existe",
     }
 }
 

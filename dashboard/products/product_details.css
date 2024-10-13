@@ -1,0 +1,108 @@
+h3{
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color:var(--text-primary-color);
+    margin-top: 20px;
+}
+section > p {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.details-general, .stock,.sell .card{
+    display: flex;
+    gap:25px;
+    justify-content: start;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    border:var(--border-lighter);
+    box-shadow: var(--box-shadow-card);
+}
+.details-general:hover, .stock:hover,.sell .card:hover{
+    border-color: var(--focus-color);
+    background-color: rgb(251, 253, 255);
+}
+.details-general img{
+    width: 200px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.details-general p{
+    font-size: var(--font-sm);
+    color:var(--text-secondary-color);
+    margin-bottom: 5px;
+}
+.details-general .details{
+    flex:1;
+}
+.details h4{
+    font-size: var(--font-lg);
+    font-weight: 600;
+    color:var(--text-terciary-color);
+    margin-bottom: 5px;
+}
+.details h4:not(:first-child){
+    margin-top: 12px;
+}
+.stock{
+    display: flex;
+    justify-content: center;
+    gap:30px;
+}
+.stock .card{
+    padding: 10px;
+    text-align: center;
+}
+.stock .card p::after{
+    content: "";
+    width: 10px;
+    display: inline-block;
+    border-radius: 100%;
+    margin-left: 7px;
+    height: 10px;
+}
+.stock .card:nth-child(3) p::after{
+    background: rgb(235, 21, 21);
+}
+.stock .card:nth-child(2) p::after{
+    background: rgb(21, 136, 230);
+}
+.stock .card:nth-child(1) p::after{
+    background: rgb(115, 241, 11);
+}
+.card h2{
+    color:var(--text-terciary-color);
+    margin-bottom: 5px;
+}
+.card p{
+    color:var(--text-secondary-color);
+}
+.sell{
+    display: flex;
+    justify-content: start;
+    gap:20px;
+}
+.sell .card{
+    text-align: center;
+    gap:0;
+    flex-direction: column;
+}
+.sell .card h2{
+    width: fit-content;
+    margin: auto;
+    position: relative;
+    margin-bottom: 10px;
+}
+.sell .card h2 span{
+    margin-left: 5px;
+    position: absolute;
+    left: 100%;
+    top:50%;
+    transform: translateY(-50%);
+    font-size: var(--font-xs-2);
+    font-weight: 500;
+    color:var(--primary-color);
+}
+.sell .card h2 span.wrong{
+    color:var(--wrong-color)
+}

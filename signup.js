@@ -25,6 +25,7 @@ async function signup(e) {
       {
         position: "top-center",
         typeAnimation: "bound-2",
+        theme: "light",
         timeScreen: 8000,
         expand: true,
       }
@@ -39,6 +40,8 @@ async function signup(e) {
       {
         position: "top-center",
         typeAnimation: "bound-2",
+        theme: "light",
+        theme: "light",
         timeScreen: 8000,
         expand: true,
       }
@@ -54,6 +57,7 @@ async function signup(e) {
         animate: true,
         isColored: true,
         transitionDuration: 300,
+        theme: "light",
         position: "bottom-right",
         typeAnimation: "fade-in",
         timeScreen: 8000,

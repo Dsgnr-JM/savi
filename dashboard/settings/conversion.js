@@ -26,6 +26,7 @@ async function handleForm(data, $btn) {
         new Bell({title:"Precio del dolar actualizado"},"success",{
             position: "top-center",
             typeAnimation: "bound-2",
+            theme: "light",
             removeOn: "click"
         }).launch()
         $btn.disabled = false
@@ -33,6 +34,7 @@ async function handleForm(data, $btn) {
         new Bell({title:"No se pudo actualizar"},"error",{
             position: "top-center",
             typeAnimation: "bound-2",
+            theme: "light",
             removeOn: "click"
         }).launch()
     }

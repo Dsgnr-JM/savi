@@ -13,7 +13,7 @@
     --box-shadow-success: 0 0 0 3px rgb(215 237 246 / 75%);
     
     --form-i-color: #555;
-    --primary-color: #3ba0f6;
+    --primary-color: rgb(34, 123, 238);
     --primary-color-2: #3b82f6e6;
     --primary-color-3: #3b82f64f;
     --wrong-color: #e45757;
@@ -30,8 +30,9 @@
     --border-warning: rgba(228, 167, 54, 0.4);
     --bg-info: rgba(27, 116, 218, 0.1);
     --hover-list: rgb(100 116 139/.08);
-    --primary-color-hover: #2d8fe6;
+    --primary-color-hover: rgb(34 123  238/ .9);
     --text-plus-color: rgb(107 114 128);
+    --shadow-primary-button: 0 1px 2px 0 rgba(66,133,244,.3),0 1px 3px 1px rgba(66,133,244,.15);
 
     --focus-color: rgb(120 195 251);
     --focus-shadow: 0 0 0 3px rgb(215 237 246 / 75%);

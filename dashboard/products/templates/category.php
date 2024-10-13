@@ -1,7 +1,7 @@
 <main>
-    <form action="dashboard" class="form" id="register" style="max-width: 400px;">
-        <h2>Registro de categor&iacute;as</h2>
-        <p>Guarda una categor&iacute;a para un producto y as&iacute; poder usar despu&eacute;s.</p>
+    <form autocomplete="off"action="dashboard" class="form" id="register" style="max-width: 400px;">
+        <h2>Registro de departamentos</h2>
+        <p>Guarda departamento de productos, para poder usarlos despu&eacute;s.</p>
         <label>
             <p>Nombre:</p>
             <span>

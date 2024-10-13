@@ -1,5 +1,19 @@
 import { $ } from "./lib/dom-selector.js";
+import getData from './lib/getData.js'
 // Obtener una referencia al elemento canvas del DOM
+let fetching = await fetch("api?slot=stadistics_sale")
+let [sales] = await fetching.json()
+let date = new Date()
+date.setDate
+let currentDate = date.toLocaleString('default',{month:"short"})
+date.setMonth(date.getMonth() - 1)
+let lastDate = date.toLocaleString('default',{month:"short"})
+date.setMonth(date.getMonth() - 2)
+let ancestorDate = date.toLocaleString('default',{month:"short"})
+let dates = [ancestorDate,lastDate,currentDate]
+
+const data = [sales.ancestor_month,sales.last_month,sales.current_month]
+
 const $grafica = document.querySelector("canvas");
 const ctx = $grafica.getContext("2d")
 /*const $graficaTwo = document.querySelector("#Chart2")*/
@@ -10,11 +24,11 @@ gradient.addColorStop(0,"#3b9ff61e")
 gradient2.addColorStop(1,"#0000003d")
 gradient2.addColorStop(0,"#00000009")*/
 //Las etiquetas son las que van en el eje X. 
-const etiquetas = ["Ene", "Feb", "Mar", "Abr", "May"]
+const etiquetas = dates
 // Podemos tener varios conjuntos de datos. Comencemos con uno
 const datosVentas2020 = {
     label: "Ventas por mes",
-    data: [20, 50, 30, 30,70], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+    data: data, // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
     backgroundColor: gradient, // Color de fondo
     borderColor: 'rgb(26, 135, 224)', // Color del borde
     borderWidth: 2,// Ancho del borde

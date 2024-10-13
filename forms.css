@@ -468,6 +468,7 @@ main h1 {
   margin: 20px 0 10px 0;
 }
 .listed li a{
+  text-decoration: none;
   border-radius: 5px;
   padding: 15px 10px;
   position: relative;

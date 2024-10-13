@@ -40,6 +40,7 @@ $form.addEventListener("submit",async(e)=>{
             {
                 isColored: false,
                 position: "top-center",
+                theme: "light",
                 typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,
@@ -55,6 +56,7 @@ $form.addEventListener("submit",async(e)=>{
                 isColored: false,
                 position: "top-center",
                 typeAnimation: "bound-2",
+                theme: "light",
                 timeScreen: 8000,
                 expand: true,
             }

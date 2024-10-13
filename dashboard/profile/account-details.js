@@ -5,15 +5,15 @@ export default function () {
     checkInputFile()
     const msgResult = {
         updatePersonal: {
-            title: "Datos actualizados",
+            title: "Nombre y Apellido actualizado",
             description: "Nombre u apellido actualizado correctamente"
         },
         updatePassword: {
-            title: "Datos actualizados",
+            title: "Contraseña cambiada",
             description: "Contraseña cambiada correctamente"
         },
         updateAditional: {
-            title: "Datos actualizados",
+            title: "Información actualizada",
             description: "Informacion cambiada correctamente"
         }
     }
@@ -35,11 +35,11 @@ export default function () {
 
             if (data.result) {
                 const bell = new Bell(
-                    { title: msgResult[action].title, description: msgResult[action].description },
+                    { title: msgResult[action].title},
                     "success",
                     {
-                        isColored: false,
                         position: "top-center",
+                        theme: "light",
                         typeAnimation: "bound-2",
                         timeScreen: 8000,
                         expand: true,
@@ -52,9 +52,9 @@ export default function () {
                     { title: "Algo anda mal", description: "Hubo un error en su operacion" },
                     "warning",
                     {
-                        isColored: false,
                         position: "top-center",
                         typeAnimation: "bound-2",
+                        theme: "light",
                         timeScreen: 8000,
                         expand: true,
                     }

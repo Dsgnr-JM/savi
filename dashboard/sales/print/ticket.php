@@ -49,7 +49,7 @@
     $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Fecha: ".date("d/m/Y", strtotime($date))),0,'C',false);
     // $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Caja Nro: 1"),0,'C',false);
     // $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","Cajero: Carlos Alfaro"),0,'C',false);
-    $pdf->SetFont('Arial','B',10);
+    $pdf->SetFont('Arial','B',9);
     $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1",strtoupper("Nro Factura: #".$nro_factura)),0,'C',false);
     $pdf->SetFont('Arial','',9);
 
@@ -66,17 +66,17 @@
     $pdf->Cell(0,5,iconv("UTF-8", "ISO-8859-1","-------------------------------------------------------------------"),0,0,'C');
     $pdf->Ln(3);
 
+    $pdf->SetFont('Arial','',8.5);
+
     # Tabla de productos #
     $pdf->Cell(10,5,iconv("UTF-8", "ISO-8859-1","Cant."),0,0,'C');
-    $pdf->Cell(30,5,iconv("UTF-8", "ISO-8859-1","Producto."),0,0,'C');
-    $pdf->Cell(15,5,iconv("UTF-8", "ISO-8859-1","Precio"),0,0,'C');
-    $pdf->Cell(17,5,iconv("UTF-8", "ISO-8859-1","Total"),0,0,'C');
+    $pdf->Cell(38,5,iconv("UTF-8", "ISO-8859-1","Producto."),0,0,'C');
+    $pdf->Cell(14,5,iconv("UTF-8", "ISO-8859-1","Precio"),0,0,'C');
+    $pdf->Cell(10,5,iconv("UTF-8", "ISO-8859-1","Total"),0,0,'C');
 
     $pdf->Ln(3);
-    $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-------------------------------------------------------------------"),0,0,'C');
+    $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-----------------------------------------------------------------------"),0,0,'C');
     $pdf->Ln(4);
-
-
 
     /*----------  Detalles de la tabla  ----------*/
     // $pdf->MultiCell(0,4,iconv("UTF-8", "ISO-8859-1","Nombre de producto a vender"),0,'C',false);
@@ -84,15 +84,15 @@
         $price = $convert == "bs" ? $item["product_price"] * $dolarPrice : $item["product_price"];
         $price = number_format($price,2);
 
-        $totalItem = $price * $item["amount"];
+        $totalItem = number_format($price * $item["amount"],2);
 
         $pdf->Cell(10,4,iconv("UTF-8", "ISO-8859-1",$item["amount"]),0,0,'C');
-        $pdf->Cell(30,4,iconv("UTF-8", "ISO-8859-1",$item["product_name"]),0,0,'C');
-        $pdf->Cell(15,4,iconv("UTF-8", "ISO-8859-1",$price),0,0,'C');
-        $pdf->Cell(17,4,iconv("UTF-8", "ISO-8859-1",$totalItem),0,0,'C');
+        $pdf->Cell(38,4,iconv("UTF-8", "ISO-8859-1",$item["product_name"]),0,0,'C');
+        $pdf->Cell(14,4,iconv("UTF-8", "ISO-8859-1",$price),0,0,'C');
+        $pdf->Cell(10,4,iconv("UTF-8", "ISO-8859-1",$totalItem),0,0,'C');
         //$pdf->Ln(4);
         //$pdf->MultiCell(0,4,iconv("UTF-8", "ISO-8859-1","Garantía de fábrica: 2 Meses"),0,'C',false);
-        $pdf->Ln(4);
+        $pdf->Ln(5);
 
     }
     
@@ -100,7 +100,7 @@
 
 
 
-    $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-------------------------------------------------------------------"),0,0,'C');
+    $pdf->Cell(72,5,iconv("UTF-8", "ISO-8859-1","-----------------------------------------------------------------------"),0,0,'C');
 
         $pdf->Ln(5);
 
@@ -147,16 +147,16 @@
 
     $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","*** Precios de productos incluyen impuestos. Para poder realizar un reclamo o devolución debe de presentar este ticket ***"),0,'C',false);
 
-    $pdf->SetFont('Arial','B',9);
+    $pdf->SetFont('Arial','B',10);
     $pdf->Cell(0,7,iconv("UTF-8", "ISO-8859-1","Gracias por su compra"),'',0,'C');
 
     $pdf->Ln(9);
 
     # Codigo de barras #
-    $pdf->Code128(5,$pdf->GetY(),"COD000001V0001",70,20);
+    $pdf->Code128(5,$pdf->GetY(),$nro_factura,70,20);
     $pdf->SetXY(0,$pdf->GetY()+21);
     $pdf->SetFont('Arial','',14);
-    $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","COD000001V0001"),0,'C',false);
+    $pdf->MultiCell(0,5,iconv("UTF-8", "ISO-8859-1","#".$nro_factura),0,'C',false);
     
     # Nombre del archivo PDF #
     $pdf->Output("I","Ticket_Nro_1.pdf",true);

@@ -1,73 +1,59 @@
 <?php
 
-function getData(PDO $pdo, string $operation, array $param=NULL){
+function getData(PDO $pdo, string $operation, array $param = NULL)
+{
+    $theyCanBeRemoved = ["products","suppliers","clients","sales"];
+    $theyCanBeRemoved = is_numeric(array_search($operation,$theyCanBeRemoved));
     require_once "helpers/getOperationsSQL.php";
     try {
         $sql = $operationsSQL["list"][$operation];
         $outerParam = "";
-        $whereOperation = isset($param["like"]) ? $operationsSQL["like"][$operation] : "";
-        $sql = str_replace("{{where}}",$whereOperation,$sql);
-        if(isset($param["filter"])){
-            $outerParam = $outerParam." ".$operationsSQL["filter"][$operation];
+        $whereOperation = isset($param["like"]) ? $operationsSQL["like"]
+        [$operation] : "";
+        if ($theyCanBeRemoved) {
+            $letter = $operation[0];
+            $isRemoved = isset($_GET["isRemoved"]) ? 1 : 0;
+            $and = isset($param["like"]) ? "AND" : "";
+            $whereOperation .= empty($whereOperation) ? " WHERE $letter.isRemoved = $isRemoved" : " $and $letter.isRemoved = $isRemoved";
         }
-        $sql = $sql.$outerParam;
+        $sql = str_replace("{{where}}", $whereOperation, $sql);
+        if (isset($param["filter"])) {
+            $outerParam = $outerParam . " " . $operationsSQL["filter"][$operation];
+        }
+        $sql = $sql . $outerParam;
         $registForPage = 10;
-        $page = $_GET["page"] ?? 1;
+        $page = isset($_GET["page"]) && $_GET["page"] != 0 ? $_GET["page"] : 1;
         $start = ($page - 1) * $registForPage;
 
-        if(isset($operationsSQL["count"][$operation]) && !isset($_GET["all"])){
+        if (isset($operationsSQL["count"][$operation]) && !isset($_GET["all"])) {
             $sql = $sql . " LIMIT $start, $registForPage;";
         }
         // if(isset($param["like"])){
         //     $sql = $sql . " LIKE "
         // }
 
-        
+
         $stmt = $pdo->prepare($sql);
 
-        if(isset($param["search"])){
-            if($operation == "user"){
-                $stmt->bindParam(":ci", $param["search"]);
-            }
-            if($operation == "model"){
-                $stmt->bindParam(":mode_id", $param["search"]);
-            }
-            if($operation == "product"){
-                $stmt->bindParam(":search", $param["search"]);
-            }
-            if($operation == "sale"){
-                $stmt->bindParam(":search", $param["search"]);
-            }
-            if($operation == "client"){
-                $stmt->bindParam(":search", $param["search"]);
-            }
-            if($operation == "sale_product"){
-                $stmt->bindParam(":search", $param["search"]);
-            }
-            if($operation == "log"){
-                $stmt->bindParam(":user", $param["search"]);
-            }
-            if($operation == "role"){
-                $stmt->bindParam(":search", $param["search"]);
-            }
+        if (isset($param["search"])) {
+            $stmt->bindParam(":search", $param["search"]);
         }
-        if(isset($param["like"])){
-            $like = '%'.$param["like"].'%';
+        if (isset($param["like"])) {
+            $like = '%' . $param["like"] . '%';
             $stmt->bindParam(":like", $like);
         }
-        if(isset($param["filter"])){
-            $stmt->bindParam(":filter",$param["filter"]);
+        if (isset($param["filter"])) {
+            $stmt->bindParam(":filter", $param["filter"]);
         }
-
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if(isset($operationsSQL["count"][$operation]) && !isset($_GET["all"])){
+        if (isset($operationsSQL["count"][$operation]) && !isset($_GET["all"])) {
             $sql = $operationsSQL["count"][$operation];
-            $sql = str_replace("{{where}}",$whereOperation,$sql);
+            $sql = str_replace("{{where}}", $whereOperation, $sql);
             $countStmt = $pdo->prepare($sql);
-            if(isset($param["like"])){
-                $like = '%'.$param["like"].'%';
+            if (isset($param["like"])) {
+                $like = '%' . $param["like"] . '%';
                 $countStmt->bindParam(":like", $like);
             }
             $countStmt->execute();
@@ -83,5 +69,3 @@ function getData(PDO $pdo, string $operation, array $param=NULL){
         return $e;
     }
 }
-
-?>

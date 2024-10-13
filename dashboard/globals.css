@@ -452,6 +452,8 @@ body .root > section {
   box-shadow: var(--box-shadow-input-darker);
 }
 .table-options{
+  display: flex;
+  justify-content: space-between;
   position: relative;
   margin: 14px 0;
 }
@@ -622,41 +624,61 @@ tr::before{
 tr:last-child::before{
   height: 0;
 }
+table td:is([data-code],[data-dni],[data-rif],[data-nro-factura]){
+  overflow: visible;
+}
 table .actions {
+  margin: auto;
   display: flex;
-  width: 100%;
+  width:fit-content;
   justify-content: center;
-  gap: 5px;
+  background-color: white;
+  border-radius: 8px;
+  border:var(--border-lighter);
+}
+table .actions button{
+  background:  none;
+  border: none;
+  border-radius: 0;
+  padding: 3px 8px;
+  min-width: fit-content;
+  min-height: fit-content;
+  margin: 0;
+  border-right: var(--border-lighter);
+}
+table .actions button:first-child{
+  border-radius: 8px 0 0 8px;
+}
+table .actions button:last-child{
+  border-right: none;
+  border-radius: 0 8px 8px 0;
 }
 table .actions button.edit {
-  background-color: #00a2ff1c;
-  color: #107cbac9;
-  border: 1px solid rgba(16, 124, 186, 0.40)
+  color: #108fd8;
 }
 table .actions button.delete {
-  background-color: rgb(255 0 0 / 11%);
-  color: rgb(139 0 0 / 70%);
-  border: 1px solid rgb(139 0 0 / 30%);
+  color: rgb(202, 27, 27);
 }
 table .actions button.add {
-  background-color: rgb(10 255 0 / 11%);
   color: rgb(5 139 0 / 70%);
-  border: 1px solid rgb(5 139 0 / 40%);
 }
 
 table .actions button.subtract {
-  background-color: #ff73001c;
-  color: #d76d18c2;
-  border: 1px solid rgba(221, 113, 12, 0.4);
+  color: #d78b18;
 }
 table .actions button.edit:hover {
-  background-color: #00a2ff2f;
+  background-color: #00a2ff27;
 }
 table .actions button.delete:hover {
-  background-color: rgb(255 0 0 / 20%);
+  background-color: rgb(255 0 0 / 13%);
+}
+table .actions button:disabled{
+  color: #555757;
+  pointer-events: none;
+  background: rgb(100 116 139/.2);
 }
 table .actions button.subtract:hover {
-  background-color: #ff730036;
+  background-color: #ff730027;
 }
 table .actions button.add:hover {
   background-color: rgb(10 255 0 / 20%);
@@ -683,6 +705,15 @@ table.empty tbody ::before{
   font-weight: 600;
   height: fit-content;
   border-radius: 15px;
+}
+.badge.ia{
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  margin-left: 5px;
+  vertical-align: text-top;
+  background: #f9e9f8;
+  color: #800579af;
+  border-color:#be06b534;
 }
 .badge.action{
   position: absolute;
@@ -805,10 +836,7 @@ section .actions {
     display: flex;
 }
 section .actions button{
-    padding: 5px;
     font-size: 1.2rem;
-    border-radius: 7px;
-    margin: 2px;
 }
 div.float{
   display: flex;

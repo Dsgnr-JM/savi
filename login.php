@@ -24,7 +24,7 @@ if (isset($_SESSION["session"])) {
         </h1>
     </main>
     <section>
-        <form action="dashboard" class="form" id="login">
+        <form autocomplete="off"action="dashboard" class="form" id="login">
             <h2>Inicio de Sesi&oacute;n</h2>
             <p>Tus datos de inicio de sesi&oacute;n son totalmente privados.</p>
             <label>

@@ -36,12 +36,14 @@ async function handleForm(data) {
         new Bell({title:"Permiso actualizado"},"success",{
             position: "top-center",
             typeAnimation: "bound-2",
+            theme: "light",
             removeOn: "click"
         }).launch()
     }else{
         new Bell({title:"No se pudo actualizar"},"error",{
             position: "top-center",
             typeAnimation: "bound-2",
+            theme: "light",
             removeOn: "click"
         }).launch()
     }

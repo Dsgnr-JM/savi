@@ -44,7 +44,7 @@
             </div>
             <input type="hidden" name="ci" value="<?= $data["ci"] ?>">
             <template id="account-details">
-                <form action="" data-action="updatePersonal" class="form not-ring" id="updatedName" style="width: 400px;">
+                <form autocomplete="off"action="" data-action="updatePersonal" class="form not-ring" id="updatedName" style="width: 400px;">
                     <h3>Datos personales</h3>
                     <p>Actualiza tus datos personales asociados a tu cuenta.</p>
                     <label>
@@ -89,7 +89,7 @@
                     </div>
                 </form>
                 <div class="line-space"></div>
-                <form action="#" class="form not-ring" data-action="updatePassword" id="updatedName" style="width: 400px;">
+                <form autocomplete="off"action="#" class="form not-ring" data-action="updatePassword" id="updatedName" style="width: 400px;">
                     <h3>Contrase&ntilde;a</h3>
                     <p>Actualiza la contrase&ntilde;a asosociada a tu cuenta.</p>
                     <label>
@@ -113,7 +113,7 @@
                     </div>
                 </form>
                 <div class="line-space"></div>
-                <form action="#" class="form not-ring" data-action="updateAditional" enctype="multipart/form-data" id="updateAditional" style="width: 400px;">
+                <form autocomplete="off"action="#" class="form not-ring" data-action="updateAditional" enctype="multipart/form-data" id="updateAditional" style="width: 400px;">
                     <h3>Adicionales</h3>
                     <p>Actualiza los datos opcionales de tu cuenta.</p>
                     <label>
@@ -215,7 +215,7 @@
                     <h3>Actividad y rastreo</h3>
                     <p>Visualiza todo tu historial de operaciones en el sistema.</p>
                     <div class="activity-overview">
-                        <p>Visi&oacute;n general <?=$countActivity?></p>
+                        <p>Visi&oacute;n general (<?=$countActivity?>)</p>
                         <ol>
                             <?php foreach($activity as $item): ?>
                             <li>

@@ -28,7 +28,6 @@ listURLs.forEach((urlItem, i) => {
   urlItem.forEach(item =>  {
     if (item == urlNormalize) {
       $categories[i].classList.add("active")
-      console.log($categories[i].offsetTop)
       $navScroll.scrollTop = $categories[i].offsetTop
     }
   })}

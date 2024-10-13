@@ -1,24 +1,24 @@
 <?php
 
-    $URI = $_SERVER["SCRIPT_FILENAME"];
-    $URI = explode("dashboard", $URI);
-    $configURL = "SAVI/config.php";
-    
-    if(!file_exists($configURL)) $configURL = "$URI[0]config.php";
-    
-    require_once $configURL;
-    $curlURL = "helpers/curlData.php";
-    if(!file_exists($curlURL)) $curlURL = "../helpers/curlData.php";
-    require_once $curlURL;
-    if(file_exists('../helpers/routeShow.php')){
-        include_once '../helpers/routeShow.php';
-    }else{
-        include_once './helpers/routeShow.php';
-    }
-    $user = getCurl('slot=user&search='.$_SESSION["session"])[0];
+$URI = $_SERVER["SCRIPT_FILENAME"];
+$URI = explode("dashboard", $URI);
+$configURL = "SAVI/config.php";
 
-    $image = $user["photo"];
-    if(!file_exists($image)) $image = str_replace("../","",$image);
+if (!file_exists($configURL)) $configURL = "$URI[0]config.php";
+
+require_once $configURL;
+$curlURL = "helpers/curlData.php";
+if (!file_exists($curlURL)) $curlURL = "../helpers/curlData.php";
+require_once $curlURL;
+if (file_exists('../helpers/routeShow.php')) {
+    include_once '../helpers/routeShow.php';
+} else {
+    include_once './helpers/routeShow.php';
+}
+$user = getCurl('slot=user&search=' . $_SESSION["session"])[0];
+
+$image = $user["photo"];
+if (!file_exists($image)) $image = str_replace("../", "", $image);
 ?>
 
 
@@ -50,26 +50,6 @@
             </li>
             <li class="items">
                 <h3>Analitics</h3>
-                <?php if($user["manage_stadistics"]): ?>
-                <a href="/SAVI/dashboard/stadistics" data-url="stadistics">
-                    <div>
-                        <i class="ri-pie-chart-line"></i>
-                        <p>Estad&iacute;sticas</p>
-                    </div>
-                    <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
-                </a>
-                <ol id="options">
-                    <li>
-                        <a href="#">Peri&oacute;dicas</a>
-                    </li>
-                    <li>
-                        <a href="#">Productos</a>
-                    </li>
-                    <li>
-                        <a href="#">Clientes y Provedores</a>
-                    </li>
-                </ol>
-            <?php endif ?>
                 <a href="/SAVI/dashboard/products" data-url="products">
                     <div>
                         <i class="ri-folder-5-line"></i>
@@ -79,38 +59,44 @@
                 </a>
                 <ol id="options">
                     <li>
-                        <a href="/SAVI/dashboard/products?place=product&action=regist">Registro de producto</a>
+                        <a href="/SAVI/dashboard/products?place=product&action=regist">Registro de productos</a>
+                    </li>
+                    <li>
+                        <a href="/SAVI/dashboard/products?place=category&action=regist">Registro de departamentos</a>
                     </li>
                     <li>
                         <a href="/SAVI/dashboard/products?place=product&action=purchase">Compras de stock</a>
                     </li>
                     <li>
-                        <a href="/SAVI/dashboard/products?place=model&action=regist">Registro de modelo</a>
-                    </li>
-                    <li>
-                        <a href="/SAVI/dashboard/products?place=brand&action=regist">Registro de marca</a>
-                    </li>
-                    <li>
-                        <a href="/SAVI/dashboard/products?place=category&action=regist">Registro de categor&iacute;a</a>
+                        <a href="/SAVI/dashboard/products?isRemoved">Eliminados</a>
                     </li>
                 </ol>
-                <?php if($user["manage_providers"]): ?>
-                <a href="/SAVI/dashboard/suppliers" data-url="suppliers">
-                    <div>
-                        <i class="ri-caravan-line"></i>
-                        <p>Proveedores</p>
-                    </div>
-                    <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
-                </a>
-                <ol id="options">
-                    <li>
-                        <a href="/SAVI/dashboard/suppliers?place=register" >Registro</a>
-                    </li>
-                    <li>
-                        <a href="#">Consultas</a>
-                    </li>
-                </ol>
-            <?php endif ?>
+                <?php if ($user["manage_providers"]) : ?>
+                    <a href="/SAVI/dashboard/suppliers" data-url="suppliers">
+                        <div>
+                            <i class="ri-caravan-line"></i>
+                            <p>Proveedores</p>
+                        </div>
+                        <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
+                    </a>
+                    <ol id="options">
+                        <li>
+                            <a href="/SAVI/dashboard/suppliers?place=register">Registro</a>
+                        </li>
+                        <li>
+                            <a href="/SAVI/dashboard/suppliers?isRemoved">Eliminados</a>
+                        </li>
+                    </ol>
+                <?php endif ?>
+                <?php if ($user["manage_informs"]) : ?>
+
+                    <a href="/SAVI/dashboard/informs" data-url="informs">
+                        <div>
+                            <i class="ri-file-text-line"></i>
+                            <p>Informes</p>
+                        </div>
+                    </a>
+                <?php endif ?>
             </li>
             <li class="items" data-url="sales">
                 <h3>Sales</h3>
@@ -126,7 +112,7 @@
                         <a href="/SAVI/dashboard/sales?place=list">Listado de ventas</a>
                     </li>
                     <li>
-                        <a href="/SAVI/dashboard/sales?place=pending">Ventas pendientes</a>
+                        <a href="/SAVI/dashboard/sales?place=list&isRemoved">Eliminadas</a>
                     </li>
                 </ol>
                 <a href="/SAVI/dashboard/clients" data-url="clients">
@@ -141,30 +127,9 @@
                         <a href="/SAVI/dashboard/clients?place=register">Registro</a>
                     </li>
                     <li>
-                        <a href="#">Consultas</a>
+                        <a href="/SAVI/dashboard/clients?isRemoved">Eliminados</a>
                     </li>
                 </ol>
-                <?php if($user["manage_informs"]): ?>
-
-                <a href="/SAVI/dashboard/informs" data-url="informs">
-                    <div>
-                        <i class="ri-file-text-line"></i>
-                        <p>Informes</p>
-                    </div>
-                    <i class="ri-arrow-drop-down-line" id="arrowDown"></i>
-                </a>
-                <ol id="options">
-                    <li>
-                        <a href="#">Peri&oacute;dicas</a>
-                    </li>
-                    <li>
-                        <a href="#">De productos</a>
-                    </li>
-                    <li>
-                        <a href="#">De clientes</a>
-                    </li>
-                </ol>
-            <?php endif ?>
             </li>
         </ol>
         <button class="btn-rounded scroll">
@@ -172,19 +137,19 @@
         </button>
     </div>
     <div class="end-">
-        <?php if($user["manage_system"]): ?>
-        <a href="/SAVI/dashboard/maintenace" class="config" data-url="maintenace">
-            <div>
-                <i class="ri-shield-check-line"></i>
-                <p>Mantenimiento</p>
-            </div>
-        </a>
-        <a href="/SAVI/dashboard/settings" class="config" data-url="settings">
-            <div>
-                <i class="ri-settings-4-line"></i>
-                <p>Configuraci&oacute;n</p>
-            </div>
-        </a>
+        <?php if ($user["manage_system"]) : ?>
+            <a href="/SAVI/dashboard/maintenace" class="config" data-url="maintenace">
+                <div>
+                    <i class="ri-shield-check-line"></i>
+                    <p>Mantenimiento</p>
+                </div>
+            </a>
+            <a href="/SAVI/dashboard/settings" class="config" data-url="settings">
+                <div>
+                    <i class="ri-settings-4-line"></i>
+                    <p>Configuraci&oacute;n</p>
+                </div>
+            </a>
         <?php endif ?>
         <a href="/SAVI/dashboard/logout.php" class="config">
             <div>
@@ -200,12 +165,6 @@
             <?= getRoute() ?>
         </div>
         <main>
-            <button>
-                <i class="ri-notification-2-line"></i>
-            </button>
-            <button>
-                <i class="ri-message-line"></i>
-            </button>
             <div class="options">
                 <img src="<?= $image ?>" alt="Imagen de perfil">
                 <p><?= $user["name"] . " " . $user["surname"] ?></p>

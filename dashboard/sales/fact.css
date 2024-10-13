@@ -1,26 +1,118 @@
-.factura{
+.factura {
     padding: 35px;
     background-color: white;
     border: var(--border-lighter);
     border-radius: 8px;
+    position: relative;
 }
-td strong{
-    color:rgb(52, 51, 61);
+
+td strong {
+    color: rgb(52, 51, 61);
     font-weight: 600;
 }
-table{
+
+table {
     box-shadow: 0 0 0px 1px #d9d9d9 !important;
 }
-.table{
+
+.table {
     box-shadow: none;
     border: none;
     padding: 0;
 }
-.total{
+
+.total {
     width: 100%;
     text-align: left;
     margin-top: 40px;
     line-height: 1.7;
-    color:rgb(17 24 39);
+    color: rgb(17 24 39);
     font-size: var(--font-lg);
+}
+
+.more {
+    top: 30px;
+    right: 30px;
+    position: absolute;
+    border-radius: 100%;
+    width: 37px;
+    height: 37px;
+    font-weight: 900;
+    z-index: 1;
+    font-size: var(--font-lg);
+    color: #28292bad;
+}
+.more:hover{
+    background: #f4f4f5;
+}
+
+.more ol {
+    position: absolute;
+    border: var(--border-lighter);
+    padding: 10px 0;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+    top: 35px;
+    right: -1px;
+    width: fit-content;
+    white-space: nowrap;
+    box-shadow: var(--box-shadow-base);
+    background-color: white;
+    font-size: var(--font-xs-2);
+    font-weight: 500;
+    transition: .15s ease all;
+    color: var(--text-terciary-color)
+}
+
+.more ol a{
+    display: block;
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    color: var(--text-primary-color);
+    padding: 13px 30px 13px 13px;
+    text-align: left;
+}
+
+.more.active ol a>ol {
+    z-index: 100;
+    position: absolute;
+    right: 80%;
+    transform: translateY(-50%);
+    top: 50%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.more.active ol a:hover>ol {
+    right: 98%;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.more.active ol a:first-child>ol {
+    top: -10px;
+    transform: translateY(0%);
+}
+
+.more.active ol a:last-child>ol {
+    top: calc(-100% - 10px);
+    transform: translateY(0%);
+}
+
+.more ol a i{
+    font-size: var(--font-base-2);
+    margin-right: 8px;
+}
+
+.more ol a:hover {
+    background: whitesmoke;
+}
+
+.more.active ol {
+    top: 40px;
+    opacity: 1;
+    pointer-events: all;
 }

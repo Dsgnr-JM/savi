@@ -16,14 +16,13 @@ export default async function registData(params, $form, $btn, message){
         body: formData,
     });
     const data = await fetching.json();
-    console.log(data)
     if (data.result) {
         const bell = new Bell(
             { title: message[202].title, description: message[202].description},
             "success",
             {
-                isColored: false,
-                position: "bottom-right",
+                position: "top-center",
+                theme: "light",
                 typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,
@@ -38,8 +37,8 @@ export default async function registData(params, $form, $btn, message){
             { title: message[data.description.errorInfo[1]].title, description: message[data.description.errorInfo[1]].description },
             "warning",
             {
-                isColored: false,
-                position: "bottom-right",
+                position: "top-center",
+                theme: "light",       
                 typeAnimation: "bound-2",
                 timeScreen: 8000,
                 expand: true,

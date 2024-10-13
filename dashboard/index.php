@@ -1,3 +1,20 @@
+<?php
+require_once './helpers/curlData.php';
+require_once './helpers/numberFormat.php';
+require_once './helpers/matchWords.php';
+$saleTotal = getCurl("slot=sale_total")[0];
+$saleCount = getCurl("slot=sale_count")[0];
+$productCount = getCurl("slot=product_count")[0]["total"];
+$clientCount = getCurl("slot=client_count")[0]["total"];
+$notifications = getCurl("slot=logs")["data"];
+$saleCountPercentaje = formatPercentaje($saleCount["sale_month"],$saleCount["sale_old_month"]);
+$simbolCount = numberSimbol($saleCountPercentaje);
+$simbolSale =  numberSimbol($saleTotal["total_sale_month"]);
+$saleCountPercentaje = abs($saleCountPercentaje);
+$index = 0;
+
+?>
+
 <?php require "ui/header.php" ?>
 <title>Inicio - Inv.RefriHogar</title>
 <link rel="stylesheet" href="index.css">
@@ -13,38 +30,12 @@
                 <p>Ingresos</p>
                 <div class="details">
                     <div class="gauge">
-                        <i class="ri-triangle-fill success"></i>
-                        <p>+30.6%</p>
+                        <i class="ri-triangle-fill <?= $simbolCount == "+" ? "success": "wrong rotate" ?>"></i>
+                        <p><?=$simbolCount.$saleCountPercentaje?>%</p>
                     </div>
                     <div class="details">
                         <p>Valor(exac)</p>
-                        <h2>100.42<span>$</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <p>Gastos</p>
-                <div class="details">
-                    <div class="gauge">
-                        <i class="ri-triangle-fill wrong rotate"></i>
-                        <p>+50.6%</p>
-                    </div>
-                    <div class="details">
-                        <p>Valor(exac)</p>
-                        <h2>10.68<span>$</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <p>Clientes</p>
-                <div class="details">
-                    <div class="gauge">
-                        <i class="ri-triangle-fill success"></i>
-                        <p>+5.02%</p>
-                    </div>
-                    <div class="details">
-                        <p>Valor(exac)</p>
-                        <h2>10<span>u</span></h2>
+                        <h2><?= $saleTotal["total_sale_month"]?><span>$</span></h2>
                     </div>
                 </div>
             </div>
@@ -52,12 +43,38 @@
                 <p>Ventas</p>
                 <div class="details">
                     <div class="gauge">
-                        <i class="ri-triangle-fill wrong rotate"></i>
-                        <p>-10.6%</p>
+                        <i class="<?= $simbolSale == "+" ? "success": "wrong rotate" ?> ri-triangle-fill"></i>
+                        <p><?=$simbolSale.$saleCountPercentaje?>%</p>
                     </div>
                     <div class="details">
                         <p>Valor(exac)</p>
-                        <h2>100<span>u</span></h2>
+                        <h2><?=$saleCount["sale_month"]?><span>u</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p>Productos</p>
+                <div class="details">
+                    <div class="gauge">
+                        <i class="ri-shopping-bag-line success"></i>
+                        <p style="opacity: 0;">+5.02%</p>
+                    </div>
+                    <div class="details">
+                        <p>Valor(exac)</p>
+                        <h2><?=$productCount ?><span>u</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p>Clientes</p>
+                <div class="details">
+                    <div class="gauge">
+                        <i class="ri-user-line success"></i>
+                        <p style="opacity: 0;">+5.02%</p>
+                    </div>
+                    <div class="details">
+                        <p>Valor(exac)</p>
+                        <h2><?=$clientCount ?><span>u</span></h2>
                     </div>
                 </div>
             </div>
@@ -67,51 +84,28 @@
                 <h2>Ventas por mes</h2>
                 <canvas id="Chart"></canvas>
             </div>
-            <div class="card-details toDown">
+            <!-- <div class="card-details toDown">
                 <div class="details">
                     <h2>Ganancias</h2>
                     <p>Promedio de ganancias entre gastos e ingresos, dicho promedio es mensual y esta dise&ntilde;ado estadisticamente.</p>
                 </div>
-            </div>
+            </div> -->
             <div class="actual-activity toDown">
                 <h2>Notificaciones recientes</h2>
                 <ol>
-                    <li>
-                        <a href="">
-                        <i class="ri-alert-line"></i>
-                        <div class="details">
-                            <p>Se <span>actualizo</span> el <span>producto</span> <span>COC001</span>.</p>
-                            <p>10-10-2024</p>
-                        </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                        <i class="ri-alert-line"></i>
-                        <div class="details">
-                            <p>Se <span>registro</span> el <span>producto</span> <span>ELE002</span>.</p>
-                            <p>09-10-2024</p>
-                        </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                        <i class="ri-alert-line"></i>
-                        <div class="details">
-                            <p>Se <span>elimino</span> el <span>cliente</span> <span>31744101</span>.</p>
-                            <p>08-10-2024</p>
-                        </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                        <i class="ri-alert-line"></i>
-                        <div class="details">
-                            <p>Se <span>actualizo</span> el <span>precio del dolar</span> <span>40.02Bs</span>.</p>
-                            <p>08-10-2024</p>
-                        </div>
-                        </a>
-                    </li>
+                <?php foreach($notifications as $notification ): ?>
+                        <?php
+                            if($index > 2) break;
+                            $index++;
+                        ?>
+                        <li>
+                            <i class="ri-alert-line"></i>
+                            <div class="details">
+                                <p><?=matchWords($notification["message"])?></p>
+                                <p></p>
+                            </div>
+                        </li>
+                    <?php endforeach ?>
                 </ol>
             </div>
         </div>

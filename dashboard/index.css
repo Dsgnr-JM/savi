@@ -130,7 +130,7 @@ section header .card{
   font-size: var(--font-lg);
   margin-bottom: 10px;
 }
-.actual-activity li a{
+.actual-activity li{
   text-decoration: none;
   display: flex;
   padding: 20px 10px;
@@ -138,7 +138,7 @@ section header .card{
   gap:15px;
   border-bottom: var(--border-lighter);
 }
-.actual-activity li:last-child a{
+.actual-activity li:last-child{
   border-bottom: none;
 }
 .actual-activity li:hover{
@@ -155,7 +155,7 @@ li .details p:last-child{
 li .details span{
   font-weight: 600;
 }
-.actual-activity li a i{
+.actual-activity li i{
   font-size: 18px;
   color:var(--text-warning);
   background: var(--bg-warning);

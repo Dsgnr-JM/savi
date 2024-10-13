@@ -4,7 +4,7 @@
     //echo createFactura($pdo);
 ?>
 
-<form action="" method="POST" autocomplete="on">
+<form autocomplete="off"action="" method="POST" autocomplete="on">
     <input type="text" name="product[]" value="ELE002">
     <input type="text" name="product[]" value="COC002">
     <input type="text" name="product[]" value="MAS002">

@@ -27,6 +27,7 @@ async function login(e) {
       {
         position: "top-center",
         typeAnimation: "bound-2",
+        theme: "light",
         timeScreen: 8000,
         expand: true,
       }
@@ -40,6 +41,7 @@ async function login(e) {
       {
         position: "top-center",
         typeAnimation: "fade-in",
+        theme: "light",
         timeScreen: 8000,
         expand: true,
       }

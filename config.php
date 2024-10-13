@@ -7,7 +7,7 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 $hostConfig = "localhost";
 $userConfig = "root";
 $passwordConfig = "";
-$dbNameConfig = "SAVI";
+$dbNameConfig = "savi_dev";
 $charset = "utf8";
 $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 

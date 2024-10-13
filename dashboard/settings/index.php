@@ -66,7 +66,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                 </div>
                 <template id="permissions">
                     <div class="permissions">
-                        <form class="form not-ring" style="width:100%;">
+                        <form autocomplete="off"class="form not-ring" style="width:100%;">
                             <div>
                                 <h3>Permisos</h3>
                                 <p>Directivas que seguira el sistema dependiendo del rol del usuario.</p>
@@ -185,7 +185,7 @@ $numRole = $data["manage_products"] + $data["manage_clients"] + $data["manage_sy
                     <?php endif ?>
                 </template>
                 <template id="conversion">
-                    <form class="form not-ring" style="width:100%" id="form_conversion">
+                    <form autocomplete="off"class="form not-ring" style="width:100%" id="form_conversion">
                         <div>
                             <h3 style="margin-top: 0;">Precio del Dolar</h3>
                             <p>Cambie el precio de la divisa y mantenga actulizado el precio de cambio.</p>

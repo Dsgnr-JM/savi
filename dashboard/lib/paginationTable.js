@@ -1,13 +1,14 @@
 import getData from "../lib/getData.js"
 import { createTable } from "../lib/createTable.js"
-import { appendAvatar } from "../lib/createAvatar.js"
+import { viewsTables } from "./tableEvents.js"
 
 const $paginationContainer = document.querySelector(".items_pagination")
 const $tbody = document.querySelector("tbody")
 const $input = document.querySelector("#form-search input")
-let actualNum = 0;
-let slotActual = ""
-let schemeDataActual =[];
+export let actualNum = 0;
+export let slotActual = ""
+export let schemeDataActual =[];
+
 const [$btnPrev, $btnNext] = document.querySelectorAll("#movePage");
 
 $btnPrev.addEventListener("click", handlePrev)
@@ -23,6 +24,7 @@ async function handlePrev(e){
     const childs = createTable(data, schemeDataActual,$input.value)
     $tbody.append(...childs)
     scrollTo()
+    viewsTables()
 }
 
 $btnNext.addEventListener("click", handleNext)
@@ -106,7 +108,7 @@ function scrollTo() {
     $root.scrollTo(0, $root.clientHeight)
 }
 
-export function updatePagination(length,searchActual,scheme){
+export function updatePagination(length,searchActual,scheme,num){
     $paginationContainer.innerHTML = ""
     const $paginatination = $paginationContainer.parentElement
     if(length <= 1) {
@@ -114,13 +116,13 @@ export function updatePagination(length,searchActual,scheme){
         return
     }
     $paginatination.classList.remove("hidden")
+    actualNum = num ?? 1
     for(let i = 1; i <= length;i++){
         const $btn = document.createElement("button")
         $btn.dataset.num = i
-        if(i === 1)$btn.classList.add("active")
+        if(i === actualNum)$btn.classList.add("active")
         $btn.textContent = i
         $paginationContainer.appendChild($btn)
     }
-    actualNum = 1
     paginationTable(searchActual,scheme)
 }
